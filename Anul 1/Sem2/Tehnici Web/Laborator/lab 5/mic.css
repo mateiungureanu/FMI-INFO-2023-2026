@@ -1,0 +1,266 @@
+/* Setati un font de 20px pentru radacina*/
+
+  html{
+	font-size:15px;
+}
+
+
+/* Setati o culoare de background si un padding de marimea radacinii pentru body*/
+ 
+ body{
+	background-color:purple;
+        
+}
+
+ 
+ /*Pentru tilul central setati un id si stilizati-l astfel: 
+ - alegeti un font folosind "Google Fonts";
+ - marimea fontului sa fie de 3 ori fontul radacinii
+ - grosimea fontului sa fie 400
+ - textul sa fie aliniat centrat
+*/
+ 
+  #titlu{
+	font-family: "Dancing Script", cursive;
+	font-size:4rem;
+	font-weight:400;
+	text-align:center;
+
+}
+  
+
+ /* Imaginea logo-ul sa fie redimensionata in inaltime si sa i se seteze un margin-left de 1em*/ 
+
+  h1>img{
+	height:4rem;
+	margin-left:1rem;
+	/*position:fixed;
+	top:0;
+right:0;*/
+	
+}
+
+
+/* Pentru elementul main setati un border si un padding de 0.5 din fontul radacina*/
+  
+   main{
+	border:2px solid purple;
+	padding:0.5rem;
+}
+
+  
+ /*Titlurile sectiunilor "Despre" si "Diverse" sa fie scrise cu alta culoare si alt font*/
+ 
+    main > section > h2{
+	color:purple;
+	text-align:center;
+	box-shadow:10px 0px 5px grey;
+  border-top-left-radius:2em;
+  border-top-right-radius:2em;
+  margin-bottom:1em;
+  margin-top:1em;
+}
+
+  
+ /* Titlul sectiunii Diverse folosind selectorul nth-child*/
+ 
+  /*section:nth-child(2)>h2{
+  text-align:center;
+  box-shadow:10px 0px 5px grey;
+  border-top-left-radius:2em;
+  border-top-right-radius:2em;
+  margin-bottom:1em;
+  margin-top:1em;
+  
+}
+  */
+  
+ /*Imaginea din sectiunea Despre:
+ - sa aiba latimea de 15% din latimea parintelui si inaltimea de 170px
+ - border solid cu margini rotunjite*/
+   
+ section:nth-child(1)>img{
+	width:100%;
+	height:auto;
+	border:3px solid white;
+	border-radius:50%;
+        margin-right:0.5rem; /*de completat*/
+}
+ 
+  
+/* sectiunea coloane-diverse realizatat cu flex*/
+
+ #coloane-diverse{
+	background-image:url("poze/fundal.jpg");
+	padding:0.4rem;
+	display:flex;
+        flex-direction:column;
+	flex-wrap:nowrap;
+	justify-content:space-evenly;
+
+}
+
+ 
+ #coloane-diverse>section {
+  text-align:center;
+  background:rgba(255,255,255,0.5);
+  padding:0.4rem;
+  margin:0.4rem;
+}
+ 
+/*Stilizare ancora de la final ca un buton:
+ -eliminare subliniere 
+ -fundal,umplere, culoare text, margini rotunjite
+ -la hover sa schimbe culoarea fundalului 
+*/
+
+ footer {
+ 	text-align:center;
+ }
+
+ footer a{
+        display:inline-block;
+	text-decoration:none;
+        color:yellow;
+        background-color:black;
+        padding:13px;
+        border:1px solid red;
+        border-radius:30px;
+
+}
+ footer a:hover{
+	background-color:blue;
+}
+
+ /*figure > img:hover{
+	opacity:0.5;
+        border:3px solid red;
+}*/
+
+
+ /* meniul drop-down */
+
+ 
+
+
+ /* eliminati numerotarea de la listele din nav */
+ 
+  nav ul{
+	list-style-type:none;
+}
+ 
+
+/* eliminati sublinierea de la ancore si schimbatile culoarea textului*/ 	
+	
+ nav a{
+	text-decoration:none;
+	color:green;
+}
+
+
+/* eliminati marginile si padding-urile de la ul si li*/
+
+ nav ul, nav li{
+	margin:0;
+  	padding:0;
+}
+
+ /* ascundeti submeniul */
+ 
+ nav>ul.meniu>li>ul.submeniu{
+        width:100%;
+	display:none;
+	z-index:10;
+} 
+
+
+/*la hover pe elementele meniului sa devina vizibil submeniul */
+
+ nav>ul.meniu>li:hover>ul.submeniu{
+	display:block;
+	position:absolute;
+	top:3rem;
+	left:100%;
+} 
+
+ 
+ 
+ /* nav-ul sa aiba o inaltime de 3rem, background si pozitie sticky, lipit de marginea de sus */
+ 
+   nav{
+	width:20%;
+        background-color:white;
+	top:0;
+height:100%;
+	position:sticky;
+	line-height:3rem;
+     }
+  
+  
+ /* elementele din meniu sa fie dispuse pe orizontala (cu float) , sa aiba latime de 10% si inaltime egala cu a elementului nav */
+  
+   nav>ul.meniu>li{
+	width:100%;
+	postion: relative;
+	text-align:center;
+	border:1px solid purple;
+}
+ 
+   nav ul.submeniu>li{
+	width:100%;
+	text-align:center;
+	border:1px solid purple;
+	background-color:yellow;
+}
+
+  
+/* galeria statica realizata cu flex*/
+
+  /*#statica{
+	display:flex;
+	flex-direction:row;
+	flex-wrap:wrap;
+	border:1px solid blue;
+	justify-content:space-evenly;
+}
+*/
+
+/* galeria statica realizata cu grid*/
+  #statica{
+	display:grid;
+	grid-template-columns:auto;
+	border:1px solid blue;
+	justify-items: center;
+	
+	}
+	
+#statica>figure{
+margin:0;
+}
+
+#titlu{
+transition: font-size 3s linear 1s, color 3s;
+}
+
+#titlu:hover{
+font-size:6rem;
+color: pink;
+}
+
+nav a{
+display: inline-block;
+width:100%;
+transition: background-color 3s;
+}
+
+nav a:hover{
+background-color: red;
+}
+
+#titlu>img{
+visibility: hidden;
+}
+
+#titlu{
+text-align:left;
+}

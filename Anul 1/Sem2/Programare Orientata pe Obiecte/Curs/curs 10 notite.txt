@@ -1,0 +1,69 @@
+polimorfism
+- compilare
+   - supraincarcarea functiilor (exemplu constructor)
+   - supraincarcarea operatorilor 
+   - template
+- executie
+   - mostenire
+   - functii virtuale
+   - upcast, pointeri / referinte baza -> derivate
+
+
+int max(int v[10], int n) {...}
+float max(float v[10], int n) {...}
+
+} => T
+
+T = int, float, char etc.
+
+template <class T>
+T max(T v[10], int n) {...}
+
+class Student  {float medie; ...}
+
+if (maxim < v[i])
+        !! Student ?? => supraincarcare operator < in Student
+
+specializare de functie template / clasa template (inlocuiesc T cu tipul pt care se vrea specializare)
+=> template <>
+char* max <char*>(char* v[10], int n) {... if (strcmp(maxim,v[i])<0) ...}
+
+const char* max (const char* v[10], int n) {...}   <- functie non-template
+^ nu poate fi folosita pt char* fara const
+
+const char* v[3] = {"portocala", "ala", "bala"}
+max(v,3) = max{{...},3}  -> se duce pe const char* , nu pe template
+
+template <class T>
+T maxim(T a, T b) {...}
+
+int maxim(int a, int b) {...}
+
+maxim (10.1, 7);
+      double int
+
+^ ruleaza cu functia int -> potrivire inexacta -> parte intreaga de 10.1, (int)(10.1)
+
+prioritatea acceptarii functiilor: non-template, specializare, template
+
+template <class T1, class T2>
+class Test {
+T1 a;
+T2 b;
+void citire() {...} // declarare + definire = template automate
+void afisare(); // doar declarare
+};
+
+template <class T1, class T2>
+void Test<T1, T2>::afisare() { // definire }
+
+o clasa oarecare POATE sa lucreze cu functii template
+
+instantieri:
+Test <int, Student> a, b;
+Test <float, char> c;
+
+if(typeid(a)==typeid(b)) -> true
+
+if(typeid(a)==typeid(c)) -> false
+

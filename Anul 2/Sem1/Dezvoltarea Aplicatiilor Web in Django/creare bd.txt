@@ -1,0 +1,70 @@
+CREAREA APLICATIEI
+
+1.creeam folder 
+
+2.creeam proiect cu comanda : django-admin startproject [nume_proiect] .
+
+3.creeam aplicatia cu comanda : python manage.py startapp aplicatie_exemplu
+
+4.La installed_apps daugam 'aplicatie_exemplu'
+
+5.url aplicatie : 
+    path('', views.index, name='index'),  # Rută pentru /
+    path('test/', views.test_view, name='test'),
+
+  url proiect:
+    path('admin/', admin.site.urls),
+    path('', include('aplicatie.urls')), 
+
+6.Schimbarea templateurilor 
+IMPORT OS
+'DIRS': [os.path.join(BASE_DIR, 'templates')],
+
+7.Creeare unui static si adaugarea in setari:
+   STATIC_URL = '/static/'
+   STATICFILES_DIRS = [BASE_DIR / "static"]
+   STATIC_ROOT = BASE_DIR / "staticfiles"
+ 
+
+
+
+
+
+
+
+
+CONECTAREA LA BAZA DE DATE:
+
+
+1.Tot DATABASE il schimbam cu :
+
+'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'OPTIONS': {
+                'options': '-c search_path=django'
+        },
+        'NAME': 'daw_examen_2024',
+        'USER': 'matei',
+        'PASSWORD': 'matei',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+
+2.In pgadmin rulam :
+
+CREATE USER utilizator WITH ENCRYPTED PASSWORD 'oracle';
+GRANT ALL ON DATABASE examen TO utilizator ;
+CREATE SCHEMA django AUTHORIZATION max2;
+GRANT ALL ON SCHEMA django to utilizator ;
+ALTER ROLE utilizator SET search_path = django, public;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA django TO utilizator ;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA django TO utilizator ;
+GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA django TO utilizator ;
+
+
+
+
+3.rulam migratiile:
+
+python manage.py makemigrations nume_aplicatie
+python manage.py migrate

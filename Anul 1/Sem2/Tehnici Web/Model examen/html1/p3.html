@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Exercitiul3</title>
+    <script>
+        window.onload = function () {
+            if(localStorage.getItem("numar") != null)
+            {
+                document.querySelector("#numar").value = localStorage.getItem("numar");
+            }
+            let nr = 0;
+            let numar = 0;
+            document.querySelector("#numar").onkeydown = function (event) {
+                if (event.key == "s" && (nr == 0)) {
+                    nr++;
+                    let input = document.querySelector("#numar").value;
+                    var c = setInterval(function () {
+                        fals = 0;
+                        for (let p of document.querySelectorAll("p")) {
+                            if (p.innerHTML.split(' ').length > input) {
+                                document.body.removeChild(p);
+                                fals = 1;
+                                numar++;
+                                break;
+                            }
+                        }
+                        if(fals == 0)
+                        {
+                            clearInterval(c);
+                            localStorage.setItem("numar", numar)
+                        }
+                    }, 1000)
+                }
+
+
+            }
+
+        }
+    </script>
+</head>
+
+<body>
+
+    <input id="numar" type="text">
+
+    <p>Azi este o zi cu soare</p>
+    <p>Azi este o zi calduroasa</p>
+    <p>Azi este marti</p>
+    <p>Azi este o zi cu soare</p>
+    <p>Azi este o zi foarte calda</p>
+    <p>Azi este o zi cu soare</p>
+    <p>Azi este o zi</p>
+    <p>Azi</p>
+    <p>O zi cu soare</p>
+    <p>Azi este o zi cu soare</p>
+
+</body>
+
+</html>

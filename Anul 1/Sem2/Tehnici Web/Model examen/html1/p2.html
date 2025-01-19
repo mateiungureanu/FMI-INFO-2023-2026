@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Exercitiul2</title>
+<style>
+    .dreptunghi {
+        border: 2px solid black;
+        width: 20px;
+        height: 30px;
+        background-color: lightblue;
+        margin: 10px;
+    }
+    body {
+        display: flex;
+    }
+</style>
+<script>
+    window.onload = function () {
+    for(var i = 0;i<10;i++)
+    {
+        let div = document.createElement("div");
+        div.className = "dreptunghi";
+        document.body.appendChild(div);
+    }
+    var original = getComputedStyle(document.querySelector(".dreptunghi")).height;
+    lista = document.querySelectorAll(".dreptunghi");
+    for(let f of lista)
+    {
+        f.onclick = function (event) {
+            event.stopPropagation();
+            f.style.height = parseInt(getComputedStyle(f).height) + 10 + "px";
+    }
+    }
+    window.onclick = function () {
+        lista = document.querySelectorAll(".dreptunghi");
+        for(let f of lista)
+        {
+            f.style.height = original;
+        }
+    }
+}
+</script>
+</head>
+<body>
+
+</body>
+</html>

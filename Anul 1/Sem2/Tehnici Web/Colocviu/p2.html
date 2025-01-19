@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        .buton {
+            border-radius: 5px;
+            margin: 10px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var ct = 6;
+            for (let i = 1; i <= 6; ++i) {
+                let b = document.createElement("button");
+                b.innerHTML = "Buton " + i;
+                if (i % 2 == 0) {
+                    b.style.backgroundColor = "green";
+                    b.style.color = "white";
+                }
+                else {
+                    b.style.backgroundColor = "yellow";
+                    b.style.color = "black";
+                }
+                b.style.width = 100;
+                b.style.height = 40;
+                b.classList = "buton";
+                document.body.appendChild(b);
+            }
+            for (let b of document.querySelectorAll("button")) {
+                let culoare = getComputedStyle(b).backgroundColor;
+                if (b.style.backgroundColor != "red") {
+                    b.onclick = function () {
+                        b.style.backgroundColor = "red";
+                    }
+                }
+                let myTimeout = setTimeout(f, 5000);
+                if (b.style.backgroundColor == "red") {
+                    b.onlick = function () {
+                        b.remove();
+                        ct--;
+                    }
+                }
+                function f() {
+                    b.style.backgroundColor = culoare;
+                    clearTimeout();
+                }
+                document.body.onclick = function (event) {
+                    event.stopPropagation;
+                    alert(ct);
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

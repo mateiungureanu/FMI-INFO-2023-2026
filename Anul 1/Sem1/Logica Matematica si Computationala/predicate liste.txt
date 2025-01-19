@@ -1,0 +1,47 @@
+member(?Elem, ?List)
+True if Elem is a member of List.
+
+append(?List1, ?List2, ?List1AndList2)
+List1AndList2 is the concatenation of List1 and List2.
+
+prefix(?Part, ?Whole)
+True iff Part is a leading substring of Whole. This is the same as append(Part, _, Whole).
+
+last(?List, ?Last)
+Succeeds when Last is the last element of List. This predicate is semidet if List is a list and multi if List is a partial list.
+
+length(@List, -Length)
+True when Length is the number of elements in the proper list List.
+
+same_length(?List1, ?List2)
+Is true when List1 and List2 are lists with the same number of elements.
+
+reverse(?List1, ?List2)
+Is true when the elements of List2 are in reverse order compared to List1.
+
+max_member(-Max, +List)
+True when Max is the largest member in the standard order of terms.
+
+min_member(-Min, +List)
+True when Min is the smallest member in the standard order of terms.
+
+sum_list(+List, -Sum)
+Sum is the result of adding all numbers in List.
+
+max_list(+List:list(number), -Max:number)
+True if Max is the largest number in List.
+
+min_list(+List:list(number), -Min:number)
+True if Min is the smallest number in List.
+
+intersection(+Set1, +Set2, -Set3)
+True if Set3 unifies with the intersection of Set1 and Set2.
+
+union(+Set1, +Set2, -Set3)
+True if Set3 unifies with the union of the lists Set1 and Set2.
+
+subset(+SubSet, +Set)
+True if all elements of SubSet belong to Set as well.
+
+subtract(+Set, +Delete, -Result)
+Delete all elements in Delete from Set.

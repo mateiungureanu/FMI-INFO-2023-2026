@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <script>
+        window.onload = function () {
+            var ct = 0;
+            if(localStorage.getItem("dim") != null)
+            {
+                document.getElementById("info").style.fontSize = localStorage.getItem("dim");
+            }
+            document.body.onkeydown = function (event) {
+                if (event.key = "a" && ct == 0) {
+                    let d = new Date();
+                    document.getElementById("info").innerHTML += "<br>" + d;
+                    ct++;
+                }
+                let myInterval = setInterval(function () {
+                    let r = Math.floor((Math.random() * 20)) + 10;
+                    document.getElementById("info").style.fontSize = "r";
+                }, 3000);
+            }
+            document.body.onkeydown = function (event) {
+                if (event.key = "a" && ct == 1) {
+                    ct++;
+                    clearInterval(myInterval);
+                    localStorage.setItem("dim", r);
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <p id="info">Mesaj personalizat</p>
+</body>
+
+</html>

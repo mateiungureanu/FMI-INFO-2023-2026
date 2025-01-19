@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<head>
+<title>LABORATORUL 9 | Tehnici Web</title>
+</head>
+<body>
+<h1>Laboratorul 9</h1>
+<h2>Tema 9.1</h2>
+
+<p> Creați un fișier HTML care sa contina un formular (elementul HTML form). Formularul contine două input-uri de tip number (care au implicit valoarea 0), un element select și un buton de trimitere a formularului. Valorile selectului vor fi operațiile aritmetice obișnuite (adunare "+", scădere "-", înmulțire "*", împărțire "/"). La trimiterea forumularului, va fi adăugat în DOM, intr-un element paragraf operația și rezultatul acesteia. Operatiile trebuie sa apara in ordinea in care au fost efectuate. </p>
+
+<h2>Tema 9.2</h2>
+<p>In paragraful cu id-ul "salut" din document estre scris textul "Hello!". Faceti astfel incat la fiecare reincarcare a paginii, textul din paragraf sa fie mai lung cu un "o".<br> De exemplu la a 5-a reincarcare a paginii, sa fie scris "Hellooooo!". La click pe paragraf se va reveni la starea initiala a paginii.
+
+</p>
+<h2>Tema 9.3</h2>
+<p>
+Un fisier HTML contine  un element &lt;select&gt; ale carui optiuni contin numerele de la 
+1 la 20,  un &lt;button&gt; cu id-ul  "finalizeaza", un element &lt;input&gt; cu id-ul "rezervari"  si valoarea 
+initiala "" (sirul vid). <br>
+
+La selectarea optiunii n se genereaza n butoane care vor contine numerele de la 1 la n și
+vor avea initial culoarea verde. <br>
+La click  pe un buton verde, numarul biletului va fi retinut in input,  butonul  va deveni rosu, 
+iar clickul nu va mai avea nici un efect. <br>
+La click pe butonul "finalizeaza", se va afisa  alert cu biletele rezervate 
+(continutul inputului), iar  continutul inputului va fi setat la "".
+</p>
+<h2> Tema 9.4</h2>
+<p>
+La click pe un paragraf din pagina, textul acestuia se coloreaza in rosu. La reincarcarea paginii, ultimul paragraf apasat (inainte de refresh) sa aiba textul de culoare rosie. <br>La click pe buton se va reseta pagina si nu se va mai afisa culoarea rosie a textului la refresh.
+</p>
+<h2>Tema 9.5</h2>
+<p>
+La incarcarea paginii se va crea dinamic un element &lt;input&gt; de tip range cu valoarea minima 2, valoarea maxima 8 si valoarea default egala cu 2,  care va fi pozitionat la inceputul documentului.<br> La schimbarea valorii inputului de tip range se genereaza N butoane unde N e valoarea inputului de tip range.  Cele N butoane vor primi clasa "buton" si vor fi dispuse pe linii diferite.
+<ul>
+<li>  La prima apasare a tastei “a”, la fiecare 3s,  cate un buton (incepand cu primul) isi va schimba culoarea de background intr-o alta culoare generata aleator. <br>  Schimbarea culorii de background se face circular (dupa ultimul element se reia de la primul) pana cand se apasa tasta “s”.</li>     
+<li> Se va salva in localStorage ultima culoare random setata unui buton iar la reincarcarea paginii aceasta va reprezenta culoarea de background a body-ului.</li>
+</ul>	
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+struct L{
+	nod *prev;
+	int info;
+	nod *next;
+}
+nod *L;
+
+(*L).prev <=> L->prev
+
+liste simplu inlantuite: pointer catre next
+liste dublu inlantuite: pointer catre prev si next
+liste circular inlantuite: pointer catre prev si next, last->next = first
+
+Operatii asupra listei:
+- creare
+- afisare
+- cautare
+- inserare
+- stergere
+
+
+- cautare
+nod *x;
+x = L;
+while(x!=0 && x->info!=k)
+	x=x->next;
+
+- inserare
+~la inceput
+nod * t = new  nod;
+t->info = ...;
+t->urm = prim;
+prim = t;
+~in interior
+nod * t = new  nod;
+t->info = ...;
+t->next = p->next;
+p->next = t;
+
+-stergere
+~la inceput
+nod * t = first;
+first = first->next;
+delete t;
+~in interior
+nod * t = p->next;
+p->next = t->next;
+delete t;
+
+
+linked list:
+struct S{
+	nod next;
+	int info;
+}
+
+int search(struct S, int k):
+{
+	while(x!=NULL && and x->info!=k)
+		x=x->next;
+	if(x->info==k)
+		return x;
+	else:
+		return NULL;
+}
+
+void insert(struct S, nod & *x)
+{
+	nod *k = new nod;
+	if(k->next!=NULL)
+	{
+		x->next=k->next;
+		k->next=x;
+	}
+}
+
+void delete(struct S, nod & *x)
+{
+	nod *x = p->next;
+	p->next = x->next;
+	delete x;
+}
+
+int minimum(struct S)
+{
+	int min = first;
+	while(first!=NULL)
+		if(first<min)
+			min = first;
+		first=first->next;
+	return min;
+}
+
+int maximum(struct S)
+{
+	int max = first;
+	while(first!=NULL)
+		if(first>max)
+			max = first;
+		first=first->next;
+	return max;
+}
+
+int succesor(struct S, nod & *x)
+{
+	return x->next;
+}
+
+int predecesor(struct S, nod & *x)
+{
+	return x->next;
+}

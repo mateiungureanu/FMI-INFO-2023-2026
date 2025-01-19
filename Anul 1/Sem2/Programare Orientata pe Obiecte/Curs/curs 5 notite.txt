@@ -1,0 +1,83 @@
+exemplu de design pattern: Singleton
+				^ o singura instanta (in tot programul)
+{	constructori privati
+{	destructori privati
+{	op de atribuire privat
+{	instanta statica privata (pointer sau referinta)
+{	functie statica publica (aloca spatiu pt instanta statica ^)
+
+
+functii - nestatice: au acces atat la date membre (date + functii) statice cat si la date membre nestatice
+	- statice: pot accesa doar date membre statice
+
+class Test{
+static int x; // nu putem sa dam valoare aici ca nu aloc spatiu aici
+// daca era const static int x = 100, trebuie sa dai valoare, const static se comporta ca un const
+int y;
+public:
+static void f1() {
+	acceseaza doar x
+}
+static void f2(Test ob) {
+	acceseaza atat ob.x cat si ob.y
+}
+static void f3() {
+	Test ob;
+	acceseaza atat ob.x cat si ob.y
+}
+};
+
+int Test::x; /// int Test::x=78; 
+
+clase in functii (clase locale)
+- nu pot separa declararea de definire
+- nu pot avea date membre statice (ca nu pot folosi operatorul de rezolutie de scop)
+- pot avea functii membre statice
+- nu pot accesa variabile locale din functie
+- pot accesa variabile statice locale din functie
+- pot accesa functii si date membre publice din alta clasa locala din acceasi functie
+
+clase in clase (nested class)
+- pot separa declararea de definire
+
+class Extern{
+	int x;
+	class Intern1{
+		static int y;
+	public:
+		void f1();
+		class Intern2{
+
+		public:
+			void f2();
+			void f3() {cout<<declarare+definire in clasa;}
+		};
+	};
+};
+void Extern::Intern1::f1() {...}
+void Extern::Intern1::Intern2::f2() {...}
+int Extern::Intern1::y=45;
+
+- nu pot accesa date membre din clasa externa
+	^ nu am acces la x
+
+supraincarcarea operatorilor:
+"sintactic sugar"
+nu se poate supraincarca:
+1) ::
+2) .
+3) .*
+4) ?
+5) sizeof
+
+restrictii:
+- trebuie sa pastrez precedenta (* mai puternica decat +)
+- --"-- nr de operatii
+- --"-- asoctiativitatea
+
+se pot supraincarca
+- ca functie membru (am deja unul din operanzi, dat de pointerul this)
+- ca functie prieten (majoritatea, cu exceptia =, ->, [], () )
+
+membru: adunare(1 operand)
+friend: adunare(2 operanzi)

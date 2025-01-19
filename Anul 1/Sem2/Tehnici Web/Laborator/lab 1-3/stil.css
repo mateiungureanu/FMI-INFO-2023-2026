@@ -1,0 +1,311 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+html{
+font-size:17px;
+}
+
+header>h1{
+font-family: "Comic Neue", cursive;
+font-size:2rem;
+font-weight:900;
+text-align:center;
+}
+
+h1>span{
+color:green;
+font-style:italic;
+text-transform: uppercase;
+}
+
+
+body{
+background-color:lightblue;
+border:2px solid red;
+padding:1.5rem;
+margin:0;
+}
+
+#acasa{
+text-align:center;
+background-image: url("https://th.bing.com/th/id/R.1b892e5674474a039215f8af3b27cc89?rik=C2ta%2fBH%2f6gZ8rA&pid=ImgRaw&r=0");
+padding-top:150px;
+padding-bottom:150px;
+background-size:cover;
+}
+
+#acasa>h2{
+font-family: "Comic Neue", cursive;
+color:green;
+font-size:1.5rem;
+}
+
+#acasa>a{
+text-decoration:none;
+color:white;
+background-color:black;
+padding:10px;
+border-radius:20px;
+}
+
+#acasa>a:hover{
+color:blue;
+background-color:white;
+}
+
+#despremine>img{
+border: 2px solid red;
+border-radius: 20px;
+opacity: 0.5;
+}
+
+#despremine>img:hover{
+opacity: 1;
+}
+
+#despremine>p{
+background-color: white;
+box-shadow: 5px 5px green;
+text-shadow: 2px 2px red;
+}
+
+#despremine{
+border-style: dotted;
+margin: 50px;
+padding: 20px;
+background-color: transparent;
+}
+
+h3, h4{
+color: purple;
+}
+
+body>a{
+}
+
+article{
+border-style: rounded;
+margin: 30px;
+padding: 10px;
+background-color: lightyellow;
+color: brown;
+}
+
+table, th, td {
+border: 2px solid red;
+border-collapse: collapse;
+padding: 20px;
+text-align: center;
+}
+
+td:nth-of-type(2n){
+background-color: white;
+}
+
+td:nth-of-type(2n+1){
+background-color: yellow;
+}
+
+th{
+background-color: orange;
+text-decoration-line: underline;
+}
+
+tr:hover{
+color: red;
+font-style: italic;
+}
+
+/* a[href^="#"]{
+color: pink;
+} */
+
+article::after{
+content: '\1F600';
+}
+
+nav ul{
+list-style-type: none;
+}
+
+nav a{
+text-decoration: none;
+color: green;
+}
+
+nav ul, nav li{
+margin:0;
+padding:0;
+}
+
+nav>ul.meniu>li>ul.submeniu{
+visibility: hidden;
+}
+
+nav>ul.meniu>li:hover>ul.submeniu{
+visibility: visible;
+}
+
+ul.meniu{
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+justify-content: space-between;
+}
+
+ul.meniu>li{
+border: 1px solid white;
+flex-grow: 1;
+text-align: center;
+height: 3rem;
+line-height: 3rem;
+background-color: purple;
+opacity: 0.7;
+}
+
+ul.meniu>li:hover{
+opacity: 1;
+background-color:pink;
+}
+
+ul.submeniu>li{
+text-align: center;
+height: 3rem;
+line-height: 3rem;
+background-color: purple;
+border: 1px solid white;
+opacity: 0.5;
+}
+
+ul.submeniu>li:hover{
+background-color:pink;
+opacity: 1;
+}
+
+nav{
+position:sticky;
+top:0;
+}
+
+.item0{
+grid-area: item0; 
+border: 2px solid white;
+}
+.item1{
+grid-area: item1;
+border: 2px solid white;
+}
+.item2{
+grid-area: item2;
+border: 2px solid white;
+}
+.item3{
+grid-area: item3;
+border: 2px solid white;
+}
+.item4{
+grid-area: item4;
+border: 2px solid white;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.item5{
+grid-area: item5;
+border: 2px solid white;
+}
+
+.container{
+display: grid;
+grid-template-areas:
+'item1 item1 item1'
+'item2 item3 item4'
+'item5 item5 item5';
+gap: 10px;
+}
+
+#catreinceput:hover{
+font-size: 20px;
+}
+
+#catreinceput:active{
+background-color: yellow;
+}
+
+div.linia1{
+display:flex;
+flex-direction: row;
+flex-wrap: nowrap;
+justify-content: space-evenly;
+}
+
+div.linia2{
+display:flex;
+flex-direction: row;
+flex-wrap: nowrap;
+justify-content: space-evenly;
+}
+
+div.linia1>figure{
+opacity:0.7;
+}
+
+div.linia2>figure{
+opacity:0.7;
+}
+
+div.linia1>figure:hover{
+opacity:1;
+}
+
+div.linia2>figure:hover{
+opacity:1;
+}
+
+#despremine>div.container>p.item1>img{
+float:right;
+}
+
+div.titluri{
+display:flex;
+justify-content: space-around;
+align-items: center;
+}
+
+div.articole{
+display:flex;
+}
+
+.item11{
+grid-area: linia1;
+}
+.item12{
+grid-area: linia2;
+}
+.item13{
+grid-area: linia3;
+}
+.item14{
+grid-area: linia4;
+}
+.item15{
+grid-area: linia5;
+}
+.item16{
+grid-area: linia6;
+}
+
+.container2{
+display:grid;
+grid-template-areas:
+'linia1 linia2 linia3'
+'linia4 linia5 linia6';
+justify-content: space-evenly;
+}
+
+.container2>figure{
+opacity:0.7;
+}
+
+.container2>figure:hover{
+opacity:1;
+}

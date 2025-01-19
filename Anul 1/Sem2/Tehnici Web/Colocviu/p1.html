@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        #parinte>div:nth-child(1) {
+            grid-area: div1;
+        }
+
+        #parinte>div:nth-child(2) {
+            grid-area: div2;
+        }
+
+        #parinte>div:nth-child(3) {
+            grid-area: div3;
+        }
+
+        #parinte>div:nth-child(4) {
+            grid-area: div4;
+        }
+
+        #parinte>div:nth-child(5) {
+            grid-area: div5;
+        }
+
+        #parinte>div:nth-child(6) {
+            grid-area: div6;
+        }
+
+        #parinte {
+            height: 500px;
+            width: 50vw;
+            border: 5px solid green;
+            padding: 7px;
+            display: grid;
+            grid-template-areas:
+                'div1 div1 div1'
+                'div2 div3 div3'
+                'div2 div4 div5'
+                'div6 div6 div6';
+            gap: 10px;
+        }
+
+        #parinte>div {
+            text-align: center;
+        }
+
+        #parinte>div:nth-child(1),
+        :nth-child(6) {
+            background-color: orange;
+        }
+
+        #parinte>div:nth-child(2) {
+            background-color: pink;
+        }
+
+        #parinte>div:nth-child(3) {
+            background-color: red;
+        }
+
+        #parinte>div:nth-child(4),
+        :nth-child(5) {
+            background-color: purple;
+        }
+
+        @media screen and (min-width: 300px) and (max-width: 1000px) {
+            #parinte {
+                display: flex;
+            }
+
+            #parinte>div {
+                width: 16%;
+            }
+
+            @keyframes animatie {
+                0% {}
+
+                100% {
+                    background-color: blue;
+                    font-weight: bold;
+                }
+            }
+
+            #parinte>div:nth-of-type(odd):hover {
+                animation-name: animatie;
+                animation-duration: 3s;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="parinte">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+    </div>
+</body>
+
+</html>

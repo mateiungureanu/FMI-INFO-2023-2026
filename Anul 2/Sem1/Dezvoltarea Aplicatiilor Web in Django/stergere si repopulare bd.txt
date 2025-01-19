@@ -1,0 +1,47 @@
+comenzile pentru salvare si repopulare se fac in ordinea in care au fost create tabelele (grija la dependente)
+
+
+adauga path variable C:\Program Files\PostgreSQL\17\bin
+
+$env:PGPASSWORD = "matei"; (daca nu merg comenzile, bag asta inainte)
+
+pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_cinemauri > cinemauri.sql
+
+pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_angajati > angajati.sql
+
+pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_sali > sali.sql
+
+pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_filme > filme.sql
+
+pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_difuzari > difuzari.sql
+
+pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_achizitii > achizitii.sql
+
+pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_bilete > bilete.sql
+
+
+
+delete la toate tabelele din sectiunea Tables din baza de date din pgAdmin4
+
+delete la tot din folderul migrations din aplicatie1, IN AFARA DE init
+
+python manage.py makemigrations aplicatie1
+python manage.py migrate
+
+python manage.py createsuperuser
+
+deschid in VSCode toate fisierele .sql salvate mai inainte, apas in colt dreapta jos pe encoding -> save with encoding -> utf-8 (fara bom)
+
+psql -h localhost -U matei -d proiect -f "C:\Users\Matei\cinemauri.sql"
+
+psql -h localhost -U matei -d proiect -f "C:\Users\Matei\angajati.sql"
+
+psql -h localhost -U matei -d proiect -f "C:\Users\Matei\sali.sql"
+
+psql -h localhost -U matei -d proiect -f "C:\Users\Matei\filme.sql"
+
+psql -h localhost -U matei -d proiect -f "C:\Users\Matei\difuzari.sql"
+
+psql -h localhost -U matei -d proiect -f "C:\Users\Matei\achizitii.sql"
+
+psql -h localhost -U matei -d proiect -f "C:\Users\Matei\bilete.sql"

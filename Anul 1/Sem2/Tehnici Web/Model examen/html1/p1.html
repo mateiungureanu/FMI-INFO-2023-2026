@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Exercitiul1</title>
+<style>
+    .container :nth-child(1) { grid-area: e1; }
+    .container :nth-child(2) { grid-area: e2; }
+    .container :nth-child(3) { grid-area: e3; }
+    .container :nth-child(4) { grid-area: e4; }
+    .container :nth-child(5) { grid-area: e5; }
+    .container {
+        height: 50vh;
+        width: 250px;
+        border: 3px dotted blue;
+        display: grid;
+        grid-template-areas:
+            '. e2 e5'
+            'e1 e3 e5'
+            '. e4 e5';
+    }
+    .container > div {
+        border: 8px double black;
+        font-size: 15px;
+    }
+    @media screen and (max-height: 500px) and (max-width: 600px) {
+        @keyframes culoare {
+        from {border-color: blue;}
+        to {border-color: red;}
+    }
+    .container {
+        display: block;
+        animation-name: culoare;
+        animation-duration: 4s;
+        animation-iteration-count: infinite;
+    }
+    .container > div {
+        transition: font-size 3s;
+    }
+    .container > div:hover {
+        font-size: 30px;
+    }
+
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+</div>
+</body>
+</html>
