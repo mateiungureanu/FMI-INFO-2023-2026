@@ -2,7 +2,7 @@ matrice de adiacenta
 lista de adiacenta
 dfs
 bfs
-graf bipartite
+graf bipartit
 cuplaj maxim in graf bipartit
 sortare topologica
 muchii critice
