@@ -5,6 +5,7 @@ bfs
 graf bipartit
 cuplaj maxim in graf bipartit
 sortare topologica
+drum minim in dag
 muchii critice
 noduri critice
 kosaraju
