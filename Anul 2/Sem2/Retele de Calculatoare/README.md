@@ -91,7 +91,7 @@ Sw-GRECIA\#
 > **IMPORTANT**
 > Comanda asta salveaza configuratia. O poti rula oricand vrei, cand esti in Sw-GRECIA\#
 ```
-copy running-file startup-config
+copy running-config startup-config
 ```
 + Apasa **Enter** \(intrebarea despre nume\)
 ```
