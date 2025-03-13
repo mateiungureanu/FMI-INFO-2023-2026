@@ -127,7 +127,7 @@ interface vlan 1
 ```
 Sw-GRECIA\(config-if\)\#
 ```
-description legatura cu reteaua 174.40.20.2/23
+description legatura cu reteaua 174.40.20.0/23
 ip address 174.40.20.2 255.255.254.0
 no shutdown
 ```
