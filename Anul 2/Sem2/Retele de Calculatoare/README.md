@@ -222,7 +222,7 @@ R-Anglia\#
 ```
 copy running-file startup-config
 ```
-+ **Enter** \(intrebarea despre nume\)
++ **Enter** \(intrebare despre nume\)
 ```
 clock set HH:MM:SS D Mon YYYY
 configure terminal
@@ -268,5 +268,5 @@ description legatura cu routerul R-server
 ip address 171.160.56.5 255.255.255.252
 no shutdown
 ```
-=======
+
 ## 2. Router
