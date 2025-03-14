@@ -19,7 +19,17 @@ pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d 
 
 pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_bilete > bilete.sql
 
+pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_categorii > categorii.sql
 
+pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_produse > produse.sql
+
+
+pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_promotii > promotii.sql
+
+pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_customuser > customuser.sql
+
+
+pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_vizualizari > vizualizari.sql
 
 delete la toate tabelele din sectiunea Tables din baza de date din pgAdmin4
 
@@ -45,3 +55,13 @@ psql -h localhost -U matei -d proiect -f "C:\Users\Matei\difuzari.sql"
 psql -h localhost -U matei -d proiect -f "C:\Users\Matei\achizitii.sql"
 
 psql -h localhost -U matei -d proiect -f "C:\Users\Matei\bilete.sql"
+
+psql -h localhost -U matei -d proiect -f "C:\Users\Matei\categorii.sql"
+
+psql -h localhost -U matei -d proiect -f "C:\Users\Matei\produse.sql"
+
+psql -h localhost -U matei -d proiect -f "C:\Users\Matei\promotii.sql"
+
+psql -h localhost -U matei -d proiect -f "C:\Users\Matei\customuser.sql"
+
+psql -h localhost -U matei -d proiect -f "C:\Users\Matei\vizualizari.sql"
