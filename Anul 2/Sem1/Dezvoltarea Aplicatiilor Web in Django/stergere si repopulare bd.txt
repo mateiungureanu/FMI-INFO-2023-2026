@@ -23,11 +23,9 @@ pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d 
 
 pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_produse > produse.sql
 
-
 pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_promotii > promotii.sql
 
 pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_customuser > customuser.sql
-
 
 pg_dump --column-inserts --data-only --inserts -h localhost -U matei -p 5432 -d proiect -t django.aplicatie1_vizualizari > vizualizari.sql
 

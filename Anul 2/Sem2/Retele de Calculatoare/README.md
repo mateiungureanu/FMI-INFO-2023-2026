@@ -159,11 +159,11 @@ Schimbari in setul de date:
 | 171.160.0.1 | Default Gateway | 171.160.0.1 |
 | 171.160.47.254| DNS Server
 
-+ Click pe \[Network Devices\], click pe \[Routers\], click pe **2911** sau pe **2901** , click **la cativa centimetri mai la dreapta fata de PC**
++ Click pe \[Network Devices\], click pe \[Routers\], click pe **2911** sau pe **2901**, click **la cativa centimetri mai la dreapta fata de PC**
 + **Power off**
 + Scroll in jos pana la placa de retea, drag & drop in sectiunea Modules, cauta in sectiunea Modules placa cu **HWIC-2T**, drag & drop **cat mai aproape de sursa**
 + **Power on**
-+ Click pe \[Connections\], click pe _Copper Straight-Through_, click pe Router, 
++ Click pe bulina dinspre Switch de pe cablul _Console_ Laptop-Switch, click pe Router, click pe **Console**
 + Click pe Laptop
 + Schimba de pe tabul _physical_ pe tabul _desktop_
 + Intra pe **Terminal**
