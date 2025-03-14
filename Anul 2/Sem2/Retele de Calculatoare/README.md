@@ -91,7 +91,7 @@ Sw-Grecia\#
 > **IMPORTANT**
 > Comanda asta salveaza configuratia. O poti rula oricand vrei, cand esti in Sw-Grecia\#
 ```
-copy running-file startup-config
+copy running-config startup-config
 ```
 + **Enter** \(intrebarea despre nume\)
 ```
@@ -124,7 +124,7 @@ interface vlan 1
 ```
 Sw-Grecia\(config-if\)\#
 ```
-description legatura cu reteaua 174.40.20.2/23
+description legatura cu reteaua 174.40.20.0/23
 ip address 174.40.20.2 255.255.254.0
 no shutdown
 exit
@@ -137,6 +137,7 @@ exit
 
 ### Testarea echipamentului
 
+<<<<<<< HEAD
 + Click pe \[Connections\], click pe _Copper Straight-Through_, click pe Switch, click pe **GigabitEthernet 0/2**, click pe PC, click pe **GigabitEthernet0**
 + Click pe PC, click pe **Command Prompt**
 
@@ -268,3 +269,6 @@ description legatura cu routerul R-server
 ip address 171.160.56.5 255.255.255.252
 no shutdown
 ```
+=======
+## 2. Router
+>>>>>>> 81553aab2e1e2f47ff7b4ca9f5b6b8bd4c668b33
