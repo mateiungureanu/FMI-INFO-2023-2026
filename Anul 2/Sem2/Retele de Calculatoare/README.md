@@ -93,7 +93,7 @@ Sw-Grecia\#
 ```
 copy running-config startup-config
 ```
-+ **Enter** \(intrebarea despre nume\)
++ **Enter** \(intrebare despre nume\)
 ```
 clock set HH:MM:SS D Mon YYYY
 configure terminal
@@ -137,7 +137,6 @@ exit
 
 ### Testarea echipamentului
 
-<<<<<<< HEAD
 + Click pe \[Connections\], click pe _Copper Straight-Through_, click pe Switch, click pe **GigabitEthernet 0/2**, click pe PC, click pe **GigabitEthernet0**
 + Click pe PC, click pe **Command Prompt**
 
@@ -271,4 +270,3 @@ no shutdown
 ```
 =======
 ## 2. Router
->>>>>>> 81553aab2e1e2f47ff7b4ca9f5b6b8bd4c668b33
