@@ -269,5 +269,3 @@ description legatura cu routerul R-server
 ip address 171.160.56.5 255.255.255.252
 no shutdown
 ```
-
-## 2. Router
