@@ -160,6 +160,7 @@ Schimbari in setul de date:
 | 171.160.47.254| DNS Server
 
 + Click pe \[Network Devices\], click pe \[Routers\], click pe **2911** sau pe **2901**, click **la cativa centimetri mai la dreapta fata de PC**
++ Click pe numele lui (Router0), sterge numele, scrie "R-Anglia"
 + **Power off**
 + Scroll in jos pana la placa de retea, drag & drop in sectiunea Modules, cauta in sectiunea Modules placa cu **HWIC-2T**, drag & drop **cat mai aproape de sursa**
 + **Power on**
