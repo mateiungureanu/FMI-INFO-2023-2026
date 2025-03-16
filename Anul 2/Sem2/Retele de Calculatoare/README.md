@@ -3,7 +3,12 @@
 
 ## Table of contents
 1. [Switch](#1-switch)
+   + [Setup](#setup)
+   + [Terminal](#terminal)
+   + [Testarea echipamentului](#testarea-echipamentului)
 2. [Router](#2-router)
+   + [Setup](#setup-1)
+   + [Terminal](#terminal-1)
 
 ## 1. Switch
 
@@ -159,6 +164,8 @@ Schimbari in setul de date:
 | 255.255.224.0 | Subnet Mask | 255.255.224.0 |
 | 171.160.0.1 | Default Gateway | 171.160.0.1 |
 | 171.160.47.254| DNS Server
+
+### Setup
 
 + Click pe \[Network Devices\], click pe \[Routers\], click pe **2911** sau pe **2901**, click **la cativa centimetri mai la dreapta fata de PC**
 + Click pe numele lui (Router0), sterge numele, scrie "R-Anglia"
