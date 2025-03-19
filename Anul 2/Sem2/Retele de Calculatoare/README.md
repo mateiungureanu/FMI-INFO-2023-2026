@@ -167,8 +167,9 @@ Schimbari in setul de date:
 + Click pe numele lui (Router0), sterge numele, scrie "R-Anglia"
 + Click pe Router
 + **Power off**
-+ Scroll in jos pana la placa de retea, drag & drop in sectiunea Modules, cauta in sectiunea Modules placa cu **HWIC-2T**, drag & drop **cat mai aproape de sursa**
++ Cauta in sectiunea Modules placa cu **HWIC-2T**, drag & drop **cat mai aproape de sursa**
 + **Power on**
++ Inchide fila
 + Click pe bulina dinspre Switch de pe cablul _Console_ Laptop-Switch, click pe Router, click pe **Console**
 + Click pe Laptop
 + Schimba de pe tabul _physical_ pe tabul _desktop_
