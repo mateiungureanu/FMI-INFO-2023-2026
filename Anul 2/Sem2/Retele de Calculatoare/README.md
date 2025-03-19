@@ -253,7 +253,7 @@ crypto key generate rsa
 + `2048`, **Enter** \(intrebare despre biti\)
 ```
 ip ssh version 2
-logging host 209.165.200.254
+logging host 171.160.47.254
 service timestamps log datetime msec
 service timestamps debug datetime msec
 interface gigabitethernet 0/0
