@@ -215,7 +215,7 @@ R-Anglia\(config\)\#
 ```
 line vty 0 15
 ```
-R-ANglia\(config-line\)\#
+R-Anglia\(config-line\)\#
 ```
 password ciscovtypa55
 login
@@ -227,7 +227,7 @@ R-Anglia\#
 > **IMPORTANT**
 > Comanda asta salveaza configuratia. O poti rula oricand vrei, cand esti in R-Anglia\#
 ```
-copy running-file startup-config
+copy running-config startup-config
 ```
 + **Enter** \(intrebare despre nume\)
 ```
