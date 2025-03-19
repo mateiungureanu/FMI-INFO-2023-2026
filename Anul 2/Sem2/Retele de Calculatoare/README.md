@@ -87,10 +87,6 @@ password ciscovtypa55
 login
 logging synchronous
 exec-timeout 5 5
-exit
-```
-Sw-Grecia\(config\)\#
-```
 end
 ```
 Sw-Grecia\#
