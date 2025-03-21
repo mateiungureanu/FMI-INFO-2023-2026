@@ -9,6 +9,8 @@
 2. [Router](#2-router)
    + [Setup](#setup-1)
    + [Terminal](#terminal-1)
+   + [Testarea echipamentului](#testarea-echipamentului-1)
+3. [Server](#3-server)
 
 ## 1. Switch
 
@@ -20,11 +22,11 @@
 + **Power off**
 + Scroll in jos pana la placa de retea, drag & drop in sectiunea Modules, cauta in sectiunea Modules placa cu **CGE** \(PT-HOST-NM-1CGE\), drag & drop in locul placii de retea
 + **Power on**
-+ Schimba de pe tabul _physical_ pe tabul _desktop_
++ Schimba pe tabul _Desktop_
 + Intra pe **IP Configuration**
   + IPv4 Address: `174.40.20.22`
   + Subnet Mask: `255.255.254.0`
-  + Default Gateway: `174.40.20.1` \(cel mai mic IP posibil asignabil\)
+  + Default Gateway: `174.40.20.1`
   + DNS Server: `209.165.200.254`
 + Inchide de la x-ul mic
 + Intra pe **Email**
@@ -39,10 +41,10 @@
 + Click pe \[Network Devices\], click pe \[Switches\], click pe **2960**, click **la cativa centimetri mai sus si mai la dreapta fata de PC**
 + Click pe numele lui \(Switch0\), sterge numele, scrie "Sw-Grecia"
 + Click pe \[End Devices\], click pe Laptop, click **la cativa centimetri mai sus si mai la stanga fata de Switch**
-+ Click pe \[Connections\], click pe _Console_, click pe Switch, click pe **Console**, click pe Laptop, click pe **RS 232**
++ Click pe \[Connections\], click pe _Console_, click pe Switch, click pe **Console**, click pe Laptop, click pe **RS 232**  
 ![Rezultat](poze/switch.png)
 + Click pe Laptop
-+ Schimba de pe tabul _physical_ pe tabul _desktop_
++ Schimba pe tabul _Desktop_
 + Intra pe **Terminal**
 + Click **OK**
 + Apasa **Enter**
@@ -164,7 +166,7 @@ Schimbari in setul de date:
 ### Setup
 
 + Click pe \[Network Devices\], click pe \[Routers\], click pe **2911** sau pe **2901**, click **la cativa centimetri mai la dreapta fata de PC**
-+ Click pe numele lui (Router0), sterge numele, scrie "R-Anglia"
++ Click pe numele lui \(Router0\), sterge numele, scrie "R-Anglia"
 + Click pe Router
 + **Power off**
 + Cauta in sectiunea Modules placa cu **HWIC-2T**, drag & drop **cat mai aproape de sursa**
@@ -172,10 +174,10 @@ Schimbari in setul de date:
 + Inchide fila
 + Click pe bulina dinspre Switch de pe cablul _Console_ Laptop-Switch, click pe Router, click pe **Console**
 + Click pe Laptop
-+ Schimba de pe tabul _physical_ pe tabul _desktop_
++ Schimba pe tabul _Desktop_
 + Intra pe **Terminal**
 + Click **OK**
-+ Interogare: `NO`, **Enter**
++ Interogare: `no`, **Enter**
 + Apasa **Enter**
 
 ### Terminal
@@ -275,3 +277,113 @@ description legatura cu routerul R-server
 ip address 171.160.56.5 255.255.255.252
 no shutdown
 ```
+
+### Testarea echipamentului
+
++ Click pe \[Connections\], click pe _Copper Straight-Through_, click pe Switch, click pe **GigabitEthernet 0/1**, click pe Router, click pe **GigabitEthernet 0/0**
++ Click pe PC, intra pe **Command Prompt**  
+sau
++ Click pe altceva, intra pe CLI
+  + Password: `ciscoconpa55`
+```
+ping [ip_de_la_unul_din_dispozitive]
+ssh -l Admin01 [ip_de_la_unul_din_dispozitive]
+```
+
+
+## 3. Server
+
+### Setup
+
++ Click pe \[End-Devices\], click pe \[Server\], click **undeva in spatiul de lucru \(?\)**
++ Click pe numele lui \(Server0\), sterge numele, scrie "Server1"
++ Click pe Server
++ **Power off**
++ Drag & drop la placa de retea in sectiunea Modules, cauta in sectiunea Modules placa cu **CGE** \(PT-HOST-NM-1CGE\), drag & drop in locul placii de retea
++ **Power on**
++ Schimba pe tabul _Desktop_
++ Intra pe **IP Configuration**
+  + IPv4 Address: `171.160.47.254`
+  + Subnet Mask: `255.255.240.0`
+  + Default Gateway: `171.160.32.1`
+  + DNS Server: `171.160.47.254`
++ Inchide de la x-ul mic
++ Intra pe **Email**
+  + Your Name: `Server` \(numele PC-ului\)
+  + Email Address: `Server@info.ro`
+  + Incoming Mail Server: `171.160.47.254`
+  + Outgoing Mail Server: `171.160.47.254`
+  + User Name: `Server`
+  + Password: `123456`
++ Click **Save**
++ \(optional\) Click **Configure Email**, verific daca am scris corect
++ Click pe \[Connections\], click pe _Copper Straight-Through_, click pe Switch, click pe **FastEthernet**, click pe Server, click pe **FastEthernet**
+
+### Verificare
+
++ Intra pe **Command Prompt**
+```
+ping 171.160.32.2
+ssh -l Admin 171.160.32.2
+ping 171.160.32.1
+ping 171.160.56.6
+```
+
+### Continuare
+
++ Schimba pe tabul _Services_
++ Schimba **HTTP** pe _Off_
++ Click pe **DNS** in sectiunea Services, schimba **DNS Services** pe _On_
+  + Name: `info.ro`
+  + Address: `171.160.47.254`
++ Click **Add**
++ Click pe **Syslog** in sectiunea Services, schimba **Service** pe _On_
++ Click pe **Email** in sectiunea Services, schimba **SMTP** pe _On_, schimba **POP3 Services** pe _On_
+  + Domain Name: `info.ro`
+  + User: `PC-Anglia`, `PC-Albania`, `service`, `Server1` si toti ceilalti useri
+  + Password: `123456` pentru toti userii  
+
+  Dupa fiecare user si parola, click **+**
++ Click pe **FTP** in sectiunea Services, schimba **Service** pe _On_
+  + User: `PC-Anglia`, `PC-Albania`, `service`, `Server1` si toti ceilalti useri
+  + Password: `123456` pentru toti userii  
+  + Bifeaza **Write**, **Read**, **List**  
+
+  Dupa fiecare user si parola, click **+**
++ Click pe PC
++ Schimba pe tabul _Desktop_
++ Intra pe **Web Hosts**
+  + URL: `info.ro`
++ Click **Go**
++ Intra pe **Email**
++ Click pe **Compose**
+  + To: `Server@info.ro`
+  + Subject: `Test`
++ Verifica serviciu email -> send \(a trimis cu succes\) **??????**
+
+### Verificare
+
++ Click pe destinatie
++ Schimba pe tabul _Desktop_
++ Intra pe **Email**
++ Verifica la Received
++ Click pe PC
++ Schimba pe tabul _Desktop_
++ Intra pe **Command Prompt**
+```
+dir
+ftp 171.160.47.254
+```
+  + Username: `PC-Anglia`
+  + Password: `123456`  
+
+ptp>
+```
+dir
+get [nume_fisier] (ex. primul)
+quit 
+```
+```
+dir
+```
++ Daca apare si fisierul transferat e bine
