@@ -11,6 +11,7 @@
    + [Terminal](#terminal-1)
    + [Testarea echipamentului](#testarea-echipamentului-1)
 3. [Server](#3-server)
+4. [Calcularea IP-urilor](#4-calcularea-ip-urilor)
 
 ## 1. Switch
 
@@ -30,7 +31,7 @@
   + DNS Server: `209.165.200.254`
 + Inchide de la x-ul mic
 + Intra pe **Email**
-  + Your Name: `Grecia` \(numele PC-ului\)
+  + Your Name: `Grecia`
   + Email Address: `Grecia@info.ro`
   + Incoming Mail Server: `209.165.200.254`
   + Outgoing Mail Server: `209.165.200.254`
@@ -309,7 +310,7 @@ ssh -l Admin01 [ip_de_la_unul_din_dispozitive]
   + DNS Server: `171.160.47.254`
 + Inchide de la x-ul mic
 + Intra pe **Email**
-  + Your Name: `Server` \(numele PC-ului\)
+  + Your Name: `Server`
   + Email Address: `Server@info.ro`
   + Incoming Mail Server: `171.160.47.254`
   + Outgoing Mail Server: `171.160.47.254`
@@ -341,15 +342,13 @@ ping 171.160.56.6
 + Click pe **Email** in sectiunea Services, schimba **SMTP** pe _On_, schimba **POP3 Services** pe _On_
   + Domain Name: `info.ro`
   + User: `PC-Anglia`, `PC-Albania`, `service`, `Server1` si toti ceilalti useri
-  + Password: `123456` pentru toti userii  
-
-  Dupa fiecare user si parola, click **+**
+  + Password: `123456` pentru toti userii   
+  + Dupa fiecare user si parola, click **+**
 + Click pe **FTP** in sectiunea Services, schimba **Service** pe _On_
   + User: `PC-Anglia`, `PC-Albania`, `service`, `Server1` si toti ceilalti useri
-  + Password: `123456` pentru toti userii  
+  + Password: `123456` pentru toti userii
   + Bifeaza **Write**, **Read**, **List**  
-
-  Dupa fiecare user si parola, click **+**
+  + Dupa fiecare user si parola, click **+**
 + Click pe PC
 + Schimba pe tabul _Desktop_
 + Intra pe **Web Hosts**
@@ -377,7 +376,7 @@ ftp 171.160.47.254
   + Username: `PC-Anglia`
   + Password: `123456`  
 
-ptp>
+ftp>
 ```
 dir
 get [nume_fisier] (ex. primul)
@@ -387,3 +386,123 @@ quit
 dir
 ```
 + Daca apare si fisierul transferat e bine
+
+## 4. Calcularea IP-urilor
+
+IP oarecare: `172.168.244.156/13`  
+
+| | | |
+| :- | :- | :- |
+| <ins>**pas 1**</ins> | `1010.1100/1010.1000/1111.0000/1001.1100` | convertire in binar |
+| | `1111.1111/1111.1000/0000.0000/0000.0000` | n biti de 1 si restul de 0, unde n e masca |
+| | `1010.1100/1010.1000/0000.0000/0000.0000` | operatie de si-logic intre primele 2 adrese |
+
+| | | |
+| :- | :- | :- |
+| **NA** \(network address\) | `172.168.0.0/13` | a treia adresa |
+| **BA** \(broadcast address\) | `172.175.255.255/13` | NA + a doua adresa negata \(operatie de sau-logic / negare\) |
+| **RA** \(range address\) | `172.168.0.1 - 172.175.255.254 /13` | \(NA + 1\) - \(BA - 1\)|
+
++ **NA** e mereu numar par, **BA** e mereu numar impar  
++ **NA** si **BA** nu se asigneaza
++ **NA** nu se termina mereu cu 0, iar **BA** nu se termina mereu cu 255
+
+| retele | |
+| -: | :- |
+| DIJON | = 1022 H |
+| DEJA | = 126 H |
+| DAMBOVITA | = 31 H |
+| DUBLIN | = 2047 H |
+| DOLJ | = 511 H |
+| DAMASC | = 4095 H |
+| **legaturi intre retele** | |
+| DIJON - DEVA | = 2 H |
+| DEVA - DAMBOVITA | = 2 H |
+| DAMBOVITA - DUBLIN | = 2 H |
+| DUBLIN - DOLJ | = 2 H |
+| DOLJ - DAMASC | = 2 H |
+
+| <ins>**pas 2**</ins> | sortare mare -> mic, si incadrare intre puteri ale lui 2 | 2<sup>n</sup>-2 valori asignabile |
+| :- | :-: | - |
+| | 2<sup>12</sup> &le; 4095 &le; 2<sup>13</sup> | 2<sup>12</sup>=4096 - 2 < 4095 => 2<sup>12</sup> 2<sup>13</sup>
+| | 2<sup>11</sup> &le; 2047 &le; 2<sup>12</sup> |
+| | 2<sup>9</sup> &le; 1022 &le; 2<sup>10</sup> |
+| | 2<sup>9</sup> &le; 511 &le; 2<sup>10</sup> |
+| | 2<sup>6</sup> &le; 126 &le; 2<sup>7</sup> |
+| | 2<sup>5</sup> &le; 31 &le; 2<sup>6</sup> |
+| | 2<sup>1</sup> &le; 2 &le; 2<sup>2</sup> |
+| | 2<sup>1</sup> &le; 2 &le; 2<sup>2</sup> |
+| | 2<sup>1</sup> &le; 2 &le; 2<sup>2</sup> |
+| | 2<sup>1</sup> &le; 2 &le; 2<sup>2</sup> |
+| | 2<sup>1</sup> &le; 2 &le; 2<sup>2</sup> |
+
+
+| <ins>**pas 3**</ins> | |
+| -: | :- |
+| `4095` | 
+| **NA** | `172.168.0.0/19` \[32 \(nr de biti\) - 13 \(puterea lui 2 din dreapta\)\] |
+| **BA** | `172.168.31.255/19` \[31.255 de la pasul 1 \(19 de 1, apoi si-logic\)\] |
+| **RA** | `172.168.0.1 - 172.168.31.254 /19` |
+| `2047` | |
+| **NA** | `172.168.32.0/20` \(BA anterior + 1\) |
+| **BA** | `172.168.47.255/20` |
+| **RA** | `172.168.32.1 - 172.168.47.254 /20` |
+| `1022` | |
+| **NA** | `172.168.48.0/22` |
+| **BA** | `172.168.51.255/22` |
+| **RA** | `172.168.48.1 - 172.168.51.254 /22` |
+| `511` | |
+| **NA** | `172.168.52.0/22` |
+| **BA** | `172.168.55.255/22` |
+| **RA** | `172.168.52.1 - 172.168.55.254 /22` |
+| `126` | |
+| **NA** | `172.168.56.0/25` |
+| **BA** | `172.168.56.127/25` |
+| **RA** | `172.168.56.1 - 172.168.56.126 /25` |
+| `31` | |
+| **NA** | `172.168.56.128/26` |
+| **BA** | `172.168.56.191/26` |
+| **RA** | `172.168.56.129 - 172.168.56.190 /26` |
+| `2` DIJON - DEVA | |
+| **NA** | `172.168.56.192/30` |
+| **BA** | `172.168.56.195/30` |
+| **RA** | `172.168.56.193 - 172.168.56.194 /30` |
+| `2` DEVA - DAMBOVITA | |
+| **NA** | `172.168.56.196/30` |
+| **BA** | `172.168.56.199/30` |
+| **RA** | `172.168.56.197 - 172.168.56.198 /30` |
+| `2` DAMBOVITA - DUBLIN | |
+| **NA** | `172.168.56.200/30` |
+| **BA** | `172.168.56.203/30` |
+| **RA** | `172.168.56.201 - 172.168.56.202 /30` |
+| `2` DUBLIN - DOLJ | |
+| **NA** | `172.168.56.204/30` |
+| **BA** | `172.168.56.207/30` |
+| **RA** | `172.168.56.205 - 172.168.56.206 /30` |
+| `2` DOLJ - DAMASC | |
+| **NA** | `172.168.56.208/30` |
+| **BA** | `172.168.56.211/30` |
+| **RA** | `172.168.56.209 - 172.168.56.210 /30` |
+
+Primul IP asignabil din reteaua `4095`
++ 2<sup>12</sup> &le; 4095 &le; 2<sup>13</sup> deci sunt 8190 valori asignabile \(2<sup>13</sup>-2\)
++ 8190 / 26 = 315 IP-uri pentru switch-uri \(fiecare switch are 26 de porturi\)
++ Daca impartirea da cu rest, adaug 1 la rezultat
++ Rezerv un IP pentru DG => mai adaug 1 la rezultat
++ Daca e mai mare ca 255 \(iese de pe 8 biti\) impart la 256: 316 / 256 = 1 rest 60
++ Adaug catul pe al treilea octet si restul pe al patrulea octet la primul IP din retea
++ Mai adadug 1 pentru a gasi primul IP de host asignabil: `172.168.1.61`
+
+Primul IP asignabil din reteaua `2047`
++ 2<sup>11</sup> &le; 2047 &le; 2<sup>12</sup> deci sunt 4084 valori asignabile
++ 4084 / 26 = 157 rest 12
++ Rest &ne; 0 => 158
++ IP pentru DG => 159
++ `172.168.32.160`
+
+Primul IP asignabil din reteaua `1022`
++ 2<sup>9</sup> &le; 1022 &le; 2<sup>10</sup> deci sunt 1022 valori asignabile
++ 1022 / 26 = 39 rest ...
++ Rest &ne; 0 => 40
++ IP pentru DG => 41
++ `172.168.48.42`
