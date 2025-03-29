@@ -487,15 +487,15 @@ IP oarecare: `172.168.244.156/13`
 Primul IP asignabil din reteaua `4095`
 + 2<sup>12</sup> &le; 4095 &le; 2<sup>13</sup> deci sunt 8190 valori asignabile \(2<sup>13</sup>-2\)
 + 8190 / 26 = 315 IP-uri pentru switch-uri \(fiecare switch are 26 de porturi\)
-+ Daca impartirea da cu rest, adaug 1 la rezultat
-+ Rezerv un IP pentru DG => mai adaug 1 la rezultat
-+ Daca e mai mare ca 255 \(iese de pe 8 biti\) impart la 256: 316 / 256 = 1 rest 60
-+ Adaug catul pe al treilea octet si restul pe al patrulea octet la primul IP din retea
-+ Mai adadug 1 pentru a gasi primul IP de host asignabil: `172.168.1.61`
++ Daca impartirea da cu rest, adaugi 1 la rezultat
++ Rezerva un IP pentru DG => mai adaugi 1 la rezultat
++ Daca e mai mare ca 255 \(iese de pe 8 biti\) imparti la 256: 316 / 256 = 1 rest 60
++ Adaugi catul pe al treilea octet si restul pe al patrulea octet la primul IP din retea
++ Mai adaugi 1 pentru a gasi primul IP de host asignabil: `172.168.1.61`
 
 Primul IP asignabil din reteaua `2047`
-+ 2<sup>11</sup> &le; 2047 &le; 2<sup>12</sup> deci sunt 4084 valori asignabile
-+ 4084 / 26 = 157 rest 12
++ 2<sup>11</sup> &le; 2047 &le; 2<sup>12</sup> deci sunt 4094 valori asignabile
++ 4094 / 26 = 157 rest 12
 + Rest &ne; 0 => 158
 + IP pentru DG => 159
 + `172.168.32.160`
@@ -506,3 +506,173 @@ Primul IP asignabil din reteaua `1022`
 + Rest &ne; 0 => 40
 + IP pentru DG => 41
 + `172.168.48.42`
+
+## 5. ???
+
++ Click pe PC, click pe **Command Prompt**
+```
+ping 172.168.96.2
+ping 172.168.96.1
+```
++ Click pe Laptop, click pe **Terminal**
++ Apasa **Enter**
++ Password: `ciscoconpa55`
++ `enable`
++ Password: `ciscosecpa55`
++ `configure terminal`  
+
+config\)\#
+```
+interface giga 0/0
+```
+-if\)\#
+```
+description legatura cu ramura Eufrat
+ip address 172.168.96.1 255.255.240.0
+ip helper-address 10.10.10.6
+no shutdown
+exit
+```
+config\)\#
+```
+interface giga 0/1
+```
+-if\)\#
+```
+description ...
+ip address 10.10.10.1 255.255.255.252
+no shutdown
+exit
+```
+config\)\#
+```
+interface serial 0/0/0
+```
+-if\)\#
+```
+description legatura cu routerul serverului
+ip address 10.10.10.5 255.255.255.252
+no shutdown
+exit
+```
+config\)\#
+```
+ip route 192.168.100.96 255.255.255.240 serial 0/0/0
+```
+
++ Muta firul de la router la R-Server
++ Click pe Server, click pe **Terminal**
++ + Apasa **Enter**
++ Password: `ciscoconpa55`
++ `enable`
++ Password: `ciscosecpa55`
++ `configure terminal`  
+
+config\)\#
+```
+interface giga 0/0
+```
+-if\)\#
+```
+description ...
+ip address 192.168.100.97 255.255.255.224 (sau 240?)
+no shutdown
+exit
+```
+config\)\#
+```
+interface serial 0/0/0
+```
+-if\)\#
+```
+description ...
+ip address 10.10.10.6 255.255.255.252
+no shutdown
+exit
+```
+config\)\#
+```
+ip dhcp excluded-address 172.168.96.1 172.168.96.160
+ip dhcp pool Eufrat
+```
+dhcp-config\)\#
+```
+network 172.168.96.0 255.255.240.0
+default-router 172.168.96.1
+dns-server 192.168.100.110
+exit
+```
+config\)\#
+```
+ip route 172.168.96.0 255.255.240.0 serial 0/0/0
+ip route 10.10.10.0 255.255.255.252 serial 0/0/0
+```
+
++ Salveaza
++ Leaga echipamentul, fac teste, dau ping
+
++ Adu 2 Laptopuri in spatiul de lucru, leaga-le pe ambele cu FastEthernet 1 de Switch, cablu Straight-Through
++ Click pe Laptop, click pe **Terminal**
++ Apasa **Enter**
++ Password: `ciscoconpa55`
++ `enable`
++ Password: `ciscosecpa55`
++ `configure terminal`  
+
+config\)\#
+```
+interface range fa 0/1-2
+```
+-if\)\#
+```
+no shutdown
+exit
+```
+
++ Click pe PC, click pe **IP Configuration**
++ Click pe **DHCP**
++ ???
++ Leaga R-Server de Sw-Server cu G0/1 - G0/0, apoi Sw-Server de Server cu G0/1 - 0/0
++ Leaga Eufrat de R-Server cu Serial 0/0/0 ambele, cu cablu rosu fara ceas
++ Click pe Network Devices, click pe Wireless, click pe WPT300N, click in spatiul de lucru
++ Click pe WPT300N, scrie Wi-FiEufrat
++ Leaga service si ISR \(WiFiEufrat\) cu, FastEthernet, Ethernet \(primul\), cu cablu Straight-Through
++ Click pe service, click pe **IP Configuration**, scrie la IPv4 `192.168.0.15`
++ Click pe x mic, click pe **Web Browser**, scrie `192.168.0.1`
++ Logheaza-te cu credentalele `admin` `admin`
++ Click pe DHCP, click pe static IP
+  + `10.10.10.2`
+  + `255.255.255.252`
+  + `10.10.10.1`
+  + `192.168.100.110`
++ Router IP: `192.160.50.65`
++ Mask: `255.255.255.224`
++ Start: `192.260.50.66`
++ Max: 13
++ Click exit, scroll in afara ferestrei, save
++ Click pe Laptop, click pe **IP Configuration**
++ Pune noua adresa
++ Click pe x mic, click pe **Web Browser**, scrie IP-ul \(??\)
++ Logheaza-te cu credentalele `admin` `admin`
++ Click pe Wireless
++ SSID: Wi-FIEufrat
++ Click pe AUTO, AUTO
++ Channel 6 sau 11
++ Click Save
++ Click pe Security
++ Selecteaza WPA2Personal
++ Password: `RadiusPa55`
++ Click Save
++ Adauga un nou Laptop, redenumeste-l Lap1
++ Power off
++ Schimba placa de retea in WPC300N
++ Power on
++ Nu mai asignezi IP
++ Intra pe PC, **Web Browser**, click pe Wireless
++ Click pe Profiles \(NU TE APROPIA DE DEFAULT\)
++ New Wi-FiEufrat -> OK
++ Click Advanced
++ Nume: Wi-FiEthernet, next, yes
++ Click WPA2Personal, next
++ Password: `RadiusPa55`
++ Click next, save, connect profiles
