@@ -676,3 +676,66 @@ exit
 + Click WPA2Personal, next
 + Password: `RadiusPa55`
 + Click next, save, connect profiles
++ Intra pe **Email**
+  + Your Name: `Lap1`
+  + Email Address: `Lap1@info.ro`
+  + Incoming Mail Server: `192.168.100.110`
+  + Outgoing Mail Server: `192.168.100.110`
+  + User Name: `Lap1`
+  + Password: `123456`
++ Click **Save**
++ Adauga un nou Laptop, redenumeste-l Lap2
++ Power off
++ Schimba placa de retea in WPC300N
++ Power on
++ Nu mai asignezi IP
++ Intra pe PC, **Web Browser**, click pe Wireless
++ Click pe Profiles \(NU TE APROPIA DE DEFAULT\)
++ Apasa rapid pe Wi-FiEufrat, nu lasa sa gaseasca reteaua singur
++ Click Advanced
++ Nume: Wi-FiEthernet, next, yes
++ Click WPA2Personal, next
++ Password: `RadiusPa55`
++ Click next, save, connect profiles
++ Intra pe **Email**
+  + Your Name: `Lap2`
+  + Email Address: `Lap2@info.ro`
+  + Incoming Mail Server: `192.168.100.110`
+  + Outgoing Mail Server: `192.168.100.110`
+  + User Name: `Lap2`
+  + Password: `123456`
++ Click **Save**
++ Leaga ISR de R-Eufrat G0/0 si G0/1, cu cablu Crossover
++ Intra pe ???
++ `ping 10.10.10.1`
++ `ping 10.10.10.5`
++ `ping 10.10.10.6`
++ `ping 192.168.100.97`
++ `ping 192.168.100.98`
++ Intra pe **Email**
++ Trimite mail catre Server
++ Mergi la Server si apasa Receive
++ Trimite mail catre Eufrat
++ Mergi la Eufrat si apasa Receive
++ Pentru orice echipament:
+  + `ftp \[ip_server\]`
+  + `dir`
+  + `get \[unul-din-fisiere\]`
+  + `quit`
+  + `dir` <- verifica daca s-a transferat
++ Click pe Router
++ Intra pe **Command Prompt**
++ `ipconfig/all`
++ Cauta MAC/BIA
++ Click pe Laptop, **Web Browser**, router address
++ Click pe Wireless: prevent or permit
++ `00 04 9a 9b 0d 78`
++ Click **Save**
+
+| | |
+| -: | :- |
+| !!! | package recieved |
+| ... | request timeout |
+| UUU | problems |
+
++ Schimba route catre Server
