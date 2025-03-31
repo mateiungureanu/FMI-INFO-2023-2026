@@ -492,21 +492,21 @@ Primul IP asignabil din reteaua `4095`
 + Rezerva un IP pentru DG => mai adaugi 1 la rezultat
 + Daca e mai mare ca 255 \(iese de pe 8 biti\) imparti la 256: 316 / 256 = 1 rest 60
 + Adaugi catul pe al treilea octet si restul pe al patrulea octet la primul IP din retea
-+ Mai adaugi 1 pentru a gasi primul IP de host asignabil: `172.168.1.61`
++ Mai adaugi 1 pentru a gasi primul IP de host asignabil: `172.168.0.0` + 317 = `172.168.1.61`
 
 Primul IP asignabil din reteaua `2047`
 + 2<sup>11</sup> &le; 2047 &le; 2<sup>12</sup> deci sunt 4094 valori asignabile
 + 4094 / 26 = 157 rest 12
 + Rest &ne; 0 => 158
 + IP pentru DG => 159
-+ `172.168.32.160`
++ `172.168.32.0` + 160 = `172.168.32.160`
 
 Primul IP asignabil din reteaua `1022`
 + 2<sup>9</sup> &le; 1022 &le; 2<sup>10</sup> deci sunt 1022 valori asignabile
 + 1022 / 26 = 39 rest ...
 + Rest &ne; 0 => 40
 + IP pentru DG => 41
-+ `172.168.48.42`
++ `172.168.48.0` + 42 = `172.168.48.42`
 
 ## 5. ???
 
