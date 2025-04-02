@@ -18,41 +18,30 @@
 
 ### Setup
 
-+ Click pe \[End Devices\], click pe PC, click **in coltul din stanga jos** al spatiului de lucru
-+ Click pe numele lui \(PC0\), sterge numele, scrie "Grecia"
-+ Click pe PC
-+ **Power off**
-+ Scroll in jos pana la placa de retea, drag & drop in sectiunea Modules, cauta in sectiunea Modules placa cu **CGE** \(PT-HOST-NM-1CGE\), drag & drop in locul placii de retea
-+ **Power on**
-+ Schimba pe tabul _Desktop_
-+ Intra pe **IP Configuration**
++ \[End Devices\] -> PC -> nume: "Nume"
++ PC -> Physical -> power off -> inlocuieste placa de retea cu PT-HOST-NM-1CGE \(drag & drop\) -> power on
++ PC -> Desktop -> IP Configuration
   + IPv4 Address: `174.40.20.22`
   + Subnet Mask: `255.255.254.0`
   + Default Gateway: `174.40.20.1`
   + DNS Server: `209.165.200.254`
-+ Inchide de la x-ul mic
-+ Intra pe **Email**
-  + Your Name: `Grecia`
-  + Email Address: `Grecia@info.ro`
++ PC -> Desktop -> Email
+  + Your Name: `Nume`
+  + Email Address: `Nume@info.ro`
   + Incoming Mail Server: `209.165.200.254`
   + Outgoing Mail Server: `209.165.200.254`
-  + User Name: `Grecia`
+  + User Name: `Nume`
   + Password: `123456`
-+ Click **Save**
-+ \(optional\) Click **Configure Email**, verific daca am scris corect
-+ Click pe \[Network Devices\], click pe \[Switches\], click pe **2960**, click **la cativa centimetri mai sus si mai la dreapta fata de PC**
-+ Click pe numele lui \(Switch0\), sterge numele, scrie "Sw-Grecia"
-+ Click pe \[End Devices\], click pe Laptop, click **la cativa centimetri mai sus si mai la stanga fata de Switch**
-+ Click pe \[Connections\], click pe _Console_, click pe Switch, click pe **Console**, click pe Laptop, click pe **RS 232**  
++ Save
++ \(optional\) Configure Email -> verific daca am scris corect
++ \[Network Devices\] -> \[Switches\] -> 2960 -> nume: "Sw-Nume"
++ \[End Devices\] -> Laptop -> nume: "service"
++ \[Connections\] -> Console -> Switch \(Console\) --- Laptop \(RS 232\)  
 ![Rezultat](poze/switch.png)
-+ Click pe Laptop
-+ Schimba pe tabul _Desktop_
-+ Intra pe **Terminal**
-+ Click **OK**
-+ Apasa **Enter**
++ Laptop -> Desktop -> Terminal -> OK -> Enter
 
 ### Terminal
-Apasa **Enter** dupa fiecare comanda  
+Enter dupa fiecare comanda  
 
 switch\#  
 ```
@@ -62,9 +51,9 @@ configure terminal
 switch\(config\)\#
 ```
 no ip domain lookup
-hostname Sw-Grecia
+hostname Sw-Nume
 ```
-Sw-Grecia\(config\)\#
+Sw-Nume\(config\)\#
 ```
 no cdp run
 service password-encryption
@@ -73,7 +62,7 @@ enable password ciscoenapa55
 banner motd $Vineri 14.03.2025 la ora 9:00 va avea loc sedinta IT!$
 line console 0
 ```
-Sw-Grecia\(config-line\)\#
+Sw-Nume\(config-line\)\#
 ```
 password ciscoconpa55
 login
@@ -81,11 +70,11 @@ logging synchronous
 exec-timeout 20 10
 exit
 ```
-Sw-Grecia\(config\)\#
+Sw-Nume\(config\)\#
 ```
 line vty 0 15
 ```
-Sw-Grecia\(config-line\)\#
+Sw-Nume\(config-line\)\#
 ```
 password ciscovtypa55
 login
@@ -93,9 +82,9 @@ logging synchronous
 exec-timeout 5 5
 end
 ```
-Sw-Grecia\#
+Sw-Nume\#
 > **IMPORTANT**
-> Comanda asta salveaza configuratia. O poti rula oricand vrei, cand esti in Sw-Grecia\#
+> Comanda asta salveaza configuratia. O poti rula oricand vrei, cand esti in Sw-Nume\#
 ```
 copy running-config startup-config
 ```
@@ -104,23 +93,23 @@ copy running-config startup-config
 clock set HH:MM:SS D Mon YYYY
 configure terminal
 ```
-Sw-Grecia\(config\)\#
+Sw-Nume\(config\)\#
 ```
 ip domain name info.ro
 username Admin01 privilege 15 secret Admin01pa55
 line vty 0 15
 ```
-Sw-Grecia\(config-line\)\# 
+Sw-Nume\(config-line\)\# 
 ```
 transport input ssh
 login local
 exit
 ```
-Sw-Grecia\(config\)\#
+Sw-Nume\(config\)\#
 ```
 crypto key generate rsa
 ```
-+ `2048`, **Enter** \(intrebare despre biti\)
++ `2048`, Enter \(intrebare despre biti\)
 ```
 ip ssh version 2
 logging host 209.165.200.254
@@ -128,14 +117,14 @@ service timestamps log datetime msec
 service timestamps debug datetime msec
 interface vlan 1
 ```
-Sw-Grecia\(config-if\)\#
+Sw-Nume\(config-if\)\#
 ```
 description legatura cu reteaua 174.40.20.0/23
 ip address 174.40.20.2 255.255.254.0
 no shutdown
 exit
 ```
-Sw-Grecia\(config\)\# 
+Sw-Nume\(config\)\# 
 ```
 ip default-gateway 174.40.20.1
 exit
@@ -143,10 +132,10 @@ exit
 
 ### Testarea echipamentului
 
-+ Click pe \[Connections\], click pe _Copper Straight-Through_, click pe Switch, click pe **GigabitEthernet 0/2**, click pe PC, click pe **GigabitEthernet0**
-+ Click pe PC, click pe **Command Prompt**
++ \[Connections\] -> Copper Straight-Through -> Switch \(GigabitEthernet 0/2\) --- PC \(GigabitEthernet0\)
++ PC -> Desktop -> Command Prompt
 
-Sw-Grecia\#
+Sw-Nume\#
 ```
 ping 174.40.20.2
 ssh -l Admin01 174.40.20.2
@@ -158,7 +147,7 @@ ssh -l Admin01 174.40.20.2
 ## 2. Router
 
 Schimbari in setul de date:  
-| Anglia |     | Sw-Anglia |
+| Nume |     | Sw-Nume |
 | :----: | :-: | :-------: |
 | 171.160.1.61 | IPv4 Address | 171.160.0.2  |
 | 255.255.224.0 | Subnet Mask | 255.255.224.0 |
@@ -167,23 +156,13 @@ Schimbari in setul de date:
 
 ### Setup
 
-+ Click pe \[Network Devices\], click pe \[Routers\], click pe **2911** sau pe **2901**, click **la cativa centimetri mai la dreapta fata de PC**
-+ Click pe numele lui \(Router0\), sterge numele, scrie "R-Anglia"
-+ Click pe Router
-+ **Power off**
-+ Cauta in sectiunea Modules placa cu **HWIC-2T**, drag & drop **cat mai aproape de sursa**
-+ **Power on**
-+ Inchide fila
-+ Click pe bulina dinspre Switch de pe cablul _Console_ Laptop-Switch, click pe Router, click pe **Console**
-+ Click pe Laptop
-+ Schimba pe tabul _Desktop_
-+ Intra pe **Terminal**
-+ Click **OK**
-+ Interogare: `no`, **Enter**
-+ Apasa **Enter**
++ \[Network Devices\] -> \[Routers\] -> 2911 \(sau 2901 daca se cere\) -> nume: "R-Nume"
++ Router -> Physical -> power off -> inlocuieste placa de retea cu HWIC-2T \(drag & drop\) -> power on
++ Console Laptop --- Switch -> Console Laptop --- Router \(Console\)
++ Laptop -> Desktop -> Terminal -> OK -> `no`, Enter -> Enter
 
 ### Terminal
-Apasa **Enter** dupa fiecare comanda  
+Enter dupa fiecare comanda  
 
 router\#  
 ```
@@ -193,9 +172,9 @@ configure terminal
 router\(config\)\#
 ```
 no ip domain lookup
-hostname R-Anglia
+hostname R-Nume
 ```
-R-Anglia\(config\)\#
+R-Nume\(config\)\#
 ```
 no cdp run
 service password-encryption
@@ -207,7 +186,7 @@ banner login $Accesul persoanelor neautorizate este strict interzis!$
 banner motd $Vineri 21.03.2025 la ora 14:00 serverul va fi oprit!$
 line console 0
 ```
-R-Anglia\(config-line\)\#
+R-Nume\(config-line\)\#
 ```
 password ciscoconpa55
 login
@@ -215,11 +194,11 @@ logging synchronous
 exec-timeout 20 10
 exit
 ```
-R-Anglia\(config\)\#
+R-Nume\(config\)\#
 ```
 line vty 0 15
 ```
-R-Anglia\(config-line\)\#
+R-Nume\(config-line\)\#
 ```
 password ciscovtypa55
 login
@@ -227,9 +206,9 @@ logging synchronous
 exec-timeout 5 5
 end
 ```
-R-Anglia\#
+R-Nume\#
 > **IMPORTANT**
-> Comanda asta salveaza configuratia. O poti rula oricand vrei, cand esti in R-Anglia\#
+> Comanda asta salveaza configuratia. O poti rula oricand vrei, cand esti in R-Nume\#
 ```
 copy running-config startup-config
 ```
@@ -238,23 +217,23 @@ copy running-config startup-config
 clock set HH:MM:SS D Mon YYYY
 configure terminal
 ```
-R-Anglia\(config\)\#
+R-Nume\(config\)\#
 ```
 ip domain name info.ro
 username Admin01 privilege 15 secret Admin01pa55
 line vty 0 15
 ```
-R-Anglia\(config-line\)\# 
+R-Nume\(config-line\)\# 
 ```
 transport input ssh
 login local
 exit
 ```
-R-Anglia\(config\)\#
+R-Nume\(config\)\#
 ```
 crypto key generate rsa
 ```
-+ `2048`, **Enter** \(intrebare despre biti\)
++ `2048`, Enter \(intrebare despre biti\)
 ```
 ip ssh version 2
 logging host 171.160.47.254
@@ -262,18 +241,18 @@ service timestamps log datetime msec
 service timestamps debug datetime msec
 interface gigabitethernet 0/0
 ```
-R-Anglia\(config-if\)\#
+R-Nume\(config-if\)\#
 ```
 description legatura cu reteaua 171.160.0.0/19
 ip address 171.160.0.1 255.255.224.0
 no shutdown
 exit
 ```
-R-Anglia\(config\)\# 
+R-Nume\(config\)\# 
 ```
 interface serial 0/0/0
 ```
-R-Anglia\(config-if\)\#
+R-Nume\(config-if\)\#
 ```
 description legatura cu routerul R-server
 ip address 171.160.56.5 255.255.255.252
@@ -282,8 +261,8 @@ no shutdown
 
 ### Testarea echipamentului
 
-+ Click pe \[Connections\], click pe _Copper Straight-Through_, click pe Switch, click pe **GigabitEthernet 0/1**, click pe Router, click pe **GigabitEthernet 0/0**
-+ Click pe PC, intra pe **Command Prompt**  
++ \[Connections\] -> Copper Straight-Through -> Switch \(GigabitEthernet 0/1\) --- Router \(GigabitEthernet 0/0\)
++ PC -> Command Prompt
 sau
 + Click pe altceva, intra pe CLI
   + Password: `ciscoconpa55`
@@ -342,11 +321,11 @@ ping 171.160.56.6
 + Click pe **Syslog** in sectiunea Services, schimba **Service** pe _On_
 + Click pe **Email** in sectiunea Services, schimba **SMTP** pe _On_, schimba **POP3 Services** pe _On_
   + Domain Name: `info.ro`
-  + User: `PC-Anglia`, `PC-Albania`, `service`, `Server1` si toti ceilalti useri
+  + User: `PC-Nume`, `PC-Albania`, `service`, `Server1` si toti ceilalti useri
   + Password: `123456` pentru toti userii   
   + Dupa fiecare user si parola, click **+**
 + Click pe **FTP** in sectiunea Services, schimba **Service** pe _On_
-  + User: `PC-Anglia`, `PC-Albania`, `service`, `Server1` si toti ceilalti useri
+  + User: `PC-Nume`, `PC-Albania`, `service`, `Server1` si toti ceilalti useri
   + Password: `123456` pentru toti userii
   + Bifeaza **Write**, **Read**, **List**  
   + Dupa fiecare user si parola, click **+**
@@ -374,7 +353,7 @@ ping 171.160.56.6
 dir
 ftp 171.160.47.254
 ```
-  + Username: `PC-Anglia`
+  + Username: `PC-Nume`
   + Password: `123456`  
 
 ftp>
