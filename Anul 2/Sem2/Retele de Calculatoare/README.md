@@ -2,26 +2,27 @@
 # Laborator: Dragan Mihaita
 
 ## Table of contents
-1. [Calcularea IP-urilor](#1-calcularea-ip-urilor)
-2. [Switch](#2-switch)
++ [Calcularea IP-urilor](#calcularea-ip-urilor)
++ [Host si SERVICE](#host-si-service)
++ [Switch](#switch)
    + [Setup](#setup)
    + [Terminal](#terminal)
    + [Testarea echipamentului](#testarea-echipamentului)
-3. [Router](#3-router)
++ [Router](#router)
    + [Setup](#setup-1)
    + [Terminal](#terminal-1)
    + [Testarea echipamentului](#testarea-echipamentului-1)
-4. [Server](#4-server)
++ [Server](#server)
    + [Setup](#setup-2)
    + [Terminal](#terminal-2)
    + [Testarea echipamentului](#testarea-echipamentului-2)
-5. [Wi-FI](#5-wi-fi)
++ [Wi-FI](#wi-fi)
    + [Setup](#setup-3)
    + [Terminal](#terminal-3)
    + [Testarea echipamentului](#testarea-echipamentului-3)
-6. [Laptop Wi-Fi](#6-laptop-wi-fi)
++ [Laptop Wi-Fi](#laptop-wi-fi)
 
-## 1. Calcularea IP-urilor
+## Calcularea IP-urilor
 
 Se da un IP oarecare: `172.168.244.156/13`  
 
@@ -141,7 +142,7 @@ Primul IP asignabil din reteaua `1022`
 + IP pentru DG => 41
 + `172.168.48.0` + 42 = `172.168.48.42`
 
-## 2. Switch
+## Host si SERVICE
 
 ### Setup
 
@@ -161,13 +162,19 @@ Primul IP asignabil din reteaua `1022`
   + Password: `123456`
 + Save
 + \(optional\) Configure Email -> verific daca am scris corect
-+ \[Network Devices\] -> \[Switches\] -> 2960 -> nume: "Sw-Nume"
 + \[End Devices\] -> Laptop -> nume: "SERVICE"
+
+## Switch
+
+### Setup
+
++ \[Network Devices\] -> \[Switches\] -> 2960 -> nume: "Sw-Nume"
+
 + \[Connections\] -> Console -> Sw-Nume \(Console\) --- SERVICE \(RS 232\)  
 ![Rezultat](poze/switch.png)
 + Laptop -> Desktop -> Terminal -> OK -> Enter
 
-### Terminal
+### Comenzi
 Enter dupa fiecare comanda  
 
 switch\#  
@@ -271,7 +278,7 @@ ssh -l Admin01 174.40.20.2
 
 ![Testare reusita](poze/switch_test.png)
 
-## 3. Router
+## Router
 
 Schimbari in setul de date:  
 | Nume |     | Sw-Nume |
@@ -399,7 +406,7 @@ ssh -l Admin01 [ip_de_la_unul_din_dispozitive]
 ```
 
 
-## 4. Server
+## Server
 
 ### Setup
 
@@ -496,7 +503,7 @@ dir
 
 
 
-## 5. Wi-Fi
+## Wi-Fi
 
 + \[Network Devices\] -> \[Wireless Devices\] -> WRT300N -> nume: Wi-FiNume
 + \[Connections]] -> Copper Straight-Through -> SERVICE \(FastEthernet0\) --- Wi-Fi \(Ethernet1\)
@@ -533,7 +540,7 @@ dir
 + Dupa ce adaugi cele 2 laptopuri si te asiguri ca merg, conecteaza Wi-Fi-ul la Router-ul apropiat: \[Connections\] -> Copper Cross-Over -> R-Server \(Gigabit 0/1\) --- Wi-FiNume \(Internet\)
 
 
-## 6. Laptop Wi-Fi
+## Laptop Wi-Fi
 
 + \[End-Devices\] -> Laptop -> nume: "Lap1" / "Lap2"
 + "Lap1" / "Lap2" -> Physical -> power off -> inlocuieste placa de retea cu WPC-300N \(drag & drop\) -> power on
