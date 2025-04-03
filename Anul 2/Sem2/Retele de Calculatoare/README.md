@@ -2,374 +2,28 @@
 # Laborator: Dragan Mihaita
 
 ## Table of contents
-1. [Switch](#1-switch)
+1. [Calcularea IP-urilor](#1-calcularea-ip-urilor)
+2. [Switch](#2-switch)
    + [Setup](#setup)
    + [Terminal](#terminal)
    + [Testarea echipamentului](#testarea-echipamentului)
-2. [Router](#2-router)
+3. [Router](#3-router)
    + [Setup](#setup-1)
    + [Terminal](#terminal-1)
    + [Testarea echipamentului](#testarea-echipamentului-1)
-3. [Server](#3-server)
-4. [Calcularea IP-urilor](#4-calcularea-ip-urilor)
-5. [???](#???)
+4. [Server](#4-server)
+   + [Setup](#setup-2)
+   + [Terminal](#terminal-2)
+   + [Testarea echipamentului](#testarea-echipamentului-2)
+5. [Wi-FI](#5-wi-fi)
+   + [Setup](#setup-3)
+   + [Terminal](#terminal-3)
+   + [Testarea echipamentului](#testarea-echipamentului-3)
+6. [Laptop Wi-Fi](#6-laptop-wi-fi)
 
-## 1. Switch
+## 1. Calcularea IP-urilor
 
-### Setup
-
-+ \[End Devices\] -> PC -> nume: "Nume"
-+ PC -> Physical -> power off -> inlocuieste placa de retea cu PT-HOST-NM-1CGE \(drag & drop\) -> power on
-+ PC -> Desktop -> IP Configuration
-  + IPv4 Address: `174.40.20.22`
-  + Subnet Mask: `255.255.254.0`
-  + Default Gateway: `174.40.20.1`
-  + DNS Server: `209.165.200.254`
-+ PC -> Desktop -> Email
-  + Your Name: `Nume`
-  + Email Address: `Nume@info.ro`
-  + Incoming Mail Server: `209.165.200.254`
-  + Outgoing Mail Server: `209.165.200.254`
-  + User Name: `Nume`
-  + Password: `123456`
-+ Save
-+ \(optional\) Configure Email -> verific daca am scris corect
-+ \[Network Devices\] -> \[Switches\] -> 2960 -> nume: "Sw-Nume"
-+ \[End Devices\] -> Laptop -> nume: "service"
-+ \[Connections\] -> Console -> Switch \(Console\) --- Laptop \(RS 232\)  
-![Rezultat](poze/switch.png)
-+ Laptop -> Desktop -> Terminal -> OK -> Enter
-
-### Terminal
-Enter dupa fiecare comanda  
-
-switch\#  
-```
-enable
-configure terminal
-```
-switch\(config\)\#
-```
-no ip domain lookup
-hostname Sw-Nume
-```
-Sw-Nume\(config\)\#
-```
-no cdp run
-service password-encryption
-enable secret ciscosecpa55
-enable password ciscoenapa55
-banner motd $Vineri 14.03.2025 la ora 9:00 va avea loc sedinta IT!$
-line console 0
-```
-Sw-Nume\(config-line\)\#
-```
-password ciscoconpa55
-login
-logging synchronous
-exec-timeout 20 10
-exit
-```
-Sw-Nume\(config\)\#
-```
-line vty 0 15
-```
-Sw-Nume\(config-line\)\#
-```
-password ciscovtypa55
-login
-logging synchronous
-exec-timeout 5 5
-end
-```
-Sw-Nume\#
-> **IMPORTANT**
-> Comanda asta salveaza configuratia. O poti rula oricand vrei, cand esti in Sw-Nume\#
-```
-copy running-config startup-config
-```
-+ **Enter** \(intrebare despre nume\)
-```
-clock set HH:MM:SS D Mon YYYY
-configure terminal
-```
-Sw-Nume\(config\)\#
-```
-ip domain name info.ro
-username Admin01 privilege 15 secret Admin01pa55
-line vty 0 15
-```
-Sw-Nume\(config-line\)\# 
-```
-transport input ssh
-login local
-exit
-```
-Sw-Nume\(config\)\#
-```
-crypto key generate rsa
-```
-+ `2048`, Enter \(intrebare despre biti\)
-```
-ip ssh version 2
-logging host 209.165.200.254
-service timestamps log datetime msec
-service timestamps debug datetime msec
-interface vlan 1
-```
-Sw-Nume\(config-if\)\#
-```
-description legatura cu reteaua 174.40.20.0/23
-ip address 174.40.20.2 255.255.254.0
-no shutdown
-exit
-```
-Sw-Nume\(config\)\# 
-```
-ip default-gateway 174.40.20.1
-exit
-```
-
-### Testarea echipamentului
-
-+ \[Connections\] -> Copper Straight-Through -> Switch \(GigabitEthernet 0/2\) --- PC \(GigabitEthernet0\)
-+ PC -> Desktop -> Command Prompt
-
-Sw-Nume\#
-```
-ping 174.40.20.2
-ssh -l Admin01 174.40.20.2
-```
-+ `Admin01pa55`
-
-![Testare reusita](poze/switch_test.png)
-
-## 2. Router
-
-Schimbari in setul de date:  
-| Nume |     | Sw-Nume |
-| :----: | :-: | :-------: |
-| 171.160.1.61 | IPv4 Address | 171.160.0.2  |
-| 255.255.224.0 | Subnet Mask | 255.255.224.0 |
-| 171.160.0.1 | Default Gateway | 171.160.0.1 |
-| 171.160.47.254| DNS Server
-
-### Setup
-
-+ \[Network Devices\] -> \[Routers\] -> 2911 \(sau 2901 daca se cere\) -> nume: "R-Nume"
-+ Router -> Physical -> power off -> inlocuieste placa de retea cu HWIC-2T \(drag & drop\) -> power on
-+ Console Laptop --- Switch -> Console Laptop --- Router \(Console\)
-+ Laptop -> Desktop -> Terminal -> OK -> `no`, Enter -> Enter
-
-### Terminal
-Enter dupa fiecare comanda  
-
-router\#  
-```
-enable
-configure terminal
-```
-router\(config\)\#
-```
-no ip domain lookup
-hostname R-Nume
-```
-R-Nume\(config\)\#
-```
-no cdp run
-service password-encryption
-security passwords min-length 10
-login block-for 50 attempts 3 within 20
-enable secret ciscosecpa55
-enable password ciscoenapa55
-banner login $Accesul persoanelor neautorizate este strict interzis!$
-banner motd $Vineri 21.03.2025 la ora 14:00 serverul va fi oprit!$
-line console 0
-```
-R-Nume\(config-line\)\#
-```
-password ciscoconpa55
-login
-logging synchronous
-exec-timeout 20 10
-exit
-```
-R-Nume\(config\)\#
-```
-line vty 0 15
-```
-R-Nume\(config-line\)\#
-```
-password ciscovtypa55
-login
-logging synchronous
-exec-timeout 5 5
-end
-```
-R-Nume\#
-> **IMPORTANT**
-> Comanda asta salveaza configuratia. O poti rula oricand vrei, cand esti in R-Nume\#
-```
-copy running-config startup-config
-```
-+ **Enter** \(intrebare despre nume\)
-```
-clock set HH:MM:SS D Mon YYYY
-configure terminal
-```
-R-Nume\(config\)\#
-```
-ip domain name info.ro
-username Admin01 privilege 15 secret Admin01pa55
-line vty 0 15
-```
-R-Nume\(config-line\)\# 
-```
-transport input ssh
-login local
-exit
-```
-R-Nume\(config\)\#
-```
-crypto key generate rsa
-```
-+ `2048`, Enter \(intrebare despre biti\)
-```
-ip ssh version 2
-logging host 171.160.47.254
-service timestamps log datetime msec
-service timestamps debug datetime msec
-interface gigabitethernet 0/0
-```
-R-Nume\(config-if\)\#
-```
-description legatura cu reteaua 171.160.0.0/19
-ip address 171.160.0.1 255.255.224.0
-no shutdown
-exit
-```
-R-Nume\(config\)\# 
-```
-interface serial 0/0/0
-```
-R-Nume\(config-if\)\#
-```
-description legatura cu routerul R-server
-ip address 171.160.56.5 255.255.255.252
-no shutdown
-```
-
-### Testarea echipamentului
-
-+ \[Connections\] -> Copper Straight-Through -> Switch \(GigabitEthernet 0/1\) --- Router \(GigabitEthernet 0/0\)
-+ PC -> Command Prompt
-sau
-+ Click pe altceva, intra pe CLI
-  + Password: `ciscoconpa55`
-```
-ping [ip_de_la_unul_din_dispozitive]
-ssh -l Admin01 [ip_de_la_unul_din_dispozitive]
-```
-
-
-## 3. Server
-
-### Setup
-
-+ Click pe \[End-Devices\], click pe \[Server\], click **undeva in spatiul de lucru \(?\)**
-+ Click pe numele lui \(Server0\), sterge numele, scrie "Server1"
-+ Click pe Server
-+ **Power off**
-+ Drag & drop la placa de retea in sectiunea Modules, cauta in sectiunea Modules placa cu **CGE** \(PT-HOST-NM-1CGE\), drag & drop in locul placii de retea
-+ **Power on**
-+ Schimba pe tabul _Desktop_
-+ Intra pe **IP Configuration**
-  + IPv4 Address: `171.160.47.254`
-  + Subnet Mask: `255.255.240.0`
-  + Default Gateway: `171.160.32.1`
-  + DNS Server: `171.160.47.254`
-+ Inchide de la x-ul mic
-+ Intra pe **Email**
-  + Your Name: `Server`
-  + Email Address: `Server@info.ro`
-  + Incoming Mail Server: `171.160.47.254`
-  + Outgoing Mail Server: `171.160.47.254`
-  + User Name: `Server`
-  + Password: `123456`
-+ Click **Save**
-+ \(optional\) Click **Configure Email**, verific daca am scris corect
-+ Click pe \[Connections\], click pe _Copper Straight-Through_, click pe Switch, click pe **FastEthernet**, click pe Server, click pe **FastEthernet**
-
-### Verificare
-
-+ Intra pe **Command Prompt**
-```
-ping 171.160.32.2
-ssh -l Admin 171.160.32.2
-ping 171.160.32.1
-ping 171.160.56.6
-```
-
-### Continuare
-
-+ Schimba pe tabul _Services_
-+ Schimba **HTTP** pe _Off_
-+ Click pe **DNS** in sectiunea Services, schimba **DNS Services** pe _On_
-  + Name: `info.ro`
-  + Address: `171.160.47.254`
-+ Click **Add**
-+ Click pe **Syslog** in sectiunea Services, schimba **Service** pe _On_
-+ Click pe **Email** in sectiunea Services, schimba **SMTP** pe _On_, schimba **POP3 Services** pe _On_
-  + Domain Name: `info.ro`
-  + User: `PC-Nume`, `PC-Albania`, `service`, `Server1` si toti ceilalti useri
-  + Password: `123456` pentru toti userii   
-  + Dupa fiecare user si parola, click **+**
-+ Click pe **FTP** in sectiunea Services, schimba **Service** pe _On_
-  + User: `PC-Nume`, `PC-Albania`, `service`, `Server1` si toti ceilalti useri
-  + Password: `123456` pentru toti userii
-  + Bifeaza **Write**, **Read**, **List**  
-  + Dupa fiecare user si parola, click **+**
-+ Click pe PC
-+ Schimba pe tabul _Desktop_
-+ Intra pe **Web Hosts**
-  + URL: `info.ro`
-+ Click **Go**
-+ Intra pe **Email**
-+ Click pe **Compose**
-  + To: `Server@info.ro`
-  + Subject: `Test`
-+ Verifica serviciu email -> send \(a trimis cu succes\) **??????**
-
-### Verificare
-
-+ Click pe destinatie
-+ Schimba pe tabul _Desktop_
-+ Intra pe **Email**
-+ Verifica la Received
-+ Click pe PC
-+ Schimba pe tabul _Desktop_
-+ Intra pe **Command Prompt**
-```
-dir
-ftp 171.160.47.254
-```
-  + Username: `PC-Nume`
-  + Password: `123456`  
-
-ftp>
-```
-dir
-get [nume_fisier] (ex. primul)
-quit 
-```
-```
-dir
-```
-+ Daca apare si fisierul transferat e bine
-
-## 4. Calcularea IP-urilor
-
-IP oarecare: `172.168.244.156/13`  
+Se da un IP oarecare: `172.168.244.156/13`  
 
 | | | |
 | :- | :- | :- |
@@ -487,14 +141,411 @@ Primul IP asignabil din reteaua `1022`
 + IP pentru DG => 41
 + `172.168.48.0` + 42 = `172.168.48.42`
 
-## 5. ???
+## 2. Switch
+
+### Setup
+
++ \[End Devices\] -> PC -> nume: "Nume"
++ PC -> Physical -> power off -> inlocuieste placa de retea cu PT-HOST-NM-1CGE \(drag & drop\) -> power on
++ PC -> Desktop -> IP Configuration
+  + IPv4 Address: `174.40.20.22`
+  + Subnet Mask: `255.255.254.0`
+  + Default Gateway: `174.40.20.1`
+  + DNS Server: `209.165.200.254`
++ PC -> Desktop -> Email
+  + Your Name: `Nume`
+  + Email Address: `Nume@info.ro`
+  + Incoming Mail Server: `209.165.200.254`
+  + Outgoing Mail Server: `209.165.200.254`
+  + User Name: `Nume`
+  + Password: `123456`
++ Save
++ \(optional\) Configure Email -> verific daca am scris corect
++ \[Network Devices\] -> \[Switches\] -> 2960 -> nume: "Sw-Nume"
++ \[End Devices\] -> Laptop -> nume: "SERVICE"
++ \[Connections\] -> Console -> Sw-Nume \(Console\) --- SERVICE \(RS 232\)  
+![Rezultat](poze/switch.png)
++ Laptop -> Desktop -> Terminal -> OK -> Enter
+
+### Terminal
+Enter dupa fiecare comanda  
+
+switch\#  
+```
+enable
+configure terminal
+```
+switch\(config\)\#
+```
+no ip domain lookup
+hostname Sw-Nume
+```
+Sw-Nume\(config\)\#
+```
+no cdp run
+service password-encryption
+enable secret ciscosecpa55
+enable password ciscoenapa55
+banner motd $Vineri 14.03.2025 la ora 9:00 va avea loc sedinta IT!$
+line console 0
+```
+Sw-Nume\(config-line\)\#
+```
+password ciscoconpa55
+login
+logging synchronous
+exec-timeout 20 10
+exit
+```
+Sw-Nume\(config\)\#
+```
+line vty 0 15
+```
+Sw-Nume\(config-line\)\#
+```
+password ciscovtypa55
+login
+logging synchronous
+exec-timeout 5 5
+end
+```
+Sw-Nume\#
+> **IMPORTANT**
+> Comanda asta salveaza configuratia. O poti rula oricand vrei, cand esti in Sw-Nume\#
+```
+copy running-config startup-config
+```
++ **Enter** \(intrebare despre nume\)
+```
+clock set HH:MM:SS D Mon YYYY
+configure terminal
+```
+Sw-Nume\(config\)\#
+```
+ip domain name info.ro
+username Admin01 privilege 15 secret Admin01pa55
+line vty 0 15
+```
+Sw-Nume\(config-line\)\# 
+```
+transport input ssh
+login local
+exit
+```
+Sw-Nume\(config\)\#
+```
+crypto key generate rsa
+```
++ `2048`, Enter \(intrebare despre biti\)
+```
+ip ssh version 2
+logging host 209.165.200.254
+service timestamps log datetime msec
+service timestamps debug datetime msec
+interface vlan 1
+```
+Sw-Nume\(config-if\)\#
+```
+description legatura cu reteaua 174.40.20.0/23
+ip address 174.40.20.2 255.255.254.0
+no shutdown
+exit
+```
+Sw-Nume\(config\)\# 
+```
+ip default-gateway 174.40.20.1
+exit
+```
+
+### Testarea echipamentului
+
++ \[Connections\] -> Copper Straight-Through -> Sw-Nume \(GigabitEthernet 0/2\) --- PC \(GigabitEthernet0\)
++ PC -> Desktop -> Command Prompt
+
+Sw-Nume\#
+```
+ping 174.40.20.2
+ssh -l Admin01 174.40.20.2
+```
++ `Admin01pa55`
+
+![Testare reusita](poze/switch_test.png)
+
+## 3. Router
+
+Schimbari in setul de date:  
+| Nume |     | Sw-Nume |
+| :----: | :-: | :-------: |
+| 171.160.1.61 | IPv4 Address | 171.160.0.2  |
+| 255.255.224.0 | Subnet Mask | 255.255.224.0 |
+| 171.160.0.1 | Default Gateway | 171.160.0.1 |
+| 171.160.47.254| DNS Server
+
+### Setup
+
++ \[Network Devices\] -> \[Routers\] -> 2911 \(sau 2901 daca se cere\) -> nume: "R-Nume"
++ R-Nume -> Physical -> power off -> inlocuieste placa de retea cu HWIC-2T \(drag & drop\) -> power on
++ Console -> SERVICE --- Sw-Nume -> SERVICE --- R-Nume \(Console\)
++ SERVICE -> Desktop -> Terminal -> OK -> `no`, Enter -> Enter
+
+### Terminal
+Enter dupa fiecare comanda  
+
+router\#  
+```
+enable
+configure terminal
+```
+router\(config\)\#
+```
+no ip domain lookup
+hostname R-Nume
+```
+R-Nume\(config\)\#
+```
+no cdp run
+service password-encryption
+security passwords min-length 10
+login block-for 50 attempts 3 within 20
+enable secret ciscosecpa55
+enable password ciscoenapa55
+banner login $Accesul persoanelor neautorizate este strict interzis!$
+banner motd $Vineri 21.03.2025 la ora 14:00 serverul va fi oprit!$
+line console 0
+```
+R-Nume\(config-line\)\#
+```
+password ciscoconpa55
+login
+logging synchronous
+exec-timeout 20 10
+exit
+```
+R-Nume\(config\)\#
+```
+line vty 0 15
+```
+R-Nume\(config-line\)\#
+```
+password ciscovtypa55
+login
+logging synchronous
+exec-timeout 5 5
+end
+```
+R-Nume\#
+> **IMPORTANT**
+> Comanda asta salveaza configuratia. O poti rula oricand vrei, cand esti in R-Nume\#
+```
+copy running-config startup-config
+```
++ **Enter** \(intrebare despre nume\)
+```
+clock set HH:MM:SS D Mon YYYY
+configure terminal
+```
+R-Nume\(config\)\#
+```
+ip domain name info.ro
+username Admin01 privilege 15 secret Admin01pa55
+line vty 0 15
+```
+R-Nume\(config-line\)\# 
+```
+transport input ssh
+login local
+exit
+```
+R-Nume\(config\)\#
+```
+crypto key generate rsa
+```
++ `2048`, Enter \(intrebare despre biti\)
+```
+ip ssh version 2
+logging host 171.160.47.254
+service timestamps log datetime msec
+service timestamps debug datetime msec
+interface gigabitethernet 0/0
+```
+R-Nume\(config-if\)\#
+```
+description legatura cu reteaua 171.160.0.0/19
+ip address 171.160.0.1 255.255.224.0
+no shutdown
+exit
+```
+R-Nume\(config\)\# 
+```
+interface serial 0/0/0
+```
+R-Nume\(config-if\)\#
+```
+description legatura cu routerul R-server
+ip address 171.160.56.5 255.255.255.252
+no shutdown
+```
+
+### Testarea echipamentului
+
++ \[Connections\] -> Copper Straight-Through -> Sw-Nume \(GigabitEthernet 0/1\) --- R-Nume \(GigabitEthernet 0/0\)
++ PC -> Command Prompt  
+sau
++ Click pe altceva, intra pe CLI
+  + Password: `ciscoconpa55`
+```
+ping [ip_de_la_unul_din_dispozitive]
+ssh -l Admin01 [ip_de_la_unul_din_dispozitive]
+```
+
+
+## 4. Server
+
+### Setup
+
++ \[End-Devices\] -> Server -> nume: NumeServer
++ Server -> Physical -> power off -> inlocuieste placa de retea cu PT-HOST-NM-1CGE \(drag & drop\) -> power on
++ Server -> Desktop -> IP Configuration
+  + IPv4 Address: `171.160.47.254`
+  + Subnet Mask: `255.255.240.0`
+  + Default Gateway: `171.160.32.1`
+  + DNS Server: `171.160.47.254`
++ Server -> Desktop -> Email
+  + Your Name: `Server`
+  + Email Address: `Server@info.ro`
+  + Incoming Mail Server: `171.160.47.254`
+  + Outgoing Mail Server: `171.160.47.254`
+  + User Name: `Server`
+  + Password: `123456`
++ Save
++ \(optional\) Configure Email, verific daca am scris corect
++ Server -> Services -> HTTP
+  + HTTP: off
++ Server -> Services -> DNS
+  + DNS Services: on
+  + Name: `info.ro`
+  + Address: `171.160.47.254`
++ Server -> Services -> Syslog
+  + Service: on
++ Server -> Services -> Email
+  + SMTP: on
+  + POP3 Services: on
+  + Domain Name: `info.ro`
+  + User: toti userii \(`Nume`, `Lap`, `SERVICE`, `NumeServer` etc.\)
+  + Password: `123456` pentru toti userii
+  + `+` dupa fiecare user si parola
++ Server -> Services -> FTP
+  + Service: on
+  + User: toti userii \(`Nume`, `Lap`, `SERVICE`, `NumeServer` etc.\)
+  + Password: `123456` pentru toti userii
+  + Bifeaza Write, Read, List
+  + `Add` dupa fiecare user si parola
+ 
+  
++ \[Connections\] -> Copper Straight-Through -> Sw-Nume, \(FastEthernet\) --- Server \(FastEthernet\)
+
+### Verificare
+
++ Intra pe **Command Prompt**
+```
+ping 171.160.32.2
+ssh -l Admin 171.160.32.2
+ping 171.160.32.1
+ping 171.160.56.6
+```
+
+### ?
+
++ Click pe PC
++ Schimba pe tabul _Desktop_
++ Intra pe **Web Browser**
+  + URL: `info.ro`
++ Click **Go**
++ Intra pe **Email**
++ Click pe **Compose**
+  + To: `Server@info.ro`
+  + Subject: `Test`
++ Verifica serviciu email -> send \(a trimis cu succes\) **??????**
+
+### Verificare
+
++ Click pe destinatie
++ Schimba pe tabul _Desktop_
++ Intra pe **Email**
++ Verifica la Received
++ Click pe PC
++ Schimba pe tabul _Desktop_
++ Intra pe **Command Prompt**
+```
+dir
+ftp 171.160.47.254
+```
+  + Username: `PC-Nume`
+  + Password: `123456`  
+
+ftp>
+```
+dir
+get [nume_fisier] (ex. primul)
+quit 
+```
+```
+dir
+```
++ Daca apare si fisierul transferat e bine
+
+
+
+## 5. Wi-Fi
+
++ \[Network Devices\] -> \[Wireless Devices\] -> WRT300N -> nume: Wi-FiNume
++ \[Connections]] -> Copper Straight-Through -> SERVICE \(FastEthernet0\) --- Wi-Fi \(Ethernet1\)
++ SERVICE -> Desktop -> IP Configuration
+  + IPv4: `192.168.0.R` \(R e numar random\)
++ SERVICE -> Desktop -> Web Browser -> `192.168.0.1` -> Go -> `admin`, `admin`
++ SERVICE -> Basic Setup
+  + Internet Connection Type: Static IP
+  + Internet IP Address: al doilea IP din RA-ul subretelei de 2 IP-uri a Wi-Fi-ului
+  + Subnet Mask: 255.255.255.252
+  + Default Gateway: primul IP din RA-ul subretelei de 2 IP-uri a Wi-Fi-ului
+  + DNS1: DNS.DNS.DNS.DNS conform I.4
+  + Router IP
+    + IP Address: `192.160.X.Y` \(X e numar random, Y se calculeaza incadrand numarul dorit de utilizatori ai WiFi-ului + IP-ul Wi-Fi-ului intre puteri ale lui 2, - 2; Y e multiplul valorii superioare, + 1\)
+    + Subnet Mask: `255.255.255.224` \(32 - puterea aleasa mai sus, transformat in binar\)
+  + Maximum number of Users: numarul dorit de useri de Wi-Fi, daca nu se specifica alege unul random (<= 253)
+  + Scroll down -> Save Settings
+  + Scroll up -> Start IP Address -> Y + 1
+  + Scroll down -> Save Settings
++ SERVICE -> Desktop -> IP Configuration
+  + IPv4: 192.168.X.Z \(Z e un IP valid din range: Start IP Address <-> Start IP Address + Maximum numbers of Users - 1\)
++ SERVICE -> Desktop -> Web Browser -> `192.168.X.Y` -> Go -> `admin`, `admin`
++ SERVICE -> Wireless
+  + Basic Wireless Settings
+    + Network Name (SSID): Wi-FiNume
+    + Standard Channel: 6 sau 11
+  + Wireless Security
+    + Security Mode: WPA2 Personal
+    + Passphrase: InfoTest
+  + Wireless MAC Filter \(daca vrei sa faci whitelist/blacklist; doar dupa configurarea laptopurilor\)
+    + Enabled
+    + Prevent / Permit
+    + Pentru a obtine adresa MAC: Command Prompt -> `ipconfig/all` -> Physical Address -> Wireless, nu Bluetooth. Aceasta adresa trebuie formatata punand ":" intre fiecare 2 cifre pentru a putea fi adaugata in filtru
++ Dupa ce adaugi cele 2 laptopuri si te asiguri ca merg, conecteaza Wi-Fi-ul la Router-ul apropiat: \[Connections\] -> Copper Cross-Over -> R-Server \(Gigabit 0/1\) --- Wi-FiNume \(Internet\)
+
+
+## 6. Laptop Wi-Fi
+
++ \[End-Devices\] -> Laptop -> nume: "Lap1" / "Lap2"
++ "Lap1" / "Lap2" -> Physical -> power off -> inlocuieste placa de retea cu WPC-300N \(drag & drop\) -> power on
++ "Lap1" / "Lap2" -> PC Wireless -> Profiles -> New -> Wi-FINume \(CAT MAI REPEDE, NU LASA SA DEA AUTOCOMPLETE\) -> Advanced Setup -> Next -> Next -> Security: WPA2-Personal -> Next -> Pre-shared Key: InfoTest -> Save -> Connect to Network
+
 
 + Click pe PC, click pe **Command Prompt**
 ```
 ping 172.168.96.2
 ping 172.168.96.1
 ```
-+ Click pe Laptop, click pe **Terminal**
++ Click pe SERVICE, click pe **Terminal**
 + Apasa **Enter**
 + Password: `ciscoconpa55`
 + `enable`
@@ -507,7 +558,7 @@ interface giga 0/0
 ```
 -if\)\#
 ```
-description legatura cu ramura Eufrat
+description legatura cu ramura Nume
 ip address 172.168.96.1 255.255.240.0
 ip helper-address 10.10.10.6
 no shutdown
@@ -573,7 +624,7 @@ exit
 config\)\#
 ```
 ip dhcp excluded-address 172.168.96.1 172.168.96.160
-ip dhcp pool Eufrat
+ip dhcp pool Nume
 ```
 dhcp-config\)\#
 ```
@@ -591,7 +642,7 @@ ip route 10.10.10.0 255.255.255.252 serial 0/0/0
 + Salveaza
 + Leaga echipamentul, fac teste, dau ping
 
-+ Adu 2 Laptopuri in spatiul de lucru, leaga-le pe ambele cu FastEthernet 1 de Switch, cablu Straight-Through
++ Adu 2 Laptopuri in spatiul de lucru, leaga-le pe ambele cu FastEthernet 1 de Sw-Nume, cablu Straight-Through
 + Click pe Laptop, click pe **Terminal**
 + Apasa **Enter**
 + Password: `ciscoconpa55`
@@ -613,13 +664,12 @@ exit
 + Click pe **DHCP**
 + ???
 + Leaga R-Server de Sw-Server cu G0/1 - G0/0, apoi Sw-Server de Server cu G0/1 - 0/0
-+ Leaga Eufrat de R-Server cu Serial 0/0/0 ambele, cu cablu rosu fara ceas
-+ Click pe Network Devices, click pe Wireless, click pe WPT300N, click in spatiul de lucru
-+ Click pe WPT300N, scrie Wi-FiEufrat
-+ Leaga service si ISR \(WiFiEufrat\) cu, FastEthernet, Ethernet \(primul\), cu cablu Straight-Through
-+ Click pe service, click pe **IP Configuration**, scrie la IPv4 `192.168.0.15`
-+ Click pe x mic, click pe **Web Browser**, scrie `192.168.0.1`
-+ Logheaza-te cu credentalele `admin` `admin`
++ Leaga Nume de R-Server cu Serial 0/0/0 ambele, cu cablu rosu fara ceas
++ \[Network Devices\] -> \[Wireless Devices\] -> WRT300N -> nume: Wi-FiNume
++ \[Connections]] -> Copper Straight-Through -> SERVICE \(FastEthernet0\) --- Wi-Fi \(Ethernet1\)
++ SERVICE -> Desktop -> IP Configuration
+  + IPv4: `192.168.0.R` \(R e numar random\)
++ SERVICE -> Desktop -> Web Browser -> `192.168.0.1` -> Go -> `admin`, `admin`
 + Click pe DHCP, click pe static IP
   + `10.10.10.2`
   + `255.255.255.252`
@@ -630,12 +680,12 @@ exit
 + Start: `192.260.50.66`
 + Max: 13
 + Click exit, scroll in afara ferestrei, save
-+ Click pe Laptop, click pe **IP Configuration**
++ Click pe SERVICE, click pe **IP Configuration**
 + Pune noua adresa
 + Click pe x mic, click pe **Web Browser**, scrie IP-ul \(??\)
 + Logheaza-te cu credentalele `admin` `admin`
 + Click pe Wireless
-+ SSID: Wi-FIEufrat
++ SSID: Wi-FINume
 + Click pe AUTO, AUTO
 + Channel 6 sau 11
 + Click Save
@@ -650,7 +700,7 @@ exit
 + Nu mai asignezi IP
 + Intra pe PC, **Web Browser**, click pe Wireless
 + Click pe Profiles \(NU TE APROPIA DE DEFAULT\)
-+ New Wi-FiEufrat -> OK
++ New Wi-FiNume -> OK
 + Click Advanced
 + Nume: Wi-FiEthernet, next, yes
 + Click WPA2Personal, next
@@ -671,7 +721,7 @@ exit
 + Nu mai asignezi IP
 + Intra pe PC, **Web Browser**, click pe Wireless
 + Click pe Profiles \(NU TE APROPIA DE DEFAULT\)
-+ Apasa rapid pe Wi-FiEufrat, nu lasa sa gaseasca reteaua singur
++ Apasa rapid pe Wi-FiNume, nu lasa sa gaseasca reteaua singur
 + Click Advanced
 + Nume: Wi-FiEthernet, next, yes
 + Click WPA2Personal, next
@@ -685,7 +735,7 @@ exit
   + User Name: `Lap2`
   + Password: `123456`
 + Click **Save**
-+ Leaga ISR de R-Eufrat G0/0 si G0/1, cu cablu Crossover
++ Leaga ISR de R-Nume G0/0 si G0/1, cu cablu Crossover
 + Intra pe ???
 + `ping 10.10.10.1`
 + `ping 10.10.10.5`
@@ -695,19 +745,19 @@ exit
 + Intra pe **Email**
 + Trimite mail catre Server
 + Mergi la Server si apasa Receive
-+ Trimite mail catre Eufrat
-+ Mergi la Eufrat si apasa Receive
++ Trimite mail catre Nume
++ Mergi la Nume si apasa Receive
 + Pentru orice echipament:
   + `ftp \[ip_server\]`
   + `dir`
   + `get \[unul-din-fisiere\]`
   + `quit`
   + `dir` <- verifica daca s-a transferat
-+ Click pe Router
++ Click pe R-Nume
 + Intra pe **Command Prompt**
 + `ipconfig/all`
 + Cauta MAC/BIA
-+ Click pe Laptop, **Web Browser**, router address
++ Click pe SERVICE, **Web Browser**, router address
 + Click pe Wireless: prevent or permit
 + `00 04 9a 9b 0d 78`
 + Click **Save**
