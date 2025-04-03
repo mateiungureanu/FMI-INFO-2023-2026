@@ -149,29 +149,35 @@ Primul IP asignabil din reteaua `1022`
 + Daca b &ne; 0 -> numar switch-uri = a + 1
 
 ### Subnet Mask
++ codat in README: SM.SM.SM.SM
 + 2<sup>x</sup>-2 &le; n &le; 2<sup>y</sup>-2
 + sm = 32 - y
 + Transformare in IP: sm / 8 = a rest b; SM = 255 de a ori, apoi b biti de 1 de la stanga la dreapta, tranformati in numar, apoi 0 daca mai sunt octeti liberi
 + Exemplu: sm = 18; 18 / 8 = 2 rest 2 -> 255 de 2 ori, apoi 11000000 in numar: 192, apoi un 0 -> 255.255.192.0
 
 ### Default Gateway
++ codat in README: DG.DG.DG.DG
 + NA al retelei respective + 1
 
 ### DNS Server
++ codat in README: DNS.DNS.DNS.DNS
 + BA al subretelei serverului – 1 \(ste si IP-ul serverului respectiv\)
 
-### IP Switch
-+ range: Default Gateway + 1 <-> Default Gateway + numar switch-uri
-+ Fiecare switch va primi cel mai mic IP disponibil -> primul switch are IP: DG + 1
-
-### IP Host
-+ incep de la: Default Gateway + numar switch-uri + 1
-
 ### IP Router
++ codat in README: IPR.IPR.IPR.IPR
 + Routerele au cate un IP pentru fiecare interfata folosita.
 + Pentru legatura cu o ramura cu host-uri: interfata Gigabit 0/0, IP: Default Gateway-ul subretelei respective
 + Pentru legatura cu alte routere: interfata Serial cea mai mica posibila, IP: cel mai mic posibil din subreteaua respectiva
 + Pentru legatura cu Wi-Fi: interfata Gigabit 0/1
+
+### IP Switch
++ codat in README: IPS.IPS.IPS.IPS
++ range: Default Gateway + 1 <-> Default Gateway + numar switch-uri
++ Fiecare switch va primi cel mai mic IP disponibil -> primul switch are IP: DG + 1
+
+### IP Host
++ codat in README: IPH.IPH.IPH.IPH
++ incep de la: Default Gateway + numar switch-uri + 1
 
 ## Host si SERVICE
 
@@ -180,17 +186,17 @@ Primul IP asignabil din reteaua `1022`
 + \[End Devices\] -> PC -> nume: "Nume"
 + PC -> Physical -> power off -> inlocuieste placa de retea cu PT-HOST-NM-1CGE \(drag & drop\) -> power on
 + PC -> Desktop -> IP Configuration
-  + IPv4 Address: `174.40.20.22`
-  + Subnet Mask: `255.255.254.0`
-  + Default Gateway: `174.40.20.1`
-  + DNS Server: `209.165.200.254`
+  + IPv4 Address: IPH.IPH.IPH.IPH
+  + Subnet Mask: SM.SM.SM.SM
+  + Default Gateway: DG.DG.DG.DG
+  + DNS Server: DNS.DNS.DNS.DNS
 + PC -> Desktop -> Email
-  + Your Name: `Nume`
-  + Email Address: `Nume@info.ro`
-  + Incoming Mail Server: `209.165.200.254`
-  + Outgoing Mail Server: `209.165.200.254`
-  + User Name: `Nume`
-  + Password: `123456`
+  + Your Name: Nume
+  + Email Address: Nume@info.ro
+  + Incoming Mail Server: DNS.DNS.DNS.DNS
+  + Outgoing Mail Server: DNS.DNS.DNS.DNS
+  + User Name: Nume
+  + Password: 123456
 + Save
 + \(optional\) Configure Email -> verific daca am scris corect
 + \[End Devices\] -> Laptop -> nume: "SERVICE"
@@ -288,7 +294,7 @@ interface vlan 1
 Sw-Nume\(config-if\)\#
 ```
 description ramura Nume
-ip address IP.IP.IP.IP SM.SM.SM.SM
+ip address IPS.IPS.IPS.IPS SM.SM.SM.SM
 no shutdown
 exit
 ```
@@ -326,14 +332,6 @@ ssh -l Admin01 174.40.20.2
 ![Testare reusita](poze/switch_test.png)
 
 ## Router
-
-Schimbari in setul de date:  
-| Nume |     | Sw-Nume |
-| :----: | :-: | :-------: |
-| 171.160.1.61 | IPv4 Address | 171.160.0.2  |
-| 255.255.224.0 | Subnet Mask | 255.255.224.0 |
-| 171.160.0.1 | Default Gateway | 171.160.0.1 |
-| 171.160.47.254| DNS Server
 
 ### Setup
 
@@ -428,7 +426,7 @@ interface gigabit 0/0
 R-Nume\(config-if\)\#
 ```
 description legatura cu ramura Nume
-ip address IP.IP.IP.IP SM.SM.SM.SM
+ip address IPR.IPR.IPR.IPR SM.SM.SM.SM
 no shutdown
 exit
 ```
@@ -439,7 +437,7 @@ interface serial 0/0/0
 R-Nume\(config-if\)\#
 ```
 description legatura cu R-CelalaltNume
-ip address IP.IP.IP.IP 255.255.255.252
+ip address IPR.IPR.IPR.IPR 255.255.255.252
 no shutdown
 ```
 
@@ -460,43 +458,45 @@ ssh -l Admin01 [ip_de_la_unul_din_dispozitive]
 
 ### Setup
 
-+ \[End-Devices\] -> Server -> nume: NumeServer
-+ Server -> Physical -> power off -> inlocuieste placa de retea cu PT-HOST-NM-1CGE \(drag & drop\) -> power on
-+ Server -> Desktop -> IP Configuration
-  + IPv4 Address: `171.160.47.254`
-  + Subnet Mask: `255.255.240.0`
-  + Default Gateway: `171.160.32.1`
-  + DNS Server: `171.160.47.254`
-+ Server -> Desktop -> Email
-  + Your Name: `Server`
-  + Email Address: `Server@info.ro`
-  + Incoming Mail Server: `171.160.47.254`
-  + Outgoing Mail Server: `171.160.47.254`
-  + User Name: `Server`
-  + Password: `123456`
-+ Save
++ \[End-Devices\] -> Server -> nume: ServerNume
++ ServerNume -> Physical -> power off -> inlocuieste placa de retea cu PT-HOST-NM-1CGE \(drag & drop\) -> power on
++ ServerNume -> Desktop -> IP Configuration
+  + IPv4 Address: DNS.DNS.DNS.DNS
+  + Subnet Mask: SM.SM.SM.SM
+  + Default Gateway: DG.DG.DG.DG
+  + DNS Server: DNS.DNS.DNS.DNS
++ ServerNume -> Desktop -> Email
+  + Your Name: ServerNume
+  + Email Address: ServerNume@info.ro
+  + Incoming Mail Server: DNS.DNS.DNS.DNS
+  + Outgoing Mail Server: DNS.DNS.DNS.DNS
+  + User Name: ServerNume
+  + Password: 123456
+  + Save
 + \(optional\) Configure Email, verific daca am scris corect
-+ Server -> Services -> HTTP
++ ServerNume -> Services -> HTTP
   + HTTP: off
-+ Server -> Services -> DNS
++ ServerNume -> Services -> DNS
   + DNS Services: on
-  + Name: `info.ro`
-  + Address: `171.160.47.254`
-+ Server -> Services -> Syslog
+  + Name: info.ro
+  + Type: A Record
+  + Address: DNS.DNS.DNS.DNS
+  + Add
++ ServerNume -> Services -> Syslog
   + Service: on
-+ Server -> Services -> Email
++ ServerNume -> Services -> Email
   + SMTP: on
   + POP3 Services: on
-  + Domain Name: `info.ro`
-  + User: toti userii \(`Nume`, `Lap`, `SERVICE`, `NumeServer` etc.\)
-  + Password: `123456` pentru toti userii
+  + Domain Name: info.ro
+  + User: toti userii \(Nume, Lap1, Lap2, SERVICE, ServerNume etc.\)
+  + Password: 123456 pentru toti userii
   + `+` dupa fiecare user si parola
-+ Server -> Services -> FTP
++ ServerNume -> Services -> FTP
   + Service: on
-  + User: toti userii \(`Nume`, `Lap`, `SERVICE`, `NumeServer` etc.\)
-  + Password: `123456` pentru toti userii
+  + User: toti userii \(Nume, Lap1, Lap2, SERVICE, ServerNume etc.\)
+  + Password: 123456 pentru toti userii
   + Bifeaza Write, Read, List
-  + `Add` dupa fiecare user si parola
+  + Add dupa fiecare user si parola
  
   
 + \[Connections\] -> Copper Straight-Through -> Sw-Nume, \(FastEthernet\) --- Server \(FastEthernet\)
