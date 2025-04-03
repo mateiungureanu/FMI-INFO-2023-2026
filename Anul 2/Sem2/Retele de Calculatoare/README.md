@@ -2,25 +2,32 @@
 # Laborator: Dragan Mihaita
 
 ## Table of contents
-+ [Calcularea IP-urilor](#calcularea-ip-urilor)
-+ [Host si SERVICE](#host-si-service)
-+ [Switch](#switch)
-   + [Setup](#setup)
-   + [Terminal](#terminal)
-   + [Testarea echipamentului](#testarea-echipamentului)
-+ [Router](#router)
-   + [Setup](#setup-1)
-   + [Terminal](#terminal-1)
-   + [Testarea echipamentului](#testarea-echipamentului-1)
-+ [Server](#server)
-   + [Setup](#setup-2)
-   + [Terminal](#terminal-2)
-   + [Testarea echipamentului](#testarea-echipamentului-2)
-+ [Wi-FI](#wi-fi)
-   + [Setup](#setup-3)
-   + [Terminal](#terminal-3)
-   + [Testarea echipamentului](#testarea-echipamentului-3)
-+ [Laptop Wi-Fi](#laptop-wi-fi)
+1. [Calcularea IP-urilor](#calcularea-ip-urilor)
+   1. [Numar Switch-uri](#numar-switch-uri)
+   2. [Subnet Mask](#subnet-mask)
+   3. [Default Gateway](#default-gateway)
+   4. [DNS Server](#dns-server)
+   5. [IP Router](#ip-router)
+   6. [IP Switch](#ip-switch)
+   7. [IP Host](#ip-host)
+2. [Host si SERVICE](#host-si-service)
+3. [Switch](#switch)
+   1. [Setup](#setup)
+   2. [Terminal](#terminal)
+   3. [Testarea echipamentului](#testarea-echipamentului)
+4. [Router](#router)
+   1. [Setup](#setup-1)
+   2. [Terminal](#terminal-1)
+   3. [Testarea echipamentului](#testarea-echipamentului-1)
+5. [Server](#server)
+   1. [Setup](#setup-2)
+   2. [Terminal](#terminal-2)
+   3. [Testarea echipamentului](#testarea-echipamentului-2)
+6. [Wi-FI](#wi-fi)
+   1. [Setup](#setup-3)
+   2. [Terminal](#terminal-3)
+   3. [Testarea echipamentului](#testarea-echipamentului-3)
+7. [Laptop Wi-Fi](#laptop-wi-fi)
 
 ## Calcularea IP-urilor
 
@@ -180,8 +187,6 @@ Primul IP asignabil din reteaua `1022`
 + incep de la: Default Gateway + numar switch-uri + 1
 
 ## Host si SERVICE
-
-### Setup
 
 + \[End Devices\] -> PC -> nume: "Nume"
 + PC -> Physical -> power off -> inlocuieste placa de retea cu PT-HOST-NM-1CGE \(drag & drop\) -> power on
@@ -565,7 +570,7 @@ dir
   + Internet IP Address: al doilea IP din RA-ul subretelei de 2 IP-uri a Wi-Fi-ului
   + Subnet Mask: 255.255.255.252
   + Default Gateway: primul IP din RA-ul subretelei de 2 IP-uri a Wi-Fi-ului
-  + DNS1: DNS.DNS.DNS.DNS conform I.4
+  + DNS1: DNS.DNS.DNS.DNS
   + Router IP
     + IP Address: `192.160.X.Y` \(X e numar random, Y se calculeaza incadrand numarul dorit de utilizatori ai WiFi-ului + IP-ul Wi-Fi-ului intre puteri ale lui 2, - 2; Y e multiplul valorii superioare, + 1\)
     + Subnet Mask: `255.255.255.224` \(32 - puterea aleasa mai sus, transformat in binar\)
