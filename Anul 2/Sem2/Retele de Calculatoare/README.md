@@ -59,17 +59,17 @@ Se da un IP oarecare: `172.168.244.156/13`
 
 | <ins>**pas 2**</ins> | sortare mare -> mic, si incadrare intre puteri ale lui 2 | 2<sup>n</sup>-2 valori asignabile |
 | :- | :-: | - |
-| | 2<sup>12</sup> &le; 4095 &le; 2<sup>13</sup> | 2<sup>12</sup>=4096 - 2 < 4095 => 2<sup>12</sup> 2<sup>13</sup>
-| | 2<sup>11</sup> &le; 2047 &le; 2<sup>12</sup> |
-| | 2<sup>9</sup> &le; 1022 &le; 2<sup>10</sup> |
-| | 2<sup>9</sup> &le; 511 &le; 2<sup>10</sup> |
-| | 2<sup>6</sup> &le; 126 &le; 2<sup>7</sup> |
-| | 2<sup>5</sup> &le; 31 &le; 2<sup>6</sup> |
-| | 2<sup>1</sup> &le; 2 &le; 2<sup>2</sup> |
-| | 2<sup>1</sup> &le; 2 &le; 2<sup>2</sup> |
-| | 2<sup>1</sup> &le; 2 &le; 2<sup>2</sup> |
-| | 2<sup>1</sup> &le; 2 &le; 2<sup>2</sup> |
-| | 2<sup>1</sup> &le; 2 &le; 2<sup>2</sup> |
+| | 2<sup>12</sup>-2 &le; 4095 &le; 2<sup>13</sup>-2 | 2<sup>12</sup>=4096 - 2 < 4095 => 2<sup>12</sup> 2<sup>13</sup>
+| | 2<sup>11</sup>-2 &le; 2047 &le; 2<sup>12</sup>-2 |
+| | 2<sup>9</sup>-2 &le; 1022 &le; 2<sup>10</sup>-2 |
+| | 2<sup>9</sup>-2 &le; 511 &le; 2<sup>10</sup>-2 |
+| | 2<sup>6</sup>-2 &le; 126 &le; 2<sup>7</sup>-2 |
+| | 2<sup>5</sup>-2 &le; 31 &le; 2<sup>6</sup>-2 |
+| | 2<sup>1</sup>-2 &le; 2 &le; 2<sup>2</sup>-2 |
+| | 2<sup>1</sup>-2 &le; 2 &le; 2<sup>2</sup>-2 |
+| | 2<sup>1</sup>-2 &le; 2 &le; 2<sup>2</sup>-2 |
+| | 2<sup>1</sup>-2 &le; 2 &le; 2<sup>2</sup>-2 |
+| | 2<sup>1</sup>-2 &le; 2 &le; 2<sup>2</sup>-2 |
 
 
 | <ins>**pas 3**</ins> | |
@@ -120,7 +120,7 @@ Se da un IP oarecare: `172.168.244.156/13`
 | **RA** | `172.168.56.209 - 172.168.56.210 /30` |
 
 Primul IP asignabil din reteaua `4095`
-+ 2<sup>12</sup> &le; 4095 &le; 2<sup>13</sup> deci sunt 8190 valori asignabile \(2<sup>13</sup>-2\)
++ 2<sup>12</sup>-2 &le; 4095 &le; 2<sup>13</sup>-2 deci sunt 8190 valori asignabile \(2<sup>13</sup>-2\)
 + 8190 / 26 = 315 IP-uri pentru switch-uri \(fiecare switch are 26 de porturi\)
 + Daca impartirea da cu rest, adaugi 1 la rezultat
 + Rezerva un IP pentru DG => mai adaugi 1 la rezultat
@@ -129,18 +129,49 @@ Primul IP asignabil din reteaua `4095`
 + Mai adaugi 1 pentru a gasi primul IP de host asignabil: `172.168.0.0` + 317 = `172.168.1.61`
 
 Primul IP asignabil din reteaua `2047`
-+ 2<sup>11</sup> &le; 2047 &le; 2<sup>12</sup> deci sunt 4094 valori asignabile
++ 2<sup>11</sup>-2 &le; 2047 &le; 2<sup>12</sup>-2 deci sunt 4094 valori asignabile
 + 4094 / 26 = 157 rest 12
 + Rest &ne; 0 => 158
 + IP pentru DG => 159
 + `172.168.32.0` + 160 = `172.168.32.160`
 
 Primul IP asignabil din reteaua `1022`
-+ 2<sup>9</sup> &le; 1022 &le; 2<sup>10</sup> deci sunt 1022 valori asignabile
++ 2<sup>9</sup>-2 &le; 1022 &le; 2<sup>10</sup>-2 deci sunt 1022 valori asignabile
 + 1022 / 26 = 39 rest ...
 + Rest &ne; 0 => 40
 + IP pentru DG => 41
 + `172.168.48.0` + 42 = `172.168.48.42`
+
+### Numar switch-uri
++ 2<sup>x</sup>-2 &le; n &le; 2<sup>y</sup>-2
++ 2<sup>y</sup>-2 / 26 = a rest b
++ Daca b == 0 -> numar switch-uri = a
++ Daca b &ne; 0 -> numar switch-uri = a + 1
+
+### Subnet Mask
++ 2<sup>x</sup>-2 &le; n &le; 2<sup>y</sup>-2
++ sm = 32 - y
++ Transformare in IP: sm / 8 = a rest b; SM = 255 de a ori, apoi b biti de 1 de la stanga la dreapta, tranformati in numar, apoi 0 daca mai sunt octeti liberi
++ Exemplu: sm = 18; 18 / 8 = 2 rest 2 -> 255 de 2 ori, apoi 11000000 in numar: 192, apoi un 0 -> 255.255.192.0
+
+### Default Gateway
++ NA al retelei respective + 1
+
+### DNS Server
++ BA al subretelei serverului – 1 \(ste si IP-ul serverului respectiv\)
+
+### IP Switch
++ range: Default Gateway + 1 <-> Default Gateway + numar switch-uri
++ Fiecare switch va primi cel mai mic IP disponibil -> primul switch are IP: DG + 1
+
+### IP Host
++ incep de la: Default Gateway + numar switch-uri + 1
+
+### IP Router
++ Routerele au cate un IP pentru fiecare interfata folosita.
++ Pentru legatura cu o ramura cu host-uri: interfata Gigabit 0/0, IP: Default Gateway-ul subretelei respective
++ Pentru legatura cu alte routere: interfata Serial cea mai mica posibila, IP: cel mai mic posibil din subreteaua respectiva
++ Pentru legatura cu Wi-Fi: interfata Gigabit 0/1
 
 ## Host si SERVICE
 
@@ -177,14 +208,17 @@ Primul IP asignabil din reteaua `1022`
 ### Comenzi
 Enter dupa fiecare comanda  
 
-switch\#  
+switch>
 ```
 enable
+```
+switch\#  
+```
 configure terminal
 ```
 switch\(config\)\#
 ```
-no ip domain lookup
+no ip domain-lookup
 hostname Sw-Nume
 ```
 Sw-Nume\(config\)\#
@@ -222,7 +256,7 @@ Sw-Nume\#
 ```
 copy running-config startup-config
 ```
-+ **Enter** \(intrebare despre nume\)
++ Enter \(intrebare despre nume\)
 ```
 clock set HH:MM:SS D Mon YYYY
 configure terminal
@@ -246,21 +280,34 @@ crypto key generate rsa
 + `2048`, Enter \(intrebare despre biti\)
 ```
 ip ssh version 2
-logging host 209.165.200.254
+logging host DNS.DNS.DNS.DNS
 service timestamps log datetime msec
 service timestamps debug datetime msec
 interface vlan 1
 ```
 Sw-Nume\(config-if\)\#
 ```
-description legatura cu reteaua 174.40.20.0/23
-ip address 174.40.20.2 255.255.254.0
+description ramura Nume
+ip address IP.IP.IP.IP SM.SM.SM.SM
 no shutdown
 exit
 ```
+> necesita confirmare  
+
+Sw-Nume\(config\)#
+```
+interface range fastethernet 0/1-24 !! La primul switch, range-ul va fi 2-24, intrucat cu 0/1 vom uni TestDHCP
+```
+Sw-Nume\(config-if\)#
+```
+shutdown
+exit
+```
+> pana aici  
+
 Sw-Nume\(config\)\# 
 ```
-ip default-gateway 174.40.20.1
+ip default-gateway DG.DG.DG.DG
 exit
 ```
 
@@ -298,14 +345,17 @@ Schimbari in setul de date:
 ### Terminal
 Enter dupa fiecare comanda  
 
-router\#  
+router>
 ```
 enable
+```
+router\#  
+```
 configure terminal
 ```
 router\(config\)\#
 ```
-no ip domain lookup
+no ip domain-lookup
 hostname R-Nume
 ```
 R-Nume\(config\)\#
@@ -370,15 +420,15 @@ crypto key generate rsa
 + `2048`, Enter \(intrebare despre biti\)
 ```
 ip ssh version 2
-logging host 171.160.47.254
+logging host DNS.DNS.DNS.DNS
 service timestamps log datetime msec
 service timestamps debug datetime msec
-interface gigabitethernet 0/0
+interface gigabit 0/0
 ```
 R-Nume\(config-if\)\#
 ```
-description legatura cu reteaua 171.160.0.0/19
-ip address 171.160.0.1 255.255.224.0
+description legatura cu ramura Nume
+ip address IP.IP.IP.IP SM.SM.SM.SM
 no shutdown
 exit
 ```
@@ -388,8 +438,8 @@ interface serial 0/0/0
 ```
 R-Nume\(config-if\)\#
 ```
-description legatura cu routerul R-server
-ip address 171.160.56.5 255.255.255.252
+description legatura cu R-CelalaltNume
+ip address IP.IP.IP.IP 255.255.255.252
 no shutdown
 ```
 
