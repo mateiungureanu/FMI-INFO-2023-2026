@@ -10,24 +10,22 @@
    5. [IP Router](#ip-router)
    6. [IP Switch](#ip-switch)
    7. [IP Host](#ip-host)
-2. [Host si SERVICE](#host-si-service)
-3. [Switch](#switch)
-   1. [Setup](#setup)
-   2. [Terminal](#terminal)
-   3. [Testarea echipamentului](#testarea-echipamentului)
-4. [Router](#router)
-   1. [Setup](#setup-1)
-   2. [Terminal](#terminal-1)
-   3. [Testarea echipamentului](#testarea-echipamentului-1)
-5. [Server](#server)
-   1. [Setup](#setup-2)
-   2. [Terminal](#terminal-2)
-   3. [Testarea echipamentului](#testarea-echipamentului-2)
-6. [Wi-FI](#wi-fi)
-   1. [Setup](#setup-3)
-   2. [Terminal](#terminal-3)
-   3. [Testarea echipamentului](#testarea-echipamentului-3)
-7. [Laptop Wi-Fi](#laptop-wi-fi)
+2. [Setup](#setup)
+   1. [Host si SERVICE](#host-si-service)
+   2. [Switch](#switch)
+   3. [Router](#router)
+   4. [Server](#server)
+   5. [Wi-FI](#wi-fi)
+   6. [Laptop Wi-Fi](#laptop-wi-fi)
+3. [Comenzi](#comenzi)
+   1. [Comenzi Switch](#comenzi-switch)
+   2. [Comenzi Router](#comenzi-router)
+4. [Testare](#testare)
+   1. [Ping si SSH](#ping-si-ssh)
+   2. [HTTP si DNS](#http-si-dns)
+   3. [Email](#email)
+   4. [FTP](#ftp)
+   5. [Syslog](#syslog)
 
 ## Calcularea IP-urilor
 
@@ -168,7 +166,7 @@ Primul IP asignabil din reteaua `1022`
 
 ### DNS Server
 + codat in README: DNS.DNS.DNS.DNS
-+ BA al subretelei serverului – 1 \(ste si IP-ul serverului respectiv\)
++ BA al subretelei serverului – 1 \(este si IP-ul serverului respectiv\)
 
 ### IP Router
 + codat in README: IPR.IPR.IPR.IPR
@@ -186,7 +184,9 @@ Primul IP asignabil din reteaua `1022`
 + codat in README: IPH.IPH.IPH.IPH
 + incep de la: Default Gateway + numar switch-uri + 1
 
-## Host si SERVICE
+## Setup
+
+### Host si SERVICE
 
 + \[End Devices\] -> PC -> nume: "Nume"
 + PC -> Physical -> power off -> inlocuieste placa de retea cu PT-HOST-NM-1CGE \(drag & drop\) -> power on
@@ -206,262 +206,21 @@ Primul IP asignabil din reteaua `1022`
 + \(optional\) Configure Email -> verific daca am scris corect
 + \[End Devices\] -> Laptop -> nume: "SERVICE"
 
-## Switch
-
-### Setup
+### Switch
 
 + \[Network Devices\] -> \[Switches\] -> 2960 -> nume: "Sw-Nume"
-
 + \[Connections\] -> Console -> Sw-Nume \(Console\) --- SERVICE \(RS 232\)  
 ![Rezultat](poze/switch.png)
 + Laptop -> Desktop -> Terminal -> OK -> Enter
 
-### Comenzi
-Enter dupa fiecare comanda  
-
-switch>
-```
-enable
-```
-switch\#  
-```
-configure terminal
-```
-switch\(config\)\#
-```
-no ip domain-lookup
-hostname Sw-Nume
-```
-Sw-Nume\(config\)\#
-```
-no cdp run
-service password-encryption
-enable secret ciscosecpa55
-enable password ciscoenapa55
-banner motd $Vineri 14.03.2025 la ora 9:00 va avea loc sedinta IT!$
-line console 0
-```
-Sw-Nume\(config-line\)\#
-```
-password ciscoconpa55
-login
-logging synchronous
-exec-timeout 20 10
-exit
-```
-Sw-Nume\(config\)\#
-```
-line vty 0 15
-```
-Sw-Nume\(config-line\)\#
-```
-password ciscovtypa55
-login
-logging synchronous
-exec-timeout 5 5
-end
-```
-Sw-Nume\#
-> **IMPORTANT**
-> Comanda asta salveaza configuratia. O poti rula oricand vrei, cand esti in Sw-Nume\#
-```
-copy running-config startup-config
-```
-+ Enter \(intrebare despre nume\)
-```
-clock set HH:MM:SS D Mon YYYY
-configure terminal
-```
-Sw-Nume\(config\)\#
-```
-ip domain name info.ro
-username Admin01 privilege 15 secret Admin01pa55
-line vty 0 15
-```
-Sw-Nume\(config-line\)\# 
-```
-transport input ssh
-login local
-exit
-```
-Sw-Nume\(config\)\#
-```
-crypto key generate rsa
-```
-+ `2048`, Enter \(intrebare despre biti\)
-```
-ip ssh version 2
-logging host DNS.DNS.DNS.DNS
-service timestamps log datetime msec
-service timestamps debug datetime msec
-interface vlan 1
-```
-Sw-Nume\(config-if\)\#
-```
-description ramura Nume
-ip address IPS.IPS.IPS.IPS SM.SM.SM.SM
-no shutdown
-exit
-```
-> necesita confirmare  
-
-Sw-Nume\(config\)#
-```
-interface range fastethernet 0/1-24 !! La primul switch, range-ul va fi 2-24, intrucat cu 0/1 vom uni TestDHCP
-```
-Sw-Nume\(config-if\)#
-```
-shutdown
-exit
-```
-> pana aici  
-
-Sw-Nume\(config\)\# 
-```
-ip default-gateway DG.DG.DG.DG
-exit
-```
-
-### Testarea echipamentului
-
-+ \[Connections\] -> Copper Straight-Through -> Sw-Nume \(GigabitEthernet 0/2\) --- PC \(GigabitEthernet0\)
-+ PC -> Desktop -> Command Prompt
-
-Sw-Nume\#
-```
-ping 174.40.20.2
-ssh -l Admin01 174.40.20.2
-```
-+ `Admin01pa55`
-
-![Testare reusita](poze/switch_test.png)
-
-## Router
-
-### Setup
+### Router
 
 + \[Network Devices\] -> \[Routers\] -> 2911 \(sau 2901 daca se cere\) -> nume: "R-Nume"
 + R-Nume -> Physical -> power off -> inlocuieste placa de retea cu HWIC-2T \(drag & drop\) -> power on
 + Console -> SERVICE --- Sw-Nume -> SERVICE --- R-Nume \(Console\)
 + SERVICE -> Desktop -> Terminal -> OK -> `no`, Enter -> Enter
 
-### Terminal
-Enter dupa fiecare comanda  
-
-router>
-```
-enable
-```
-router\#  
-```
-configure terminal
-```
-router\(config\)\#
-```
-no ip domain-lookup
-hostname R-Nume
-```
-R-Nume\(config\)\#
-```
-no cdp run
-service password-encryption
-security passwords min-length 10
-login block-for 50 attempts 3 within 20
-enable secret ciscosecpa55
-enable password ciscoenapa55
-banner login $Accesul persoanelor neautorizate este strict interzis!$
-banner motd $Vineri 21.03.2025 la ora 14:00 serverul va fi oprit!$
-line console 0
-```
-R-Nume\(config-line\)\#
-```
-password ciscoconpa55
-login
-logging synchronous
-exec-timeout 20 10
-exit
-```
-R-Nume\(config\)\#
-```
-line vty 0 15
-```
-R-Nume\(config-line\)\#
-```
-password ciscovtypa55
-login
-logging synchronous
-exec-timeout 5 5
-end
-```
-R-Nume\#
-> **IMPORTANT**
-> Comanda asta salveaza configuratia. O poti rula oricand vrei, cand esti in R-Nume\#
-```
-copy running-config startup-config
-```
-+ **Enter** \(intrebare despre nume\)
-```
-clock set HH:MM:SS D Mon YYYY
-configure terminal
-```
-R-Nume\(config\)\#
-```
-ip domain name info.ro
-username Admin01 privilege 15 secret Admin01pa55
-line vty 0 15
-```
-R-Nume\(config-line\)\# 
-```
-transport input ssh
-login local
-exit
-```
-R-Nume\(config\)\#
-```
-crypto key generate rsa
-```
-+ `2048`, Enter \(intrebare despre biti\)
-```
-ip ssh version 2
-logging host DNS.DNS.DNS.DNS
-service timestamps log datetime msec
-service timestamps debug datetime msec
-interface gigabit 0/0
-```
-R-Nume\(config-if\)\#
-```
-description legatura cu ramura Nume
-ip address IPR.IPR.IPR.IPR SM.SM.SM.SM
-no shutdown
-exit
-```
-R-Nume\(config\)\# 
-```
-interface serial 0/0/0
-```
-R-Nume\(config-if\)\#
-```
-description legatura cu R-CelalaltNume
-ip address IPR.IPR.IPR.IPR 255.255.255.252
-no shutdown
-```
-
-### Testarea echipamentului
-
-+ \[Connections\] -> Copper Straight-Through -> Sw-Nume \(GigabitEthernet 0/1\) --- R-Nume \(GigabitEthernet 0/0\)
-+ PC -> Command Prompt  
-sau
-+ Click pe altceva, intra pe CLI
-  + Password: `ciscoconpa55`
-```
-ping [ip_de_la_unul_din_dispozitive]
-ssh -l Admin01 [ip_de_la_unul_din_dispozitive]
-```
-
-
-## Server
-
-### Setup
+### Server
 
 + \[End-Devices\] -> Server -> nume: ServerNume
 + ServerNume -> Physical -> power off -> inlocuieste placa de retea cu PT-HOST-NM-1CGE \(drag & drop\) -> power on
@@ -502,21 +261,11 @@ ssh -l Admin01 [ip_de_la_unul_din_dispozitive]
   + Password: 123456 pentru toti userii
   + Bifeaza Write, Read, List
   + Add dupa fiecare user si parola
- 
-  
-+ \[Connections\] -> Copper Straight-Through -> Sw-Nume, \(FastEthernet\) --- Server \(FastEthernet\)
 
-### Verificare
 
-+ Intra pe **Command Prompt**
-```
-ping 171.160.32.2
-ssh -l Admin 171.160.32.2
-ping 171.160.32.1
-ping 171.160.56.6
-```
++ \[Connections\] -> Copper Straight-Through -> Sw-Nume \(FastEthernet\) --- Server \(FastEthernet\)
 
-### ?
+??????
 
 + Click pe PC
 + Schimba pe tabul _Desktop_
@@ -558,10 +307,10 @@ dir
 
 
 
-## Wi-Fi
+### Wi-Fi
 
 + \[Network Devices\] -> \[Wireless Devices\] -> WRT300N -> nume: Wi-FiNume
-+ \[Connections]] -> Copper Straight-Through -> SERVICE \(FastEthernet0\) --- Wi-Fi \(Ethernet1\)
++ \[Connections\] -> Copper Straight-Through -> SERVICE \(FastEthernet0\) --- Wi-Fi \(Ethernet1\)
 + SERVICE -> Desktop -> IP Configuration
   + IPv4: `192.168.0.R` \(R e numar random\)
 + SERVICE -> Desktop -> Web Browser -> `192.168.0.1` -> Go -> `admin`, `admin`
@@ -595,7 +344,7 @@ dir
 + Dupa ce adaugi cele 2 laptopuri si te asiguri ca merg, conecteaza Wi-Fi-ul la Router-ul apropiat: \[Connections\] -> Copper Cross-Over -> R-Server \(Gigabit 0/1\) --- Wi-FiNume \(Internet\)
 
 
-## Laptop Wi-Fi
+### Laptop Wi-Fi
 
 + \[End-Devices\] -> Laptop -> nume: "Lap1" / "Lap2"
 + "Lap1" / "Lap2" -> Physical -> power off -> inlocuieste placa de retea cu WPC-300N \(drag & drop\) -> power on
@@ -614,42 +363,23 @@ ping 172.168.96.1
 + Password: `ciscosecpa55`
 + `configure terminal`  
 
-config\)\#
 ```
 interface giga 0/0
-```
--if\)\#
-```
 description legatura cu ramura Nume
 ip address 172.168.96.1 255.255.240.0
 ip helper-address 10.10.10.6
 no shutdown
 exit
-```
-config\)\#
-```
 interface giga 0/1
-```
--if\)\#
-```
 description ...
 ip address 10.10.10.1 255.255.255.252
 no shutdown
 exit
-```
-config\)\#
-```
 interface serial 0/0/0
-```
--if\)\#
-```
 description legatura cu routerul serverului
 ip address 10.10.10.5 255.255.255.252
 no shutdown
 exit
-```
-config\)\#
-```
 ip route 192.168.100.96 255.255.255.240 serial 0/0/0
 ```
 
@@ -661,42 +391,24 @@ ip route 192.168.100.96 255.255.255.240 serial 0/0/0
 + Password: `ciscosecpa55`
 + `configure terminal`  
 
-config\)\#
+
 ```
 interface giga 0/0
-```
--if\)\#
-```
 description ...
 ip address 192.168.100.97 255.255.255.224 (sau 240?)
 no shutdown
 exit
-```
-config\)\#
-```
 interface serial 0/0/0
-```
--if\)\#
-```
 description ...
 ip address 10.10.10.6 255.255.255.252
 no shutdown
 exit
-```
-config\)\#
-```
 ip dhcp excluded-address 172.168.96.1 172.168.96.160
 ip dhcp pool Nume
-```
-dhcp-config\)\#
-```
 network 172.168.96.0 255.255.240.0
 default-router 172.168.96.1
 dns-server 192.168.100.110
 exit
-```
-config\)\#
-```
 ip route 172.168.96.0 255.255.240.0 serial 0/0/0
 ip route 10.10.10.0 255.255.255.252 serial 0/0/0
 ```
@@ -712,12 +424,9 @@ ip route 10.10.10.0 255.255.255.252 serial 0/0/0
 + Password: `ciscosecpa55`
 + `configure terminal`  
 
-config\)\#
+
 ```
 interface range fa 0/1-2
-```
--if\)\#
-```
 no shutdown
 exit
 ```
@@ -728,7 +437,7 @@ exit
 + Leaga R-Server de Sw-Server cu G0/1 - G0/0, apoi Sw-Server de Server cu G0/1 - 0/0
 + Leaga Nume de R-Server cu Serial 0/0/0 ambele, cu cablu rosu fara ceas
 + \[Network Devices\] -> \[Wireless Devices\] -> WRT300N -> nume: Wi-FiNume
-+ \[Connections]] -> Copper Straight-Through -> SERVICE \(FastEthernet0\) --- Wi-Fi \(Ethernet1\)
++ \[Connections\] -> Copper Straight-Through -> SERVICE \(FastEthernet0\) --- Wi-Fi \(Ethernet1\)
 + SERVICE -> Desktop -> IP Configuration
   + IPv4: `192.168.0.R` \(R e numar random\)
 + SERVICE -> Desktop -> Web Browser -> `192.168.0.1` -> Go -> `admin`, `admin`
@@ -831,3 +540,176 @@ exit
 | UUU | problems |
 
 + Schimba route catre Server
+
+## Comenzi
+
+### Comenzi Switch
+
+Enter dupa fiecare comanda  
+
+```
+enable
+configure terminal
+no ip domain-lookup
+hostname Sw-Nume
+no cdp run
+service password-encryption
+enable secret ciscosecpa55
+enable password ciscoenapa55
+banner motd $Vineri 14.03.2025 la ora 9:00 va avea loc sedinta IT!$
+line console 0
+password ciscoconpa55
+login
+logging synchronous
+exec-timeout 20 10
+exit
+line vty 0 15
+password ciscovtypa55
+login
+logging synchronous
+exec-timeout 5 5
+end
+copy running-config startup-config (salveaza configuratia)
+Enter (intrebare despre nume)
+clock set HH:MM:SS D Mon YYYY (data si ora curenta)
+configure terminal
+ip domain name info.ro
+username Admin01 privilege 15 secret Admin01pa55
+line vty 0 15
+transport input ssh
+login local
+exit
+crypto key generate rsa
+2048, Enter (intrebare despre biti)
+ip ssh version 2
+logging host DNS.DNS.DNS.DNS
+service timestamps log datetime msec
+service timestamps debug datetime msec
+interface vlan 1
+description ramura Nume
+ip address IPS.IPS.IPS.IPS SM.SM.SM.SM
+no shutdown
+exit
+
+> necesita confirmare
+
+interface range fastethernet 0/1-24 (la primul switch, range-ul va fi 2-24, intrucat cu 0/1 vom uni TestDHCP)
+shutdown
+exit
+
+> pana aici  
+
+ip default-gateway DG.DG.DG.DG
+exit
+```
+
+### Comenzi Router
+
+Enter dupa fiecare comanda  
+
+```
+enable
+configure terminal
+no ip domain-lookup
+hostname R-Nume
+no cdp run
+service password-encryption
+security passwords min-length 10
+login block-for 50 attempts 3 within 20
+enable secret ciscosecpa55
+enable password ciscoenapa55
+banner login $Accesul persoanelor neautorizate este strict interzis!$
+banner motd $Vineri 21.03.2025 la ora 14:00 serverul va fi oprit!$
+line console 0
+password ciscoconpa55
+login
+logging synchronous
+exec-timeout 20 10
+exit
+line vty 0 15
+password ciscovtypa55
+login
+logging synchronous
+exec-timeout 5 5
+end
+copy running-config startup-config (salveaza configuratia)
+Enter (intrebare despre nume)
+clock set HH:MM:SS D Mon YYYY (data si ora curenta)
+configure terminal
+ip domain name info.ro
+username Admin01 privilege 15 secret Admin01pa55
+line vty 0 15
+transport input ssh
+login local
+exit
+crypto key generate rsa
+2048, Enter (intrebare despre biti)
+ip ssh version 2
+logging host DNS.DNS.DNS.DNS
+service timestamps log datetime msec
+service timestamps debug datetime msec
+interface gigabit 0/0
+description legatura cu ramura Nume
+ip address IPR.IPR.IPR.IPR SM.SM.SM.SM
+ip helper-address IPRS.IPRS.IPRS.IPRS (seteaza dhcp: doar in giga 0/0, in toate routerele in afara de r-server) (ip r-server din interfata serial)
+no shutdown
+exit
+interface serial 0/0/0
+description legatura cu R-CelalaltNume
+ip address IPR.IPR.IPR.IPR 255.255.255.252
+no shutdown
+```
+```
+interface giga 0/2 (shutdown la interfetele pe care nu le folosim: giga 0/2 mereu, giga 0/1 daca nu ai wifi pe branch, si una dintre cele 2 serial la routerele din capete)
+shutdown
+exit
+```
+Doar la r-server:
+```
+ip dhcp excluded-address IPRS.IPRS.IPRS.IPRS IPU.IPU.IPU.IPU (IPRS e IPR de la subreteaua pentru care configurezi dhcp acum) (IPU reprezinta IPH la retele in care primul host are ip static, in rest IPU este adresa ultimului switch)
+ip dhcp pool Nume
+network DG.DG.DG.DG SM.SM.SM.SM
+default-router IPRS.IPRS.IPRS.IPRS (IPRS e IPR de la subreteaua pentru care configurezi dhcp acum)
+dns-server DNS.DNS.DNS.DNS
+exit
+ip route NA.NA.NA.NA SM.SM.SM.SM serial 0/0/index (NA si SM de la subreteaua catre care faci rutarea acum) (index e indicele interfetei serial catre subreteaua catre care faci rutarea acum)
+end
+copy running-config startup-config
+exit
+```
+
+## Testare
+
+### Ping si SSH
+
++ \[Connections\] -> Copper Straight-Through -> Sw-Nume \(GigabitEthernet 0/2\) --- PC \(GigabitEthernet0\)
++ PC -> Desktop -> Command Prompt
+
+Sw-Nume\#
+```
+ping 174.40.20.2
+ssh -l Admin01 174.40.20.2
+```
++ `Admin01pa55`
+
+![Testare reusita](poze/switch_test.png)
+
+???
+
++ \[Connections\] -> Copper Straight-Through -> Sw-Nume \(GigabitEthernet 0/1\) --- R-Nume \(GigabitEthernet 0/0\)
++ PC -> Command Prompt  
+sau
++ Router -> CLI
+  + Password: `ciscoconpa55`
+```
+ping IPR.IPR.IPR.IPR
+ssh -l Admin01 IPR.IPR.IPR.IPR
+```
+
+### HTTP si DNS
+
+### Email
+
+### FTP
+
+### Syslog
