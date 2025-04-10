@@ -433,9 +433,7 @@ interface serial 0/0/0
 description legatura cu R-CelalaltNume
 ip address IPR.IPR.IPR.IPR 255.255.255.252
 no shutdown
-```
-```
-interface giga 0/2 (shutdown la interfetele pe care nu le folosim: giga 0/2 mereu, giga 0/1 daca nu ai wifi pe branch, si una dintre cele 2 serial la routerele din capete)
+interface giga 0/2 (shutdown la interfetele pe care nu le folosesti: giga 0/2 mereu, giga 0/1 daca nu ai wifi pe branch, si una dintre cele 2 serial la routerele din capete)
 shutdown
 exit
 ```
