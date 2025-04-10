@@ -212,6 +212,8 @@ Primul IP asignabil din reteaua `1022`
 + \[Connections\] -> Console -> Sw-Nume \(Console\) --- SERVICE \(RS 232\)  
 ![Rezultat](poze/switch.png)
 + Laptop -> Desktop -> Terminal -> OK -> Enter
++ [Comenzi Switch](#comenzi-switch)
++ \[Connections\] -> Copper Straight-Through -> Sw-Nume \(GigabitEthernet 0/2\) --- PC \(GigabitEthernet0\)
 
 ### Router
 
@@ -219,6 +221,8 @@ Primul IP asignabil din reteaua `1022`
 + R-Nume -> Physical -> power off -> inlocuieste placa de retea cu HWIC-2T \(drag & drop\) -> power on
 + Console -> SERVICE --- Sw-Nume -> SERVICE --- R-Nume \(Console\)
 + SERVICE -> Desktop -> Terminal -> OK -> `no`, Enter -> Enter
++ [Comenzi Router](#comenzi-router)
++ \[Connections\] -> Copper Straight-Through -> Sw-Nume \(GigabitEthernet 0/1\) --- R-Nume \(GigabitEthernet 0/0\)
 
 ### Server
 
@@ -682,34 +686,52 @@ exit
 
 ### Ping si SSH
 
-+ \[Connections\] -> Copper Straight-Through -> Sw-Nume \(GigabitEthernet 0/2\) --- PC \(GigabitEthernet0\)
 + PC -> Desktop -> Command Prompt
 
-Sw-Nume\#
 ```
-ping 174.40.20.2
-ssh -l Admin01 174.40.20.2
+ping IP.IP.IP.IP
+ssh -l Admin01 IP.IP.IP.IP
 ```
-+ `Admin01pa55`
++ Password: `Admin01pa55`
++ In prima subretea, testeaza switch-ul si router-ul cu ping si ssh din host.
++ In celelalte subretele, testeaza toate IP-urile disponibile cu ping si ssh doar din command prompt-ul dispozitivului curent sau din terminalul SERVICE-ului, dupa caz.
++ Ping-ul si ssh-ul dispozitivului curent vor fi testate abia dupa configurarea urmatorului dispozitiv.
 
 ![Testare reusita](poze/switch_test.png)
 
-???
-
-+ \[Connections\] -> Copper Straight-Through -> Sw-Nume \(GigabitEthernet 0/1\) --- R-Nume \(GigabitEthernet 0/0\)
-+ PC -> Command Prompt  
-sau
-+ Router -> CLI
-  + Password: `ciscoconpa55`
-```
-ping IPR.IPR.IPR.IPR
-ssh -l Admin01 IPR.IPR.IPR.IPR
-```
-
 ### HTTP si DNS
+
++ Dupa ce ai configurat serverul: Nume -> Physical -> Desktop -> Web Browser -> URL: info.ro
++ Adauga s la http
++ Site-ul Cisco Packet Tracer trebuie sa apara
 
 ### Email
 
++ Dupa ce ai configurat serverul: Nume -> Physical -> Desktop -> Email -> Compose
+  + To: NUMESERVER@info.ro
+  + Subject: Test
+  + Mesaj: Testare serviciu email
++ Send
++ Server -> Physical -> Desktop -> Email -> Receive
++ Mail-ul de la primul host trebuie sa apara
++ Reply -> Mesaj: Confirmare primire email -> Send
++ Nume -> Physical -> Desktop -> Email -> Receive
++ Reply-ul de la server trebuie sa apara
+
 ### FTP
 
++ Dupa ce ai configurat serverul: Nume -> Physical -> Desktop -> Command Prompt
++ `dir`
++ `ftp DNS.DNS.DNS.DNS`
++ Username: Nume
++ Password: 123456
++ `dir`
++ `get [fisier_ales]` alege un fisier, cat mai mic
++ `quit`
++ `dir`
++ Fisierul trebuie sa apara printre fisierele enumerate, adica output-ul sa fie diferit de cel de la inceput.
+
 ### Syslog
+
++ Dupa ce ai configurat serverul: scoate un cablu de la locul lui lui si pune-l la loc.
++ In server, la serviciul Syslog, trebuie sa apara niste mesaje cu timestamps.
