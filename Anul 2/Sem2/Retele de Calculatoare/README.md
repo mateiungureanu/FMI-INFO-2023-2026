@@ -421,7 +421,12 @@ service timestamps debug datetime msec
 interface gigabit 0/0
 description legatura cu ramura Nume
 ip address IPR.IPR.IPR.IPR SM.SM.SM.SM
-ip helper-address IPRS.IPRS.IPRS.IPRS (seteaza dhcp: doar in giga 0/0, in toate routerele in afara de r-server) (ip r-server din interfata serial)
+ip helper-address IPRS.IPRS.IPRS.IPRS (seteaza dhcp: doar in giga 0/0, in toate routerele in afara de r-server) (ip r-server din legatura serial)
+no shutdown
+exit
+interface giga 0/1 (doar la routerul care face legatura cu wifi)
+description legatura cu wifi
+ip address IPR.IPR.IPR.IPR 255.255.255.252
 no shutdown
 exit
 interface serial 0/0/0
