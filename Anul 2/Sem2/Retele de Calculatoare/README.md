@@ -208,21 +208,22 @@ Primul IP asignabil din reteaua `1022`
 
 ### Switch
 
-+ \[Network Devices\] -> \[Switches\] -> 2960 -> nume: "Sw-Nume"
-+ \[Connections\] -> Console -> Sw-Nume \(Console\) --- SERVICE \(RS 232\)  
-![Rezultat](poze/switch.png)
-+ Laptop -> Desktop -> Terminal -> OK -> Enter
++ Pentru primul Switch din shcema: \[Connections\] -> Console -> SwNume \(Console\) --- SERVICE \(RS 232\)  
++ Muta cablul Console de la dispozitivul vechi la noul dispozitiv de configurat
++ \[Network Devices\] -> \[Switches\] -> 2960 -> nume: "SwNume"
++ SERVICE -> Desktop -> Terminal -> OK -> Enter
 + [Comenzi Switch](#comenzi-switch)
-+ \[Connections\] -> Copper Straight-Through -> Sw-Nume \(GigabitEthernet 0/2\) --- PC \(GigabitEthernet0\)
++ \[Connections\] -> Copper Straight-Through -> SwNume \(GigabitEthernet 0/2\) --- PC \(GigabitEthernet0\)
 
 ### Router
 
-+ \[Network Devices\] -> \[Routers\] -> 2911 \(sau 2901 daca se cere\) -> nume: "R-Nume"
-+ R-Nume -> Physical -> power off -> inlocuieste placa de retea cu HWIC-2T \(drag & drop\) -> power on
-+ Console -> SERVICE --- Sw-Nume -> SERVICE --- R-Nume \(Console\)
++ Muta cablul Console de la dispozitivul vechi la noul dispozitiv de configurat
++ \[Network Devices\] -> \[Routers\] -> 2911 \(sau 2901 daca se cere\) -> nume: "RNume"
++ RNume -> Physical -> power off -> inlocuieste placa de retea cu HWIC-2T \(drag & drop\) -> power on
++ Console -> SERVICE --- SwNume -> SERVICE --- RNume \(Console\)
 + SERVICE -> Desktop -> Terminal -> OK -> `no`, Enter -> Enter
 + [Comenzi Router](#comenzi-router)
-+ \[Connections\] -> Copper Straight-Through -> Sw-Nume \(GigabitEthernet 0/1\) --- R-Nume \(GigabitEthernet 0/0\)
++ \[Connections\] -> Copper Straight-Through -> SwNume \(GigabitEthernet 0/1\) --- RNume \(GigabitEthernet 0/0\)
 
 ### Server
 
@@ -266,7 +267,7 @@ Primul IP asignabil din reteaua `1022`
   + Bifeaza Write, Read, List
   + Add dupa fiecare user si parola
 
-+ \[Connections\] -> Copper Straight-Through -> Sw-Nume \(FastEthernet\) --- Server \(FastEthernet\)
++ \[Connections\] -> Copper Straight-Through -> SwNume \(FastEthernet\) --- Server \(FastEthernet\)
 
 ### Wi-Fi
 
@@ -321,7 +322,7 @@ Enter dupa fiecare comanda
 enable
 configure terminal
 no ip domain-lookup
-hostname Sw-Nume
+hostname SwNume
 no cdp run
 service password-encryption
 enable secret ciscosecpa55
@@ -361,9 +362,13 @@ ip address IPS.IPS.IPS.IPS SM.SM.SM.SM
 no shutdown
 exit
 
+interface range fa 0/1-2
+no shutdown
+exit
+
 > necesita confirmare
 
-interface range fastethernet 0/1-24 (la primul switch, range-ul va fi 2-24, intrucat cu 0/1 vom uni TestDHCP)
+interface range fa 0/1-24 (la primul switch, range-ul va fi 2-24, intrucat cu 0/1 vom uni TestDHCP)
 shutdown
 exit
 
@@ -381,7 +386,7 @@ Enter dupa fiecare comanda
 enable
 configure terminal
 no ip domain-lookup
-hostname R-Nume
+hostname RNume
 no cdp run
 service password-encryption
 security passwords min-length 10
