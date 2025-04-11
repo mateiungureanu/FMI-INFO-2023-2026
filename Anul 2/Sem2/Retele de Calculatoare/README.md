@@ -216,7 +216,6 @@ Primul IP asignabil din reteaua `1022`
 + \[Connections\] -> Copper Straight-Through -> SwNume \(GigabitEthernet 0/2\) --- PC \(GigabitEthernet0\)
 
 ### Router
-
 + Muta cablul Console de la dispozitivul vechi la noul dispozitiv de configurat
 + \[Network Devices\] -> \[Routers\] -> 2911 \(sau 2901 daca se cere\) -> nume: "RNume"
 + RNume -> Physical -> power off -> inlocuieste placa de retea cu HWIC-2T \(drag & drop\) -> power on
@@ -266,7 +265,6 @@ Primul IP asignabil din reteaua `1022`
   + Password: 123456 pentru toti userii
   + Bifeaza Write, Read, List
   + Add dupa fiecare user si parola
-
 + \[Connections\] -> Copper Straight-Through -> SwNume \(FastEthernet\) --- Server \(FastEthernet\)
 
 ### Wi-Fi
@@ -470,8 +468,6 @@ ssh -l Admin01 IP.IP.IP.IP
 + In prima subretea, testeaza switch-ul si router-ul cu ping si ssh din host.
 + In celelalte subretele, testeaza toate IP-urile disponibile cu ping si ssh doar din command prompt-ul dispozitivului curent sau din terminalul SERVICE-ului, dupa caz.
 + Ping-ul si ssh-ul dispozitivului curent vor fi testate abia dupa configurarea urmatorului dispozitiv.
-
-![Testare reusita](poze/switch_test.png)
 
 ### HTTP si DNS
 
