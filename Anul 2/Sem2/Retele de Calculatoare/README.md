@@ -440,17 +440,21 @@ interface giga 0/2 (shutdown la interfetele pe care nu le folosesti: giga 0/2 me
 shutdown
 exit
 ```
-Doar la r-server:
+
+\(Daca ai server legat de R1, care e legat de R2 si R3, atunci server face pentru R1, si R1 face pentru R2 si R3\):
 ```
-ip dhcp excluded-address IPRS.IPRS.IPRS.IPRS IPU.IPU.IPU.IPU (IPRS e IPR de la subreteaua pentru care configurezi dhcp acum) (IPU reprezinta IPH la retele in care primul host are ip static, in rest IPU este adresa ultimului switch)
+ip dhcp excluded-address DG.DG.DG.DG IPU.IPU.IPU.IPU (DG pentru care configurezi dhcp acum) (IPU reprezinta IPH la retele in care primul host are ip static, in rest IPU este adresa ultimului switch)
 ip dhcp pool Nume
-network DG.DG.DG.DG SM.SM.SM.SM
-default-router IPRS.IPRS.IPRS.IPRS (IPRS e IPR de la subreteaua pentru care configurezi dhcp acum)
+network NA.NA.NA.NA SM.SM.SM.SM
+default-router DG.DG.DG.DG
 dns-server DNS.DNS.DNS.DNS
-exit
+end
+```
+
+\(Daca ai server legat de R1, care e legat de R2 si R3, atunci server face route cu R1, R1 face cu R2 si R3\):
+```
 ip route NA.NA.NA.NA SM.SM.SM.SM serial 0/0/index (NA si SM de la subreteaua catre care faci rutarea acum) (index e indicele interfetei serial catre subreteaua catre care faci rutarea acum)
 end
-copy running-config startup-config
 exit
 ```
 
