@@ -451,7 +451,7 @@ dns-server DNS.DNS.DNS.DNS
 end
 ```
 
-\(Daca ai server legat de R1, care e legat de R2 si R3, atunci server face route cu R1, R1 face cu R2 si R3\):
+\(Daca ai server legat de R1, care e legat de R2 si R3, atunci server face cu R1, R1 face cu server, R1 face cu R2 si R3, R2 si R3 fac cu R1\):
 ```
 ip route NA.NA.NA.NA SM.SM.SM.SM serial 0/0/index (NA si SM de la subreteaua catre care faci rutarea acum) (index e indicele interfetei serial catre subreteaua catre care faci rutarea acum)
 end
