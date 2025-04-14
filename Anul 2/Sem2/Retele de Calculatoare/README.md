@@ -208,18 +208,18 @@ Primul IP asignabil din reteaua `1022`
 
 ### Switch
 
-+ Pentru primul Switch din shcema: \[Connections\] -> Console -> SwNume \(Console\) --- SERVICE \(RS 232\)  
-+ Muta cablul Console de la dispozitivul vechi la noul dispozitiv de configurat
 + \[Network Devices\] -> \[Switches\] -> 2960 -> nume: "SwNume"
++ Pentru primul Switch din schema: \[Connections\] -> Console -> SwNume \(Console\) --- SERVICE \(RS 232\)  
++ Altfel, muta cablul Console de la dispozitivul vechi la noul dispozitiv de configurat
 + SERVICE -> Desktop -> Terminal -> OK -> Enter
 + [Comenzi Switch](#comenzi-switch)
 + \[Connections\] -> Copper Straight-Through -> SwNume \(GigabitEthernet 0/2\) --- PC \(GigabitEthernet0\)
 
 ### Router
-+ Muta cablul Console de la dispozitivul vechi la noul dispozitiv de configurat
+
 + \[Network Devices\] -> \[Routers\] -> 2911 \(sau 2901 daca se cere\) -> nume: "RNume"
 + RNume -> Physical -> power off -> inlocuieste placa de retea cu HWIC-2T \(drag & drop\) -> power on
-+ Console -> SERVICE --- SwNume -> SERVICE --- RNume \(Console\)
++ Muta cablul Console de la dispozitivul vechi la noul dispozitiv de configurat
 + SERVICE -> Desktop -> Terminal -> OK -> `no`, Enter -> Enter
 + [Comenzi Router](#comenzi-router)
 + \[Connections\] -> Copper Straight-Through -> SwNume \(GigabitEthernet 0/1\) --- RNume \(GigabitEthernet 0/0\)
