@@ -265,7 +265,6 @@ Primul IP asignabil din reteaua `1022`
   + Password: 123456 pentru toti userii
   + Bifeaza Write, Read, List
   + Add dupa fiecare user si parola
-+ \[Connections\] -> Copper Straight-Through -> SwNume \(FastEthernet 0/1\) --- Server \(GigabitEthernet0\)
 
 ### Wi-Fi
 
