@@ -441,7 +441,7 @@ shutdown
 exit
 ```
 
-\(Daca ai server legat de R1, care e legat de R2 si R3, atunci server face pentru R1, si R1 face pentru R2 si R3\):
+Doar in RServer, pentru fiecare retea mare:
 ```
 ip dhcp excluded-address DG.DG.DG.DG IPU.IPU.IPU.IPU (DG pentru care configurezi dhcp acum) (IPU reprezinta IPH la retele in care primul host are ip static, in rest IPU este adresa ultimului switch)
 ip dhcp pool Nume
@@ -451,10 +451,9 @@ dns-server DNS.DNS.DNS.DNS
 end
 ```
 
-\(Daca ai server legat de R1, care e legat de R2 si R3, atunci server face cu R1, R1 face cu server, R1 face cu R2 si R3, R2 si R3 fac cu R1\):
+Pentru fiecare retea de care nu e legat direct routerul:
 ```
-ip route NA.NA.NA.NA SM.SM.SM.SM serial 0/0/index (NA si SM de la subreteaua catre care faci rutarea acum) (index e indicele interfetei serial catre subreteaua catre care faci rutarea acum)
-end
+ip route NA.NA.NA.NA SM.SM.SM.SM serial 0/0/index (NA si SM de la subreteaua catre care faci rutarea acum) (index e indicele interfetei serial care porneste din router catre subreteaua catre care faci rutarea acum)
 exit
 ```
 
