@@ -13,7 +13,7 @@
    6. [IP Switch](#ip-switch)
    7. [IP Host](#ip-host)
 2. [Setup](#setup)
-   1. [Conventia de numire a echipamentelor](#conventia-de-numire-a-echipementelor)
+   1. [Conventia de numire a echipamentelor](#conventia-de-numire-a-echipamentelor)
    2. [Host si SERVICE](#host-si-service)
    3. [Switch](#switch)
    4. [Router](#router)
