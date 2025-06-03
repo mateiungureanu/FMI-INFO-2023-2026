@@ -1,5 +1,7 @@
 # Curs: Nisioi Sergiu
-# Laborator: Dragan Mihaita
+# Laborator: Dragan Mihaita, Creanga Danut Claudiu  
+ 
+> **Cele de urmeaza reprezinta materia de la laboratorul cu dl. Dragan \(saptamanile 1-7\)**  
 
 ## Table of contents
 1. [Calcularea IP-urilor](#calcularea-ip-urilor)
