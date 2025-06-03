@@ -13,16 +13,17 @@
    6. [IP Switch](#ip-switch)
    7. [IP Host](#ip-host)
 2. [Setup](#setup)
-   1. [Host si SERVICE](#host-si-service)
-   2. [Switch](#switch)
-   3. [Router](#router)
-   4. [Server](#server)
-   5. [Wi-FI](#wi-fi)
-   6. [Laptop Wi-Fi](#laptop-wi-fi)
-3. [Comenzi](#comenzi)
+   1. [Conventia de numire a echipamentelor](#conventia-de-numire-a-echipementelor)
+   2. [Host si SERVICE](#host-si-service)
+   3. [Switch](#switch)
+   4. [Router](#router)
+   5. [Server](#server)
+   6. [Wi-FI](#wi-fi)
+   7. [Laptop Wi-Fi](#laptop-wi-fi)
+4. [Comenzi](#comenzi)
    1. [Comenzi Switch](#comenzi-switch)
    2. [Comenzi Router](#comenzi-router)
-4. [Testare](#testare)
+5. [Testare](#testare)
    1. [Ping si SSH](#ping-si-ssh)
    2. [HTTP si DNS](#http-si-dns)
    3. [Email](#email)
@@ -187,6 +188,28 @@ Primul IP asignabil din reteaua `1022`
 + incep de la: Default Gateway + numar switch-uri + 1
 
 ## Setup
+
+### Conventia de numire a echipamentelor
+
+Exemplu:  
+- Albania: 2047
+- Arges: 127 \(server\) \(ramura cu wi-fi\)
+- Argentina: 4095
+
+Conventia de numire si ordinea de plasare a echipamentelor:  
+- primul host: `Albania`
+- switch pe ramura Albania: `Sw-Albania` sau `SwAlbania`
+- router pe ramura Albania: `R-Albania` sau `RAlbania`
+- router pe ramura Arges: `R-Arges` sau `RArges` sau `R-Server` sau `RServer`
+- switch pe ramura Arges: `Sw-Arges` sau `SwArges` sau `Sw-Server` sau `SwServer`
+- al doilea host \(serverul\): `Arges` sau `Server`
+- wi-fi: `Wi-Fi` sau `Wi-FiArges`
+- router pe ramura Argentina: `R-Argentina` sau `RArgentina`
+- switch pe ramura Argentina: `Sw-Argentina` sau `SwArgentina`
+- al treilea host: `Argentina`
+
+> **ATENTIE**  
+> Nu adu urmatorul echipament in spatiul de lucru decat dupa ce ai terminat sa-l configurezi pe cel precedent!
 
 ### Host si SERVICE
 
