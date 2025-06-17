@@ -1,0 +1,8 @@
+{true}
+s := 0;
+i := 0;
+while i <= n do (
+    s := s + i;
+    i := i + 1
+) invariant i <= n + 1 && 2 * s == i * (i - 1)
+{2 * s == n * (n + 1)}

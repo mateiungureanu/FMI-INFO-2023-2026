@@ -1,0 +1,5 @@
+{true}
+  if x <= y
+    then m := y
+    else m := x
+{(m == x || m == y) && x <= m && y <= m}
