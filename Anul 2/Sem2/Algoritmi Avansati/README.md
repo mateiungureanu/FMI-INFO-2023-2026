@@ -7,3 +7,4 @@
 ## Seminar & laborator: Rincu Stefania
 
 ### https://cms.fmi.unibuc.ro/
+### https://andreihodoroaga.github.io/geometric-algorithms/

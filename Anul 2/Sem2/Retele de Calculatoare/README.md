@@ -1,7 +1,15 @@
 # Curs: Nisioi Sergiu
 # Laborator: Dragan Mihaita, Creanga Danut Claudiu  
- 
-> **Cele de urmeaza reprezinta materia de la laboratorul cu dl. Dragan \(saptamanile 1-7\)**  
+
+### https://github.com/senisioi/computer-networks/
+
+---
+
+## Laborator s1-7
+> [!IMPORTANT]  
+> Saptamanile 1-5: predarea materiei.  
+> Saptamanile 6-7: autoevaluare (scrii cat poti fara foi, dupa iei foile si continui)  
+> Saptamana 8: evaluare finala.
 
 ## Table of contents
 1. [Calcularea IP-urilor](#calcularea-ip-urilor)
@@ -13,13 +21,14 @@
    6. [IP Switch](#ip-switch)
    7. [IP Host](#ip-host)
 2. [Setup](#setup)
-   1. [Conventia de numire a echipamentelor](#conventia-de-numire-a-echipamentelor)
-   2. [Host si SERVICE](#host-si-service)
-   3. [Switch](#switch)
-   4. [Router](#router)
-   5. [Server](#server)
-   6. [Wi-FI](#wi-fi)
-   7. [Laptop Wi-Fi](#laptop-wi-fi)
+   1. [Conventia de numire a dispozitivelor](#conventia-de-numire-a-dispozitivelor)
+   2. [Host](#host)
+   3. [Laptop Service](#laptop-service)
+   4. [Switch](#switch)
+   5. [Router](#router)
+   6. [Server](#server)
+   7. [Wi-FI](#wi-fi)
+   8. [Laptop Wi-Fi](#laptop-wi-fi)
 4. [Comenzi](#comenzi)
    1. [Comenzi Switch](#comenzi-switch)
    2. [Comenzi Router](#comenzi-router)
@@ -157,46 +166,40 @@ Primul IP asignabil din reteaua `1022`
 + Daca b &ne; 0 -> numar switch-uri = a + 1
 
 ### Subnet Mask
-+ codat in README: SM.SM.SM.SM
 + 2<sup>x</sup>-2 &le; n &le; 2<sup>y</sup>-2
 + sm = 32 - y
 + Transformare in IP: sm / 8 = a rest b; SM = 255 de a ori, apoi b biti de 1 de la stanga la dreapta, tranformati in numar, apoi 0 daca mai sunt octeti liberi
 + Exemplu: sm = 18; 18 / 8 = 2 rest 2 -> 255 de 2 ori, apoi 11000000 in numar: 192, apoi un 0 -> 255.255.192.0
 
 ### Default Gateway
-+ codat in README: DG.DG.DG.DG
 + NA al retelei respective + 1
 
 ### DNS Server
-+ codat in README: DNS.DNS.DNS.DNS
 + BA al subretelei serverului – 1 \(este si IP-ul serverului respectiv\)
 
 ### IP Router
-+ codat in README: IPR.IPR.IPR.IPR
 + Routerele au cate un IP pentru fiecare interfata folosita.
 + Pentru legatura cu o ramura cu host-uri: interfata Gigabit 0/0, IP: Default Gateway-ul subretelei respective
 + Pentru legatura cu alte routere: interfata Serial cea mai mica posibila, IP: cel mai mic posibil din subreteaua respectiva
 + Pentru legatura cu Wi-Fi: interfata Gigabit 0/1
 
 ### IP Switch
-+ codat in README: IPS.IPS.IPS.IPS
 + range: Default Gateway + 1 <-> Default Gateway + numar switch-uri
 + Fiecare switch va primi cel mai mic IP disponibil -> primul switch are IP: DG + 1
 
 ### IP Host
-+ codat in README: IPH.IPH.IPH.IPH
 + incep de la: Default Gateway + numar switch-uri + 1
 
 ## Setup
 
-### Conventia de numire a echipamentelor
+### Conventia de numire a dispozitivelor
 
 Exemplu:  
 - Albania: 2047
 - Arges: 127 \(server\) \(ramura cu wi-fi\)
 - Argentina: 4095
 
-Conventia de numire si ordinea de plasare a echipamentelor:  
+Conventia de numire si ordinea de plasare a dispozitivelor:  
 - primul host: `Albania`
 - switch pe ramura Albania: `Sw-Albania` sau `SwAlbania`
 - router pe ramura Albania: `R-Albania` sau `RAlbania`
@@ -208,102 +211,105 @@ Conventia de numire si ordinea de plasare a echipamentelor:
 - switch pe ramura Argentina: `Sw-Argentina` sau `SwArgentina`
 - al treilea host: `Argentina`
 
-> **ATENTIE**  
+> [!WARNING]  
 > Nu adu urmatorul echipament in spatiul de lucru decat dupa ce ai terminat sa-l configurezi pe cel precedent!
 
-### Host si SERVICE
+### Host
 
-+ \[End Devices\] -> PC -> nume: "Nume"
++ \[End Devices\] -> PC -> redenumeste
 + PC -> Physical -> power off -> inlocuieste placa de retea cu PT-HOST-NM-1CGE \(drag & drop\) -> power on
 + PC -> Desktop -> IP Configuration
-  + IPv4 Address: IPH.IPH.IPH.IPH
-  + Subnet Mask: SM.SM.SM.SM
-  + Default Gateway: DG.DG.DG.DG
-  + DNS Server: DNS.DNS.DNS.DNS
+  + IPv4 Address: [IP Host](#ip-host)
+  + Subnet Mask: [Subnet Mask](#subnet-mask)
+  + Default Gateway: [Default gateway](#default-gateway)
+  + DNS Server: [DNS Server](#dns-server)
 + PC -> Desktop -> Email
   + Your Name: Nume
   + Email Address: Nume@info.ro
-  + Incoming Mail Server: DNS.DNS.DNS.DNS
-  + Outgoing Mail Server: DNS.DNS.DNS.DNS
+  + Incoming Mail Server: [DNS Server](#dns-server)
+  + Outgoing Mail Server: [DNS Server](#dns-server)
   + User Name: Nume
   + Password: 123456
 + Save
 + \(optional\) Configure Email -> verific daca am scris corect
-+ \[End Devices\] -> Laptop -> nume: "SERVICE"
+
+### Laptop Service
+
++ \[End Devices\] -> Laptop -> redenumeste
 
 ### Switch
 
-+ \[Network Devices\] -> \[Switches\] -> 2960 -> nume: "SwNume"
-+ Pentru primul Switch din schema: \[Connections\] -> Console -> SwNume \(Console\) --- SERVICE \(RS 232\)  
++ \[Network Devices\] -> \[Switches\] -> 2960 -> redenumeste
++ Pentru primul Switch din schema: \[Connections\] -> Console -> Switch \(Console\) --- Laptop Service \(RS 232\)  
 + Altfel, muta cablul Console de la dispozitivul vechi la noul dispozitiv de configurat
-+ SERVICE -> Desktop -> Terminal -> OK -> Enter
++ Laptop Service -> Desktop -> Terminal -> OK -> Enter
 + [Comenzi Switch](#comenzi-switch)
-+ \[Connections\] -> Copper Straight-Through -> SwNume \(GigabitEthernet 0/2\) --- PC \(GigabitEthernet0\)
++ \[Connections\] -> Copper Straight-Through -> Switch \(GigabitEthernet 0/2\) --- PC \(GigabitEthernet0\)
 
 ### Router
 
-+ \[Network Devices\] -> \[Routers\] -> 2911 \(sau 2901 daca se cere\) -> nume: "RNume"
-+ RNume -> Physical -> power off -> inlocuieste placa de retea cu HWIC-2T \(drag & drop\) -> power on
++ \[Network Devices\] -> \[Routers\] -> 2911 \(sau 2901 daca se cere\) -> redenumeste
++ Router -> Physical -> power off -> inlocuieste placa de retea cu HWIC-2T \(drag & drop\) -> power on
 + Muta cablul Console de la dispozitivul vechi la noul dispozitiv de configurat
-+ SERVICE -> Desktop -> Terminal -> OK -> `no`, Enter -> Enter
++ Laptop Service -> Desktop -> Terminal -> OK -> `no`, Enter -> Enter
 + [Comenzi Router](#comenzi-router)
-+ \[Connections\] -> Copper Straight-Through -> SwNume \(GigabitEthernet 0/1\) --- RNume \(GigabitEthernet 0/0\)
++ \[Connections\] -> Copper Straight-Through -> Switch \(GigabitEthernet 0/1\) --- Router \(GigabitEthernet 0/0\)
 
 ### Server
 
-+ \[End-Devices\] -> Server -> nume: ServerNume
-+ ServerNume -> Physical -> power off -> inlocuieste placa de retea cu PT-HOST-NM-1CGE \(drag & drop\) -> power on
-+ ServerNume -> Desktop -> IP Configuration
-  + IPv4 Address: DNS.DNS.DNS.DNS
++ \[End-Devices\] -> Server -> redenumeste
++ Server -> Physical -> power off -> inlocuieste placa de retea cu PT-HOST-NM-1CGE \(drag & drop\) -> power on
++ Server -> Desktop -> IP Configuration
+  + IPv4 Address: [DNS Server](#dns-server)
   + Subnet Mask: SM.SM.SM.SM
-  + Default Gateway: DG.DG.DG.DG
-  + DNS Server: DNS.DNS.DNS.DNS
-+ ServerNume -> Desktop -> Email
+  + Default Gateway: [Default gateway](#default-gateway)
+  + DNS Server: [DNS Server](#dns-server)
++ Server -> Desktop -> Email
   + Your Name: ServerNume
   + Email Address: ServerNume@info.ro
-  + Incoming Mail Server: DNS.DNS.DNS.DNS
-  + Outgoing Mail Server: DNS.DNS.DNS.DNS
+  + Incoming Mail Server: [DNS Server](#dns-server)
+  + Outgoing Mail Server: [DNS Server](#dns-server)
   + User Name: ServerNume
   + Password: 123456
   + Save
 + \(optional\) Configure Email, verific daca am scris corect
-+ ServerNume -> Services -> HTTP
++ Server -> Services -> HTTP
   + HTTP: off
-+ ServerNume -> Services -> DNS
++ Server -> Services -> DNS
   + DNS Services: on
   + Name: info.ro
   + Type: A Record
-  + Address: DNS.DNS.DNS.DNS
+  + Address: [DNS Server](#dns-server)
   + Add
-+ ServerNume -> Services -> Syslog
++ Server -> Services -> Syslog
   + Service: on
-+ ServerNume -> Services -> Email
++ Server -> Services -> Email
   + SMTP: on
   + POP3 Services: on
   + Domain Name: info.ro
-  + User: toti userii \(Nume, Lap1, Lap2, SERVICE, ServerNume etc.\)
+  + User: toti userii \(pc-uri, laptopuri, switchuri, routere, servere etc.\)
   + Password: 123456 pentru toti userii
   + `+` dupa fiecare user si parola
-+ ServerNume -> Services -> FTP
++ Server -> Services -> FTP
   + Service: on
-  + User: toti userii \(Nume, Lap1, Lap2, SERVICE, ServerNume etc.\)
+  + User: toti userii \(pc-uri, laptopuri, switchuri, routere, servere etc.\)
   + Password: 123456 pentru toti userii
   + Bifeaza Write, Read, List
   + Add dupa fiecare user si parola
 
 ### Wi-Fi
 
-+ \[Network Devices\] -> \[Wireless Devices\] -> WRT300N -> nume: Wi-FiNume
-+ \[Connections\] -> Copper Straight-Through -> SERVICE \(FastEthernet0\) --- Wi-Fi \(Ethernet1\)
-+ SERVICE -> Desktop -> IP Configuration
++ \[Network Devices\] -> \[Wireless Devices\] -> WRT300N -> redenumeste
++ \[Connections\] -> Copper Straight-Through -> Laptop Service \(FastEthernet0\) --- Wi-Fi \(Ethernet1\)
++ Laptop Service -> Desktop -> IP Configuration
   + IPv4: `192.168.0.R` \(R e numar random\)
-+ SERVICE -> Desktop -> Web Browser -> `192.168.0.1` -> Go -> `admin`, `admin`
-+ SERVICE -> Basic Setup
++ Laptop Service -> Desktop -> Web Browser -> `192.168.0.1` -> Go -> `admin`, `admin`
++ Laptop Service -> Basic Setup
   + Internet Connection Type: Static IP
   + Internet IP Address: al doilea IP din RA-ul subretelei de 2 IP-uri a Wi-Fi-ului
-  + Subnet Mask: 255.255.255.252
+  + Subnet Mask: `255.255.255.252`
   + Default Gateway: primul IP din RA-ul subretelei de 2 IP-uri a Wi-Fi-ului
-  + DNS1: DNS.DNS.DNS.DNS
+  + DNS1: [DNS Server](#dns-server)
   + Router IP
     + IP Address: `192.160.X.Y` \(X e numar random, Y se calculeaza incadrand numarul dorit de utilizatori ai WiFi-ului + IP-ul Wi-Fi-ului intre puteri ale lui 2, - 2; Y e multiplul valorii superioare, + 1\)
     + Subnet Mask: `255.255.255.224` \(32 - puterea aleasa mai sus, transformat in binar\)
@@ -311,28 +317,31 @@ Conventia de numire si ordinea de plasare a echipamentelor:
   + Scroll down -> Save Settings
   + Scroll up -> Start IP Address -> Y + 1
   + Scroll down -> Save Settings
-+ SERVICE -> Desktop -> IP Configuration
-  + IPv4: 192.168.X.Z \(Z e un IP valid din range: Start IP Address <-> Start IP Address + Maximum numbers of Users - 1\)
-+ SERVICE -> Desktop -> Web Browser -> `192.168.X.Y` -> Go -> `admin`, `admin`
-+ SERVICE -> Wireless
++ Laptop Service -> Desktop -> IP Configuration
+  + IPv4: `192.168.X.Z` \(Z e un IP valid din range: Start IP Address <-> Start IP Address + Maximum numbers of Users - 1\)
++ Laptop Service -> Desktop -> Web Browser -> `192.168.X.Y` -> Go -> `admin`, `admin`
++ Laptop Service -> Wireless
   + Basic Wireless Settings
     + Network Name (SSID): Wi-FiNume
     + Standard Channel: 6 sau 11
   + Wireless Security
     + Security Mode: WPA2 Personal
     + Passphrase: InfoTest
-  + Wireless MAC Filter \(daca vrei sa faci whitelist/blacklist; doar dupa configurarea laptopurilor\)
+  + Wireless MAC Filter \(daca vrei sa faci whitelist/blacklist; doar dupa configurarea laptopurilor wi-fi\)
     + Enabled
     + Prevent / Permit
     + Pentru a obtine adresa MAC: Command Prompt -> `ipconfig/all` -> Physical Address -> Wireless, nu Bluetooth. Aceasta adresa trebuie formatata punand ":" intre fiecare 2 cifre pentru a putea fi adaugata in filtru
-+ Dupa ce adaugi cele 2 laptopuri si te asiguri ca merg, conecteaza Wi-Fi-ul la Router-ul apropiat: \[Connections\] -> Copper Cross-Over -> R-Server \(Gigabit 0/1\) --- Wi-FiNume \(Internet\)
++ Dupa ce adaugi cele 2 laptopuri wi-fi si te asiguri ca merg, conecteaza Wi-Fi-ul la Router-ul apropiat: \[Connections\] -> Copper Cross-Over -> R-Server \(Gigabit 0/1\) --- Wi-FiNume \(Internet\)
 
 
 ### Laptop Wi-Fi
 
-+ \[End-Devices\] -> Laptop -> nume: "Lap1" / "Lap2"
-+ "Lap1" / "Lap2" -> Physical -> power off -> inlocuieste placa de retea cu WPC-300N \(drag & drop\) -> power on
-+ "Lap1" / "Lap2" -> PC Wireless -> Profiles -> New -> Wi-FINume \(CAT MAI REPEDE, NU LASA SA DEA AUTOCOMPLETE\) -> Advanced Setup -> Next -> Next -> Security: WPA2-Personal -> Next -> Pre-shared Key: InfoTest -> Save -> Connect to Network
++ \[End-Devices\] -> Laptop -> redenumeste
++ Laptop Wi-Fi -> Physical -> power off -> inlocuieste placa de retea cu WPC-300N \(drag & drop\) -> power on
++ Laptop Wi-Fi -> PC Wireless -> Profiles -> New -> Wi-Fi -> Advanced Setup -> Next -> Next -> Security: WPA2-Personal -> Next -> Pre-shared Key: InfoTest -> Save -> Connect to Network
+
+> [!CAUTION]  
+> Completeaza cat mai repede, nu lasa sa dea autocomplete la Wi-Fi!
 
 ## Comenzi
 
@@ -375,12 +384,12 @@ exit
 crypto key generate rsa
 2048, Enter (intrebare despre biti)
 ip ssh version 2
-logging host DNS.DNS.DNS.DNS
+logging host [DNS Server]
 service timestamps log datetime msec
 service timestamps debug datetime msec
 interface vlan 1
 description ramura Nume
-ip address IPS.IPS.IPS.IPS SM.SM.SM.SM
+ip address [IP Switch] [Subnet Mask]
 no shutdown
 exit
 
@@ -396,7 +405,7 @@ exit
 
 > pana aici  
 
-ip default-gateway DG.DG.DG.DG
+ip default-gateway [Default gateway]
 exit
 ```
 
@@ -442,23 +451,23 @@ exit
 crypto key generate rsa
 2048, Enter (intrebare despre biti)
 ip ssh version 2
-logging host DNS.DNS.DNS.DNS
+logging host [DNS Server]
 service timestamps log datetime msec
 service timestamps debug datetime msec
 interface gigabit 0/0
 description legatura cu ramura Nume
-ip address IPR.IPR.IPR.IPR SM.SM.SM.SM
-ip helper-address IPRS.IPRS.IPRS.IPRS (seteaza dhcp: doar in giga 0/0, in toate routerele in afara de r-server) (ip r-server din legatura serial)
+ip address [IP Router] [Subnet Mask]
+ip helper-address [IPRS] (seteaza dhcp: doar in giga 0/0, in toate routerele in afara de r-server) (IPRS reprezinta ip routerului de pe ramura server, din legatura serial)
 no shutdown
 exit
 interface giga 0/1 (doar la routerul care face legatura cu wifi)
 description legatura cu wifi
-ip address IPR.IPR.IPR.IPR 255.255.255.252
+ip address [IP Router] 255.255.255.252
 no shutdown
 exit
 interface serial 0/0/0
 description legatura cu R-CelalaltNume
-ip address IPR.IPR.IPR.IPR 255.255.255.252
+ip address [IP Router] 255.255.255.252
 no shutdown
 interface giga 0/2 (shutdown la interfetele pe care nu le folosesti: giga 0/2 mereu, giga 0/1 daca nu ai wifi pe branch, si una dintre cele 2 serial la routerele din capete)
 shutdown
@@ -467,17 +476,17 @@ exit
 
 Doar in RServer, pentru fiecare retea mare:
 ```
-ip dhcp excluded-address DG.DG.DG.DG IPU.IPU.IPU.IPU (DG pentru care configurezi dhcp acum) (IPU reprezinta IPH la retele in care primul host are ip static, in rest IPU este adresa ultimului switch)
+ip dhcp excluded-address [Default gateway] [IPU] (DG pentru care configurezi dhcp acum) (IPU reprezinta IPH la retele in care primul host are ip static, in rest IPU este adresa ultimului switch)
 ip dhcp pool Nume
-network NA.NA.NA.NA SM.SM.SM.SM
-default-router DG.DG.DG.DG
-dns-server DNS.DNS.DNS.DNS
+network [Network Address] [Subnet Mask]
+default-router [Default gateway]
+dns-server [DNS Server]
 end
 ```
 
 Pentru fiecare retea de care nu e legat direct routerul:
 ```
-ip route NA.NA.NA.NA SM.SM.SM.SM serial 0/0/index (NA si SM de la subreteaua catre care faci rutarea acum) (index e indicele interfetei serial care porneste din router catre subreteaua catre care faci rutarea acum)
+ip route [Network Address] [Subnet Mask] serial 0/0/index (NA si SM de la subreteaua catre care faci rutarea acum) (index e indicele interfetei serial care porneste din router catre subreteaua catre care faci rutarea acum)
 exit
 ```
 
@@ -488,8 +497,8 @@ exit
 + PC -> Desktop -> Command Prompt
 
 ```
-ping IP.IP.IP.IP
-ssh -l Admin01 IP.IP.IP.IP
+ping [IP unui dispozitiv]
+ssh -l Admin01 [IP aceluiasi dispozitiv]
 ```
 + Password: `Admin01pa55`
 + In prima subretea, testeaza switch-ul si router-ul cu ping si ssh din host.
@@ -498,13 +507,13 @@ ssh -l Admin01 IP.IP.IP.IP
 
 ### HTTP si DNS
 
-+ Dupa ce ai configurat serverul: Nume -> Physical -> Desktop -> Web Browser -> URL: info.ro
++ Dupa ce ai configurat serverul: Server -> Physical -> Desktop -> Web Browser -> URL: info.ro
 + Adauga s la http
 + Site-ul Cisco Packet Tracer trebuie sa apara
 
 ### Email
 
-+ Dupa ce ai configurat serverul: Nume -> Physical -> Desktop -> Email -> Compose
++ Dupa ce ai configurat serverul: Server -> Physical -> Desktop -> Email -> Compose
   + To: NUMESERVER@info.ro
   + Subject: Test
   + Mesaj: Testare serviciu email
@@ -519,7 +528,7 @@ ssh -l Admin01 IP.IP.IP.IP
 
 + Dupa ce ai configurat serverul: Nume -> Physical -> Desktop -> Command Prompt
 + `dir`
-+ `ftp DNS.DNS.DNS.DNS`
++ `ftp `[DNS Server](#dns-server)
 + Username: Nume
 + Password: 123456
 + `dir`
