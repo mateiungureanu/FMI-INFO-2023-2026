@@ -7,9 +7,9 @@
 
 ## Laborator s1-7
 > [!IMPORTANT]  
-> Saptamanile 1-5: predarea materiei.  
+> Saptamanile 1-5: predarea materiei  
 > Saptamanile 6-7: autoevaluare (scrii cat poti fara foi, dupa iei foile si continui)  
-> Saptamana 8: evaluare finala.
+> Saptamana 8: evaluare finala
 
 ## Table of contents
 1. [Calcularea IP-urilor](#calcularea-ip-urilor)
