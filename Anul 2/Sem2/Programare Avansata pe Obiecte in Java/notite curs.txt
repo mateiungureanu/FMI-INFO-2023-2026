@@ -1,0 +1,137 @@
+Extinderea claselor
+
+Superclasa
+
+Subclasa
+
+class Subclasa extends Superclasa
+	date member
+	metode		) - proprii Subclasei
+	constructori
+
+
+Mostenire
+- publica
+- singulara
+
+Se mosteneste orice este accesibil din Superclasa
+
+Cuvantul cheie super
+- super()   - constructorul superclasei
+- super.metoda   - accesarea unei metode din superclasa care a fost redefinita in subclasa
+- super.datamembra 
+
+Metodele statice sunt mostenite dar nu au comportament polimorfic
+
+Constructorul subclasei trebuie sa apeleze consructorul superclasei
+
+Metodele private nu se mostenesc la nivel formal dar la nivel bytecode da
+
+
+
+Principiul de covarianta al B Liskov
+Superclasa Subclasa
+1. void -> void
+2. tip primitiv -> tip primitiv
+3. referinta de superclasa -> ref superclasei sau subclasei
+
+Supraincarcare (overload) = in cadrul unei singure claselor
+Suprascriere (override) = doar intr o subclasa a unei superclasei
+
+Daca lucram cu colectii trebuie sa implementam hashcide si equals
+
+
+
+Agregare si compozitie
+
+Superclasa
+	^
+	| IS_A
+Subclasa
+
+				HAS_A
+Clasa container -------> obiect incapsulat
+
+diferenta dintre agregare si compozitie: durata de viata a clasei container versus a obiectului incapsulat
+
+
+Compozitie: eu te am facut eu te omor
+
+Agregare (asociere puternica) = obiectul incapsulat poate sa existe si dupa ce containerul e distrus
+
+Casa ---> Camera => compozitie
+
+Casa ---> Proprietar => agregare
+
+Facultate ---> Student => compozitie (calitate student)
+
+steaua si lumina ei => compozitie (la apropiere), agregare (la departare)
+
+public Casa (Camera c, ...)
+	this.dormitor = c; => compozitie
+	
+public Casa (Persoana p, ...)
+	this.proprietar = new Persoana (p); => agregare
+							^- constructor de copiere
+
+
+Siruri de caractere
+
+1. tablouri cu elemente de tip char			char[] sir = new char[100];
+	- avantaje: ocupa f putina memorie, e f rapid
+	- dezavantaje: are doar metoda length, nimic altceva
+
+2. clasa String -> imutabila, thread-safe
+
+String s = "test" ----> String Pool
+String t = new String("test") ----> Heap
+
+if (s==t) ---> false
+	  ^- se compara referinte
+
+if (s.equals(t)) ---> true
+		^- se compara continuturile
+
+t = t.intern() -> taie legatura cu "test" din Heap, si face legatura cu "test: din String Pool
+
+3. clasa StringBuilder -> mutabila, nu e thread-safe
+
+Tot ce e mutabil nu e thread-safe
+
+4. clasa StringBuffer -> mutabila, StringBuilder thread-safe
+
+interviu: 
+ai cele 3 clase, ce varianta folosesti in programul tau? 
+- daca actualizezi siruri des, insert, update, delete => StringBuilder sau StringBuffer (daca ai multe threaduri)
+- daca ai comparare, nu actualizare, folosesti String (daca e in bazin compararea e in O(1))
+
+final = nu se schimba referinta
+dar tot putem schimba datele daca accesam prin index
+
+
+de ce trebuie ca o clasa sa fie final (sau toate metodele final)? 
+pentru upcasting
+
+metodele get care fac referinta cantre obiecte incapsulate trebuie sa returneze copie
+
+
+Interfete
+
+
+interface new interfata {
+	constante //public, static, final			- java 7
+	metode abstracte //public, abstract			- java 7
+	metode default cu implementare //public		- java 8
+	metode statice cu implementare //public		- java 8
+	metode private cu implementare				- java 9
+	
+
+interfata -> CAN-DO
+
+class numeClasa extends Superclasa implements interfata_1, ... interfata_2 
+												^ int metoda (int x)  ^ int metoda (int x)
+														apare doar una
+												^ int metoda (int x)  ^ int metoda (int x, int y)
+														apar amandoua
+												^ double metoda (int x)  ^ int metoda (int x)
+														tre sa te decizi pe care o pastrezi
