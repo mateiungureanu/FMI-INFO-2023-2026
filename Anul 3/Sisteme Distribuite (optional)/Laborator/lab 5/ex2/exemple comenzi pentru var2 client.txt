@@ -1,0 +1,14 @@
+Build & run
+===========
+go run ex3_client_var2.go -addr="127.0.0.1:9000" -n=2000 -qps=500 -c=20 -read-timeout=2s -payload="hello"
+
+
+Fara limita de QPS (cât de repede poate)
+========================================
+go run ex3_client_var2.go -addr="127.0.0.1:9000" -n=10000 -c=50
+
+
+Cu warmup (fara statistici)
+===========================
+go run ex3_client_var2.go -addr="127.0.0.1:9000" -n=5000 -qps=1000 -c=30 -warmup=500
+
