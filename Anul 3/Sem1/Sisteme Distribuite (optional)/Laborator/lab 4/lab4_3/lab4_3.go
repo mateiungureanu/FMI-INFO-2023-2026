@@ -201,7 +201,7 @@ func main() {
 
 // Afișează ghidul de folosire.
 func usage() {
-	fmt.Println(`Comenzi disponibile:
+	fmt.Print(`Comenzi disponibile:
   add      -u <url> -k <cheie> -v <valoare>
   set      -u <url> -k <cheie> -v "v1,v2"
   del      -u <url> -k <cheie>

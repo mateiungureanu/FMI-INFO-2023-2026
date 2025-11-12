@@ -313,7 +313,7 @@ func cmdList(args []string) {
 // ===== util =====
 
 func usage() {
-	fmt.Println(`dtcli – gestionare și afișare date/timp
+	fmt.Print(`dtcli – gestionare și afișare date/timp
 Subcomenzi:
   now      [-z <zona>] [-f <format>]
   parse    -in <valoare> [-inz <zona>]
