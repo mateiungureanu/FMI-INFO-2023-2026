@@ -32,9 +32,10 @@ func main() {
 	file.Close()
 
 	var wg sync.WaitGroup
-	wg.Add(2)
+	wg.Add(1)
 	go runClient(1, "input1.json", cfg, &wg)
-	go runClient(2, "input2.json", cfg, &wg)
+	// wg.Add(1)
+	// go runClient(2, "input2.json", cfg, &wg)
 	wg.Wait()
 }
 
