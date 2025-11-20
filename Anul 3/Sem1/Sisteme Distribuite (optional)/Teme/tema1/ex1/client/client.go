@@ -8,7 +8,6 @@ import (
 	"sync"
 )
 
-// Structurile (Protocolul)
 type Config struct {
 	Port string `json:"port"`
 }
