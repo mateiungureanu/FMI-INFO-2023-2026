@@ -1,6 +1,4 @@
-\# Tehnologii Cloud Computing Aplicate in ML
+# Tehnologii Cloud Computing Aplicate in ML
 
-
-
-\## Curs \& laborator: Kevorchian Cristian
+## Curs \& laborator: Kevorchian Cristian
 
