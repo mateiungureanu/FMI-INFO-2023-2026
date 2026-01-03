@@ -1,6 +1,4 @@
-\# Inginerie Software
+# Inginerie Software
 
-
-
-\## Curs \& laborator: Cristea Rares
+## Curs \& laborator: Cristea Rares
 

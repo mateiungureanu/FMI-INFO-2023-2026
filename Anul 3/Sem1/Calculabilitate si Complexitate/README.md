@@ -1,6 +1,4 @@
-\# Calculabilitate si Complexitate
+# Calculabilitate si Complexitate
 
-
-
-\## Curs \& seminar: Istrate Gabriel
+## Curs \& seminar: Istrate Gabriel
 
