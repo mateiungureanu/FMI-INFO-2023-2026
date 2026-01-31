@@ -1,0 +1,6 @@
+{"timestamp": "2026-01-03T19:15:59.451789", "source_file": "text.txt", "line_number": 1, "content": "CRITICAL: Eroare test"}
+{"timestamp": "2026-01-03T19:29:42.466074", "source_file": "log_simulat_1767461334.txt", "line_number": 3, "content": "CRITICAL: Eroare conexiune Baza de Date!"}
+{"timestamp": "2026-01-03T19:29:42.479028", "source_file": "log_simulat_1767461349.txt", "line_number": 3, "content": "CRITICAL: Eroare conexiune Baza de Date!"}
+{"timestamp": "2026-01-03T19:29:42.481009", "source_file": "text1.txt", "line_number": 1, "content": "CRITICAL: Baza de date a picat"}
+{"timestamp": "2026-01-03T19:30:39.137569", "source_file": "log_simulat_1767461388.txt", "line_number": 3, "content": "CRITICAL: Eroare conexiune Baza de Date!"}
+{"timestamp": "2026-01-03T19:31:28.837350", "source_file": "log_simulat_1767461442.txt", "line_number": 3, "content": "CRITICAL: Eroare conexiune Baza de Date!"}

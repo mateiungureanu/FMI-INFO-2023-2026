@@ -1,0 +1,4 @@
+azure-cosmos
+google-generativeai
+python-dotenv
+watchdog
