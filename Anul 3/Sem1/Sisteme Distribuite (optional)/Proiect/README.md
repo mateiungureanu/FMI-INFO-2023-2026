@@ -1,1 +1,1 @@
-## project repo: https://github.com/eusebiuuu/invitation-algorithm-single-threaded
+## https://github.com/eusebiuuu/invitation-algorithm-single-threaded
